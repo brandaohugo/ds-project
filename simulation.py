@@ -1,5 +1,8 @@
 import simpy
+import pandas as pd
+import numpy as np
 
+# SIMULATION CODE # 
 def main():
     env = simpy.Environment()
     env.process(login_server(env))
@@ -11,10 +14,10 @@ transaction_times=[]
 
 def login_server(env):
     while True:
-        login_times.append('Login at %d' % (env.now))
+        login_times.append('Login at simulation time %d' % (env.now))
         yield env.timeout(30)
 
-        transaction_times.append('Transaction at %d' % (env.now))
+        transaction_times.append('Transaction at simulation time %d' % (env.now))
         yield env.timeout(20)
 
         print(login_times)

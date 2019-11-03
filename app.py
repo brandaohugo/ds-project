@@ -1,26 +1,14 @@
-# lubrary
-import streamlit as st
+# library
 import numpy as np 
 import pandas as pd
 import simpy
+from flask import Flask
 
-# page title
-st.title('ING Discrete Event Simulator')
+app = Flask(__name__)
 
-# creating a table
-st.write("Here's our first attempt at using data to create a table:")
-st.write(pd.DataFrame({
-    'first column': [1, 2, 3, 4],
-    'second column': [10, 20, 30, 40]
-}))
+@app.route('/')
+def page_title():
+    return '<h1>ING Discrete Event Simulation</h1>'
 
-# title
-st.write('### Example plot')
-
-# line plot data
-chart_data = pd.DataFrame(
-     np.random.randn(20, 3),
-     columns=['a', 'b', 'c'])
-
-# adding line plot
-st.line_chart(chart_data)
+if __name__ == '__main__':
+    app.run()
