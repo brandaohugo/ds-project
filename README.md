@@ -1,6 +1,6 @@
 # ING Discrete Event Simulation
 
-## How to run the enviroment
+## How to run the application
 
 ### Prepare the enviroment
 
