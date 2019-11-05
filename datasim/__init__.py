@@ -23,4 +23,11 @@ def create_app(test_config=None):
 
     db.init_app(app)
 
+    @app.route('/')
+    def index():
+        return '''
+            <h1>ING Discrete Event Simulation</h1>
+        
+        '''
+
     return app
