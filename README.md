@@ -14,7 +14,7 @@ $ pip install -r requirements.txt
 Define the Flask Application
 
 ```sh
-$ export FLASK_APP=datsim
+$ export FLASK_APP=datasim
 $ export FLASK_ENV=development
 ```
 
