@@ -26,6 +26,7 @@ def create_app(test_config=None):
     app.register_blueprint(auth.bp)
 
     @app.route('/')
+    @auth.login_required
     def index():
         return '''
             <h1>ING Discrete Event Simulation</h1>
