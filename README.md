@@ -23,7 +23,8 @@ Initialize the database
 $ flask db-init
 ```
 
-Run the Application
+
+### Run the Application
 
 ```sh
 $ flask run
