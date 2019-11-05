@@ -20,7 +20,7 @@ $ export FLASK_ENV=development
 
 Initialize the database
 ```sh
-$ flask db-init
+$ flask init-db
 ```
 
 
