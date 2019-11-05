@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import ( Flask, render_template )
 
 from . import db, auth
 
@@ -28,8 +28,6 @@ def create_app(test_config=None):
     @app.route('/')
     @auth.login_required
     def index():
-        return '''
-            <h1>ING Discrete Event Simulation</h1>
-        '''
+        return render_template('index.html')
 
     return app
