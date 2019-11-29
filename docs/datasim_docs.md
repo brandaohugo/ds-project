@@ -5,7 +5,7 @@
 Flask application which programatically generates discrete-event simulations of server cluster interactions, with a specific focus on transaction processing. The user is able to specify the parameters and topology of the desired simulation through a `JSON` configuration file, as well as the ability to introduce errors into the system. This file is passed into the application as part of a `POST` request, whereafter it is parsed and the simulation is executed.
 
 ```javascript
-# config.json example
+// config.json example
 
 {
   "simulation_name": "Simulation1",
