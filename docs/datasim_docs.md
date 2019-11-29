@@ -43,7 +43,7 @@ This simulation currently models the interaction between multiple users and one 
 
 #### 1.3 Behaviour
 
-- Changing number of `CONC_USERS` can result in queues forming. The same holds for 'GEN_INTER'.
+- Changing number of `CONC_USERS` can result in queues forming. The same holds for `GEN_INTER`.
 
 - Varying `PROCESS_SPEED` of server directly impacts the time taken to process requests.
 
