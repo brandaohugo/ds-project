@@ -4,8 +4,9 @@
 
 Flask application which programatically generates discrete-event simulations of server cluster interactions, with a specific focus on transaction processing. The user is able to specify the parameters and topology of the desired simulation through a `JSON` configuration file, as well as the ability to introduce errors into the system. This file is passed into the application as part of a `POST` request, whereafter it is parsed and the simulation is executed.
 
-```
-# Example config.json
+```javascript
+# config.json example
+
 {
   "simulation_name": "Simulation1",
   "simulation_time": 600,
@@ -34,12 +35,11 @@ This simulation currently models the interaction between multiple users and one 
 
 #### 1.2 Parameters
 
-- PROCESS_TIME: Time it takes to process a transaction.
-- SIM_TIME: Time for which simulation will run.
-- GEN_INTER: New user generation time interval.
-- PAYLOAD_SIZE: User request processing load size in mb.
-- PROCESS_SPEED: Server payload processing speed in mb/second. 
-- CONC_USERS: Number of concurrent users that can access servers.
+`SIM_TIME`: Time for which simulation will run.<br>
+`GEN_INTER`: New user generation time interval.<br>
+`PAYLOAD_SIZE`: User request processing load size in mb.<br>
+`PROCESS_SPEED`: Server payload processing speed in mb/second.<br> 
+`CONC_USERS`: Number of concurrent users that can access servers.
 
 #### 1.3 Behaviour
 
