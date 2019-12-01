@@ -30,4 +30,8 @@ def create_app(test_config=None):
     def index():
         return render_template('index.html')
 
+    @app.route('/api/v1/simulations/', methods=['GET','POST'])
+    def simulations():
+        return "Simulations"
+
     return app
