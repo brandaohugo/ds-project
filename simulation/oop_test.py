@@ -37,7 +37,9 @@ server_one = Server(env)
 
 server_two = Server(env)
 
-env.run(until=50)
+server_three = Server(env)
+
+env.run(until=100)
 
 """
 Simulation: Read/Write operations with multiple servers.
