@@ -1,88 +1,50 @@
-from pprint import pprint
-import random
-import itertools
 import simpy
 
-# PARAMETERS
-SIM_TIME = 100
-GEN_INTER = [0, 10]
-PAYLOAD_SIZE = [1, 1000]
-PROCESS_SPEED = 20
-CONC_USERS = 4
-
-# Class defining users that make requests.
-
-class User:
-	
-	def __init__(self, env, name, server):
+class Server(object):
+	def __init__(self, env):
+		
 		self.env = env
-		self.name = name
-		self.server = server
-
-	def make_request(self):
 		
-		pprint('User %s requesting server at time %d' % (self.name, self.env.now))
+		# start the idle process everytime server object is instantiated
 		
-		print_stats(self.server)  # Print server object statistics
+		self.action = env.process(self.idle())
 		
-		with self.server.request() as req:
-			yield req
+	def idle(self):
+		while True:
 			
-			"""Job time computed as a function of payload size and 
-			processing speed of the server."""
+			# Server is idle for a while
 			
-			job_time = random.randint(*PAYLOAD_SIZE) / PROCESS_SPEED
+			print('Server is idle at %d' % self.env.now)
 			
-			yield self.env.timeout(job_time)  # Processing of the resources takes time.
+			idle_time = 5
+
+			yield self.env.timeout(idle_time)
+
+			# Server starts processing transactions, waits for read_write() to be done
+
+			print('Server received transaction request at %d' % self.env.now)
+
+			transaction_num = 10
+
+			yield self.env.process(self.read_write(transaction_num))
 			
-			pprint('Server finished processing User %s request at %d with job_time = %d seconds.' % (self.name, self.env.now, job_time))
-			
-			print_stats(self.server)
+	def read_write(self, number_transactions):
+		yield self.env.timeout(number_transactions)
 
-# Class defining servers that handle requests (extends simpy.Resource)
+env = simpy.Environment()
 
-class Server(simpy.Resource):
-	
-	def __init__(self, env, capacity, name):
-		self.env = env
-		self.name = name
-		
-	def print_stats(self):
-		print('%d of %d slots are allocated.' % (self.count, self.capacity))
-		print(' Users:', self.users)
-		print(' Queued events:', self.queue)
+server_one = Server(env)
 
-# Class defining a user_generator
+server_two = Server(env)
 
-class UserGenerator:
-	
-	def __init__(self, env, user, user_number, server):
-		self.env = env
-		self.user = user
-		self.user_number = user_number
-		self.server = server
-		
-	"""Iteratively generate new users, within a random time-interval
-	specified within GEN_INTER."""
-	
-	def make_users(self, GEN_INTER):
-		
-		for i in range(self.user_number):
-			
-			yield self.env.timeout(random.randint(*GEN_INTER))
-			
-			env.process(self.user(i, self.env, self.server))
+env.run(until=50)
 
-# SIMULATION ENVIRONMENT
+"""
+Simulation: Read/Write operations with multiple servers.
 
-env = simpy.Environment()  # Define simpy simulation environment
+When instantiated server executes the idle() process, which waits for new transaction requests to be received. This waiting time is modelled by a idle time parameter. 
 
-server_one = Server(env, CONC_USERS, 'load_balancer')
+After this idle time period the server receives a request to process a transaction. It also receives a number of transactions to be processed at that time period.
 
-user_one = User(env, 'testUser', server_one)
-
-user_gen_one = UserGenerator(env, user_one, 50, server_one)
-
-env.process(user_gen_one.make_users(GEN_INTER))  # Define user generator process
-
-env.run(until=SIM_TIME)  # run simulation until the specified simulation time
+The server then executes a read/write operation defined by the read_write() function. Once this read/write operation is finished the server is idle again and waits for the next transaction request.
+"""

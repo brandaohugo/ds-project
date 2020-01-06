@@ -24,17 +24,16 @@ CONC_USERS = 4
 
 def user(name, env, server):
 
-	pprint('User %s requesting server at time %d' % (name, env.now))
+  pprint('User %s requesting server at time %d' % (name, env.now))
 
-	print_stats(server)  # Print server object statistics
+  print_stats(server)  # Print server object statistics
 
-	with server.request() as req:
+  with server.request() as req:
 
-		yield req
-
-    """Job time computed as a function of payload size and 
-    processing speed of the server."""
-
+    yield req
+    
+    # Job time computed as a function of payload size and processing speed of the server.
+    
     job_time = random.randint(*PAYLOAD_SIZE) / PROCESS_SPEED
 
     yield env.timeout(job_time)  # Processing of the resources takes time.
