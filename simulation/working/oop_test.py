@@ -1,5 +1,11 @@
 import simpy
 
+# Define Simulation Parameters
+TRANSACTION_NUM = 10
+IDLE_TIME = 5
+SERVER_NUM = 3
+
+# Server object
 class Server(object):
 	def __init__(self, env):
 		
@@ -15,29 +21,28 @@ class Server(object):
 			# Server is idle for a while
 			
 			print('Server is idle at %d' % self.env.now)
-			
-			idle_time = 5
 
-			yield self.env.timeout(idle_time)
+			yield self.env.timeout(IDLE_TIME)
 
 			# Server starts processing transactions, waits for read_write() to be done
 
 			print('Server received transaction request at %d' % self.env.now)
 
-			transaction_num = 10
-
-			yield self.env.process(self.read_write(transaction_num))
+			yield self.env.process(self.read_write(TRANSACTION_NUM))
 			
 	def read_write(self, number_transactions):
 		yield self.env.timeout(number_transactions)
 
+# Introduce new servers into the simulation
+def generate_server(number):
+	for i in range(number):
+		Server(env)
+
+# define environment
 env = simpy.Environment()
 
-server_one = Server(env)
-
-server_two = Server(env)
-
-server_three = Server(env)
+# generate servers
+generate_server(SERVER_NUM)
 
 env.run(until=100)
 
