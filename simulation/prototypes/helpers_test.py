@@ -34,3 +34,10 @@ def resource_user(env, resource):
 #     yield env.timeout(66)
 #     if channel.items:
 #         msg = yield channel.get()
+
+simpy.Container
+
+def print_stats(self):
+    print(f'{self.count} of {self.capacity} are allocated')
+    print(f'Users: {self.users}')
+    print(f'Queued events: {self.queue}')

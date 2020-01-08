@@ -2,66 +2,115 @@ Server_0 is idle at 0
 Server_1 is idle at 0
 Server_2 is idle at 0
 Server_0 received transaction request at 5
+0 of 20 are allocated
+Users: []
+Queued events: []
 Server_1 received transaction request at 5
+1 of 20 are allocated
+Users: [<Request() object at 0x7f422f306b20>]
+Queued events: []
 Server_2 received transaction request at 5
-Server_0 finished read_write operation at 14.
-Server_1 finished read_write operation at 14.
-Server_2 finished read_write operation at 14.
-Server_0 is idle at 14
-Server_1 is idle at 14
-Server_2 is idle at 14
-Server_0 received transaction request at 19
-Server_1 received transaction request at 19
-Server_2 received transaction request at 19
+2 of 20 are allocated
+Users: [<Request() object at 0x7f422f306b20>, <Request() object at 0x7f422f306b50>]
+Queued events: []
+Server_0 finished read_write operation at 16.
+Server_1 finished read_write operation at 16.
+Server_2 finished read_write operation at 16.
+Server_0 is idle at 16
+Server_1 is idle at 16
+Server_2 is idle at 16
+Server_0 received transaction request at 21
+0 of 20 are allocated
+Users: []
+Queued events: []
+Server_1 received transaction request at 21
+1 of 20 are allocated
+Users: [<Request() object at 0x7f422f306c10>]
+Queued events: []
+Server_2 received transaction request at 21
+2 of 20 are allocated
+Users: [<Request() object at 0x7f422f306c10>, <Request() object at 0x7f422f306700>]
+Queued events: []
 Server_2 was interrupted at 25, aborting read_write operation.
 Server_2 is idle at 25
-Server_0 finished read_write operation at 28.
-Server_1 finished read_write operation at 28.
-Server_2 finished read_write operation at 28.
-Server_0 is idle at 28
-Server_1 is idle at 28
 Server_2 received transaction request at 30
-Server_0 received transaction request at 33
-Server_1 received transaction request at 33
-Server_2 finished read_write operation at 39.
-Server_2 is idle at 39
-Server_0 finished read_write operation at 42.
-Server_1 finished read_write operation at 42.
-Server_0 is idle at 42
-Server_1 is idle at 42
-Server_2 received transaction request at 44
-Server_0 received transaction request at 47
-Server_1 received transaction request at 47
-Server_2 finished read_write operation at 53.
-Server_2 is idle at 53
-Server_0 finished read_write operation at 56.
-Server_1 finished read_write operation at 56.
-Server_0 is idle at 56
-Server_1 is idle at 56
-Server_2 received transaction request at 58
-Server_0 received transaction request at 61
-Server_1 received transaction request at 61
-Server_2 finished read_write operation at 67.
-Server_2 is idle at 67
-Server_0 finished read_write operation at 70.
-Server_1 finished read_write operation at 70.
-Server_0 is idle at 70
-Server_1 is idle at 70
-Server_2 received transaction request at 72
-Server_0 received transaction request at 75
-Server_1 received transaction request at 75
-Server_2 finished read_write operation at 81.
-Server_2 is idle at 81
-Server_0 finished read_write operation at 84.
-Server_1 finished read_write operation at 84.
-Server_0 is idle at 84
-Server_1 is idle at 84
-Server_2 received transaction request at 86
-Server_0 received transaction request at 89
-Server_1 received transaction request at 89
-Server_2 finished read_write operation at 95.
-Server_2 is idle at 95
-Server_0 finished read_write operation at 98.
-Server_1 finished read_write operation at 98.
-Server_0 is idle at 98
-Server_1 is idle at 98
+3 of 20 are allocated
+Users: [<Request() object at 0x7f422f306c10>, <Request() object at 0x7f422f306700>, <Request() object at 0x7f422f306b80>]
+Queued events: []
+Server_0 finished read_write operation at 32.
+Server_1 finished read_write operation at 32.
+Server_2 finished read_write operation at 32.
+Server_0 is idle at 32
+Server_1 is idle at 32
+Server_0 received transaction request at 37
+1 of 20 are allocated
+Users: [<Request() object at 0x7f422f306850>]
+Queued events: []
+Server_1 received transaction request at 37
+2 of 20 are allocated
+Users: [<Request() object at 0x7f422f306850>, <Request() object at 0x7f422f306c10>]
+Queued events: []
+Server_2 finished read_write operation at 41.
+Server_2 is idle at 41
+Server_2 received transaction request at 46
+2 of 20 are allocated
+Users: [<Request() object at 0x7f422f306c10>, <Request() object at 0x7f422f306700>]
+Queued events: []
+Server_0 finished read_write operation at 48.
+Server_1 finished read_write operation at 48.
+Server_0 is idle at 48
+Server_1 is idle at 48
+Server_0 received transaction request at 53
+1 of 20 are allocated
+Users: [<Request() object at 0x7f422f306880>]
+Queued events: []
+Server_1 received transaction request at 53
+2 of 20 are allocated
+Users: [<Request() object at 0x7f422f306880>, <Request() object at 0x7f422f306ca0>]
+Queued events: []
+Server_2 finished read_write operation at 57.
+Server_2 is idle at 57
+Server_2 received transaction request at 62
+2 of 20 are allocated
+Users: [<Request() object at 0x7f422f306ca0>, <Request() object at 0x7f422f3066a0>]
+Queued events: []
+Server_0 finished read_write operation at 64.
+Server_1 finished read_write operation at 64.
+Server_0 is idle at 64
+Server_1 is idle at 64
+Server_0 received transaction request at 69
+1 of 20 are allocated
+Users: [<Request() object at 0x7f422f306ac0>]
+Queued events: []
+Server_1 received transaction request at 69
+2 of 20 are allocated
+Users: [<Request() object at 0x7f422f306ac0>, <Request() object at 0x7f422f306700>]
+Queued events: []
+Server_2 finished read_write operation at 73.
+Server_2 is idle at 73
+Server_2 received transaction request at 78
+2 of 20 are allocated
+Users: [<Request() object at 0x7f422f306700>, <Request() object at 0x7f422f306cd0>]
+Queued events: []
+Server_0 finished read_write operation at 80.
+Server_1 finished read_write operation at 80.
+Server_0 is idle at 80
+Server_1 is idle at 80
+Server_0 received transaction request at 85
+1 of 20 are allocated
+Users: [<Request() object at 0x7f422f306970>]
+Queued events: []
+Server_1 received transaction request at 85
+2 of 20 are allocated
+Users: [<Request() object at 0x7f422f306970>, <Request() object at 0x7f422f3066a0>]
+Queued events: []
+Server_2 finished read_write operation at 89.
+Server_2 is idle at 89
+Server_2 received transaction request at 94
+2 of 20 are allocated
+Users: [<Request() object at 0x7f422f3066a0>, <Request() object at 0x7f422f306b20>]
+Queued events: []
+Server_0 finished read_write operation at 96.
+Server_1 finished read_write operation at 96.
+Server_0 is idle at 96
+Server_1 is idle at 96

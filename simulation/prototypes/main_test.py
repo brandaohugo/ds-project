@@ -29,14 +29,14 @@ with open('sim_stdout_test.txt', 'w') as f:
 		SERVER_NUM = 3
 		SIM_TIME = 100
 		ERROR_FREQUENCY = 0.1
-		PROCESSING_TIME = 9
+		PROCESSING_TIME = 10
 		PROCESSING_CAPACITY = 20
 
 		SEED = 1234
 
 		# Server object
 		class Server(object):
-			def __init__(self, env, name):
+			def __init__(self, env, name, resource):
 				
 				self.env = env
 				
@@ -45,7 +45,9 @@ with open('sim_stdout_test.txt', 'w') as f:
 				self.action = env.process(self.idle())
 
 				self.name = name
-				
+
+				self.resource = resource
+
 			def idle(self):
 				while True:
 					
@@ -60,21 +62,23 @@ with open('sim_stdout_test.txt', 'w') as f:
 					print('Server_%s received transaction request at %d' % (self.name, self.env.now))
 
 					try:
-						yield self.env.process(self.read_write(PROCESSING_TIME))
+						yield self.env.process(self.read_write(TRANSACTION_NUM))
 					except simpy.Interrupt:
 						print('Server_%s was interrupted at %d, aborting read_write operation.' % (self.name, self.env.now))
-					
+
 			def read_write(self, PROCESSING_TIME):
-
-				yield self.env.timeout(PROCESSING_TIME)
-				print('Server_%s finished read_write operation at %d.' % (self.name, self.env.now))
-
+				print_stats(self.resource)
+				with self.resource.request() as req:
+					yield req
+					yield env.timeout(1)
+					yield self.env.timeout(PROCESSING_TIME)
+					print('Server_%s finished read_write operation at %d.' % (self.name, self.env.now))
 
 		# Introduce new servers into the simulation (creates new global objects)
 		def generate_server(number):
 			for i in range(number):
 				server_name = str(i)
-				globals()['server_object{}'.format(i)] = Server(env, server_name)
+				globals()['server_object{}'.format(i)] = Server(env, server_name, processing_res)
 
 		# random seed
 		random.seed(SEED)
@@ -82,11 +86,11 @@ with open('sim_stdout_test.txt', 'w') as f:
 		# define environment
 		env = simpy.Environment()
 
-		# generate servers
-		generate_server(SERVER_NUM)
-
 		# generate resources
 		processing_res = simpy.Resource(env, capacity=PROCESSING_CAPACITY)
+
+		# generate servers
+		generate_server(SERVER_NUM)
 
 		# introduce an error process
 		env.process(generate_error(env, server_object2))
