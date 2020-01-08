@@ -1,1 +1,1 @@
-# process stdout from simulation.py and return DES dataframe
+# process stdout from main.py and return DES dataframe
