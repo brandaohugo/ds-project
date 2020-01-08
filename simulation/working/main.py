@@ -17,22 +17,22 @@ Usage of helpers.py for functions used within simulation.
 import io
 import simpy
 from contextlib import redirect_stdout
-from simulation.working.helpers import *
+from helpers import *
 
 # use context manager to capture print outputs
 with open('sim_stdout.txt', 'w') as f:
 	with redirect_stdout(f):
 
-		# Define Simulation Parameters
-		TRANSACTION_NUM = 10
+	    # Define Simulation Parameters
 		IDLE_TIME = 5
-		SERVER_NUM = 3
+		SERVER_NUM = 10
 		SIM_TIME = 100
-		ERROR_FREQUENCY = 0.1
+		PROCESSING_TIME = 10
+		PROCESSING_CAPACITY = 20
 
 		# Server object
 		class Server(object):
-			def __init__(self, env, name):
+			def __init__(self, env, name, resource):
 				
 				self.env = env
 				
@@ -41,7 +41,9 @@ with open('sim_stdout.txt', 'w') as f:
 				self.action = env.process(self.idle())
 
 				self.name = name
-				
+
+				self.resource = resource
+
 			def idle(self):
 				while True:
 					
@@ -56,23 +58,35 @@ with open('sim_stdout.txt', 'w') as f:
 					print('Server_%s received transaction request at %d' % (self.name, self.env.now))
 
 					try:
-						yield self.env.process(self.read_write(TRANSACTION_NUM))
+						yield self.env.process(self.read_write(PROCESSING_TIME))
 					except simpy.Interrupt:
 						print('Server_%s was interrupted at %d, aborting read_write operation.' % (self.name, self.env.now))
-					
-			def read_write(self, number_transactions):
-				yield self.env.timeout(number_transactions)
-				print('Server_%s finished read_write operation at %d.' % (self.name, self.env.now))
 
+			def read_write(self, processing_time):
+				
+				# print resource statistics
+				print_stats(self.resource)
+
+				# make request to resource
+				with self.resource.request() as req:
+					yield req
+
+					# processing a transaction takes time
+					yield self.env.timeout(processing_time)
+					
+					print('Server_%s finished read_write operation at %d.' % (self.name, self.env.now))
 
 		# Introduce new servers into the simulation (creates new global objects)
 		def generate_server(number):
 			for i in range(number):
 				server_name = str(i)
-				globals()['server_object{}'.format(i)] = Server(env, server_name)
+				globals()['server_object{}'.format(i)] = Server(env, server_name, processing_res)
 
 		# define environment
 		env = simpy.Environment()
+
+		# generate resources
+		processing_res = simpy.Resource(env, capacity=PROCESSING_CAPACITY)
 
 		# generate servers
 		generate_server(SERVER_NUM)

@@ -17,87 +17,79 @@ Usage of helpers.py for functions used within simulation.
 import io
 import simpy
 from contextlib import redirect_stdout
-from simulation.prototypes.helpers_test import *
+from helpers_test import *
 
-# use context manager to capture print outputs
-with open('sim_stdout_test.txt', 'w') as f:
-	with redirect_stdout(f):
+# Define Simulation Parameters
+IDLE_TIME = 5
+SERVER_NUM = 10
+SIM_TIME = 100
+ERROR_FREQUENCY = 0.1
+PROCESSING_TIME = 10
+PROCESSING_CAPACITY = 20
 
-		# Define Simulation Parameters
-		TRANSACTION_NUM = 10
-		IDLE_TIME = 5
-		SERVER_NUM = 3
-		SIM_TIME = 100
-		ERROR_FREQUENCY = 0.1
-		PROCESSING_TIME = 10
-		PROCESSING_CAPACITY = 20
+# Server object
+class Server(object):
+	def __init__(self, env, name, resource):
+		
+		self.env = env
+		
+		# start the idle process everytime server object is instantiated
+		
+		self.action = env.process(self.idle())
 
-		SEED = 1234
+		self.name = name
 
-		# Server object
-		class Server(object):
-			def __init__(self, env, name, resource):
-				
-				self.env = env
-				
-				# start the idle process everytime server object is instantiated
-				
-				self.action = env.process(self.idle())
+		self.resource = resource
 
-				self.name = name
+	def idle(self):
+		while True:
+			
+			# Server is idle for a while
+			
+			print('Server_%s is idle at %d' % (self.name, self.env.now))
 
-				self.resource = resource
+			yield self.env.timeout(IDLE_TIME)
 
-			def idle(self):
-				while True:
-					
-					# Server is idle for a while
-					
-					print('Server_%s is idle at %d' % (self.name, self.env.now))
+			# Server starts processing transactions, waits for read_write() to be done
 
-					yield self.env.timeout(IDLE_TIME)
+			print('Server_%s received transaction request at %d' % (self.name, self.env.now))
 
-					# Server starts processing transactions, waits for read_write() to be done
+			try:
+				yield self.env.process(self.read_write(PROCESSING_TIME))
+			except simpy.Interrupt:
+				print('Server_%s was interrupted at %d, aborting read_write operation.' % (self.name, self.env.now))
 
-					print('Server_%s received transaction request at %d' % (self.name, self.env.now))
+	def read_write(self, processing_time):
+		
+		# print resource statistics
+		print_stats(self.resource)
 
-					try:
-						yield self.env.process(self.read_write(TRANSACTION_NUM))
-					except simpy.Interrupt:
-						print('Server_%s was interrupted at %d, aborting read_write operation.' % (self.name, self.env.now))
+		# make request to resource
+		with self.resource.request() as req:
+			yield req
 
-			def read_write(self, PROCESSING_TIME):
-				print_stats(self.resource)
-				with self.resource.request() as req:
-					yield req
-					yield env.timeout(1)
-					yield self.env.timeout(PROCESSING_TIME)
-					print('Server_%s finished read_write operation at %d.' % (self.name, self.env.now))
+			# processing a transaction takes time
+			yield self.env.timeout(processing_time)
+			
+			print('Server_%s finished read_write operation at %d.' % (self.name, self.env.now))
 
-		# Introduce new servers into the simulation (creates new global objects)
-		def generate_server(number):
-			for i in range(number):
-				server_name = str(i)
-				globals()['server_object{}'.format(i)] = Server(env, server_name, processing_res)
+# Introduce new servers into the simulation (creates new global objects)
+def generate_server(number):
+	for i in range(number):
+		server_name = str(i)
+		globals()['server_object{}'.format(i)] = Server(env, server_name, processing_res)
 
-		# random seed
-		random.seed(SEED)
+# define environment
+env = simpy.Environment()
 
-		# define environment
-		env = simpy.Environment()
+# generate resources
+processing_res = simpy.Resource(env, capacity=PROCESSING_CAPACITY)
 
-		# generate resources
-		processing_res = simpy.Resource(env, capacity=PROCESSING_CAPACITY)
+# generate servers
+generate_server(SERVER_NUM)
 
-		# generate servers
-		generate_server(SERVER_NUM)
+# introduce an error process
+env.process(generate_error(env, server_object2))
 
-		# introduce an error process
-		env.process(generate_error(env, server_object2))
-
-		# env.process(random_interrupt(env, server_object2))
-
-		# env.process(resource_user(env, res))
-
-		# run simulation
-		env.run(until=SIM_TIME)
+# run simulation
+env.run(until=SIM_TIME)
