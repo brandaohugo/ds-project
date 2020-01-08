@@ -1,4 +1,5 @@
 import simpy
+import random
 
 def generate_error(env, affected_server):
     ''' Introduce Internal Server Error (500)'''

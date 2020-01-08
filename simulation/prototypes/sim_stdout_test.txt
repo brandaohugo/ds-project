@@ -1,0 +1,67 @@
+Server_0 is idle at 0
+Server_1 is idle at 0
+Server_2 is idle at 0
+Server_0 received transaction request at 5
+Server_1 received transaction request at 5
+Server_2 received transaction request at 5
+Server_0 finished read_write operation at 14.
+Server_1 finished read_write operation at 14.
+Server_2 finished read_write operation at 14.
+Server_0 is idle at 14
+Server_1 is idle at 14
+Server_2 is idle at 14
+Server_0 received transaction request at 19
+Server_1 received transaction request at 19
+Server_2 received transaction request at 19
+Server_2 was interrupted at 25, aborting read_write operation.
+Server_2 is idle at 25
+Server_0 finished read_write operation at 28.
+Server_1 finished read_write operation at 28.
+Server_2 finished read_write operation at 28.
+Server_0 is idle at 28
+Server_1 is idle at 28
+Server_2 received transaction request at 30
+Server_0 received transaction request at 33
+Server_1 received transaction request at 33
+Server_2 finished read_write operation at 39.
+Server_2 is idle at 39
+Server_0 finished read_write operation at 42.
+Server_1 finished read_write operation at 42.
+Server_0 is idle at 42
+Server_1 is idle at 42
+Server_2 received transaction request at 44
+Server_0 received transaction request at 47
+Server_1 received transaction request at 47
+Server_2 finished read_write operation at 53.
+Server_2 is idle at 53
+Server_0 finished read_write operation at 56.
+Server_1 finished read_write operation at 56.
+Server_0 is idle at 56
+Server_1 is idle at 56
+Server_2 received transaction request at 58
+Server_0 received transaction request at 61
+Server_1 received transaction request at 61
+Server_2 finished read_write operation at 67.
+Server_2 is idle at 67
+Server_0 finished read_write operation at 70.
+Server_1 finished read_write operation at 70.
+Server_0 is idle at 70
+Server_1 is idle at 70
+Server_2 received transaction request at 72
+Server_0 received transaction request at 75
+Server_1 received transaction request at 75
+Server_2 finished read_write operation at 81.
+Server_2 is idle at 81
+Server_0 finished read_write operation at 84.
+Server_1 finished read_write operation at 84.
+Server_0 is idle at 84
+Server_1 is idle at 84
+Server_2 received transaction request at 86
+Server_0 received transaction request at 89
+Server_1 received transaction request at 89
+Server_2 finished read_write operation at 95.
+Server_2 is idle at 95
+Server_0 finished read_write operation at 98.
+Server_1 finished read_write operation at 98.
+Server_0 is idle at 98
+Server_1 is idle at 98
