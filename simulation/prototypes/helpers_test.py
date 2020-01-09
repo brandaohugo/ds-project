@@ -1,7 +1,10 @@
 import simpy
 import random
+import pandas as pd
 
+from datetime import datetime
 from functools import partial, wraps
+
 
 def generate_error(env, affected_server):
     ''' Introduce Internal Server Error (500)'''
@@ -83,6 +86,14 @@ def monitor(data, resource):
         len(resource.queue),
     )
     data.append(item)
+
+def create_df(data):
+    names = ['time', 'count', 'queue']
+    log_filename = datetime.now().strftime("%Y%m%d%H%M%S") + ".txt"
+
+    df = pd.DataFrame(data, columns=names)
+    df.to_csv(log_filename, header=True)
+    return df
 
 
 
