@@ -84,10 +84,6 @@ def monitor(data, resource):
     )
     data.append(item)
 
-def test_process(env, res):
-    with res.request() as req:
-        yield req
-        yield env.timeout(1)
 
 
 
