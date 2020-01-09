@@ -1,6 +1,9 @@
 import simpy
 import random
 import numpy as np
+import pandas as pd
+from datetime import datetime
+from functools import partial, wraps
 
 def generate_error(env, affected_server):
     ''' Introduce Internal Server Error (500)'''
@@ -43,6 +46,54 @@ def print_stats(self):
     print(f'{self.count} of {self.capacity} are allocated')
     print(f'Users: {self.users}')
     print(f'Queued events: {self.queue}')
+
+def patch_resource(resource, pre=None, post=None):
+    '''
+    :param resource:
+    :param pre:
+    :param post:
+    :return:
+    '''
+
+    def get_wrapper(func):
+        # generate a wrapper for put/get/request/release
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+
+            if pre:
+                pre(resource)
+
+            # perform actual operation
+            ret = func(*args, **kwargs)
+
+            # call "post" callback
+            if post:
+                post(resource)
+
+            return ret
+        return wrapper
+
+    # replace the original operations with our wrapper
+    for name in ['put', 'get', 'request', 'release']:
+        if hasattr(resource, name):
+            setattr(resource, name,  get_wrapper(getattr(resource, name)))
+
+def monitor(data, resource):
+    '''Monitoring callbacks'''
+    item = (
+        resource._env.now,
+        resource.count,
+        len(resource.queue),
+    )
+    data.append(item)
+
+def create_df(data):
+    names = ['time', 'count', 'queue']
+    log_filename = datetime.now().strftime("%Y%m%d%H%M%S") + ".txt"
+
+    df = pd.DataFrame(data, columns=names)
+    df.to_csv('log/' + log_filename, header=True)
+    return df
 
 dist_params = {'distribution': 'poisson', 
                 'low' : 2, 

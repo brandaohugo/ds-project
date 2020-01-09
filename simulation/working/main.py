@@ -21,7 +21,7 @@ from helpers import *
 # from simulation.working.helpers import *
 
 # use context manager to capture print outputs
-with open('sim_stdout.txt', 'w') as f:
+with open('log/sim_stdout.txt', 'w') as f:
 	with redirect_stdout(f):
 
 		# Server object
@@ -82,6 +82,13 @@ with open('sim_stdout.txt', 'w') as f:
 		# generate resources
 		processing_res = simpy.Resource(env, capacity=PROCESSING_CAPACITY)
 
+		# data list to monitor resources
+		data =[]
+
+		monitor = partial(monitor, data)
+		patch_resource(processing_res, post=monitor)
+
+
 		# generate servers
 		generate_server(SERVER_NUM)
 
@@ -90,3 +97,8 @@ with open('sim_stdout.txt', 'w') as f:
 
 		# run simulation
 		env.run(until=SIM_TIME)
+
+		# monitor results: creates txt-file
+		df = create_df(data)
+
+		print(df)

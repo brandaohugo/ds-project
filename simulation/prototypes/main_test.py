@@ -16,104 +16,89 @@ Usage of helpers.py for functions used within simulation.
 
 import io
 import simpy
-from functools import partial, wraps
 from contextlib import redirect_stdout
-from helpers_test import *
-import numpy as np
+from helpers import *
+# from simulation.working.helpers import *
 
-# Define Simulation Parameters
-IDLE_TIME = 5
-SERVER_NUM = 10
-SIM_TIME = 100
-PROCESSING_TIME = 10
-PROCESSING_CAPACITY = 20
+# use context manager to capture print outputs
+with open('log/sim_stdout.txt', 'w') as f:
+	with redirect_stdout(f):
 
-# Server object
-class Server(object):
-	def __init__(self, env, name, resource):
-		
-		self.env = env
-		
-		# start the idle process everytime server object is instantiated
-		
-		self.action = env.process(self.idle())
+		# Server object
+		class Server(object):
+			def __init__(self, env, name, resource):
+				
+				self.env = env
+				
+				# start the idle process everytime server object is instantiated
+				
+				self.action = env.process(self.idle())
 
-		self.name = name
+				self.name = name
 
-		self.resource = resource
+				self.resource = resource
 
-		self.log = []
+			def idle(self):
+				while True:
+					
+					# Server is idle for a while
+					
+					print('Server_%s is idle at %d' % (self.name, self.env.now))
 
-	def monitor(self):
-		'''Monitoring callbacks'''
+					yield self.env.timeout(IDLE_TIME)
 
-		item = (
-			self.resource.__env.now,
-			self.resource.count,
-			len(self.resource.queue),
-		)
-		self.log.append(item)
+					# Server starts processing transactions, waits for read_write() to be done
 
-	def idle(self):
-		while True:
-			
-			# Server is idle for a while
-			
-			print('Server_%s is idle at %d' % (self.name, self.env.now))
+					print('Server_%s received transaction request at %d' % (self.name, self.env.now))
 
-			yield self.env.timeout(IDLE_TIME)
+					try:
+						yield self.env.process(self.read_write(PROCESSING_TIME))
+					except simpy.Interrupt:
+						print('Server_%s was interrupted at %d, aborting read_write operation.' % (self.name, self.env.now))
 
-			# Server starts processing transactions, waits for read_write() to be done
+			def read_write(self, processing_time):
+				
+				# print resource statistics
+				print_stats(self.resource)
 
-			print('Server_%s received transaction request at %d' % (self.name, self.env.now))
+				# make request to resource
+				with self.resource.request() as req:
+					yield req
 
-			try:
-				yield self.env.process(self.read_write(PROCESSING_TIME))
-			except simpy.Interrupt:
-				print('Server_%s was interrupted at %d, aborting read_write operation.' % (self.name, self.env.now))
+					# processing a transaction takes time
+					yield self.env.timeout(processing_time)
+					
+					print('Server_%s finished read_write operation at %d.' % (self.name, self.env.now))
 
-	def read_write(self, processing_time):
-		
-		# print resource statistics
-		print_stats(self.resource)
+		# Introduce new servers into the simulation (creates new global objects)
+		def generate_server(number):
+			for i in range(number):
+				server_name = str(i)
+				globals()['server_object{}'.format(i)] = Server(env, server_name, processing_res)
 
-		# make request to resource
-		with self.resource.request() as req:
-			yield req
+		# define environment
+		env = simpy.Environment()
 
-			# processing a transaction takes time
-			yield self.env.timeout(processing_time)
-			
-			print('Server_%s finished read_write operation at %d.' % (self.name, self.env.now))
+		# generate resources
+		processing_res = simpy.Resource(env, capacity=PROCESSING_CAPACITY)
 
-# Introduce new servers into the simulation (creates new global objects)
-def generate_server(number):
-	for i in range(number):
-		server_name = str(i)
-		globals()['server_object{}'.format(i)] = Server(env, server_name, processing_res)
+		# data list to monitor resources
+		data =[]
 
-# define environment
-env = simpy.Environment()
+		monitor = partial(monitor, data)
+		patch_resource(processing_res, post=monitor)
 
-# generate resources
-processing_res = simpy.Resource(env, capacity=PROCESSING_CAPACITY)
 
-# data list to monitor resources
-data =[]
+		# generate servers
+		generate_server(SERVER_NUM)
 
-monitor = partial(monitor, data)
-patch_resource(processing_res, post=monitor)
+		# introduce an error process
+		env.process(generate_error(env, server_object0))
 
-# generate servers
-generate_server(SERVER_NUM)
+		# run simulation
+		env.run(until=SIM_TIME)
 
-# introduce an error process
-env.process(generate_error(env, server_object2))
+		# monitor results: creates txt-file
+		df = create_df(data)
 
-# run simulation
-env.run(until=SIM_TIME)
-
-# monitor results: creates txt-file
-df = create_df(data)
-
-print(df)
+		print(df)
