@@ -1,6 +1,8 @@
 import simpy
 import random
 
+from functools import partial, wraps
+
 def generate_error(env, affected_server):
     ''' Introduce Internal Server Error (500)'''
     yield env.timeout(25)
@@ -41,3 +43,52 @@ def print_stats(self):
     print(f'{self.count} of {self.capacity} are allocated')
     print(f'Users: {self.users}')
     print(f'Queued events: {self.queue}')
+
+def patch_resource(resource, pre=None, post=None):
+    '''
+    :param resource:
+    :param pre:
+    :param post:
+    :return:
+    '''
+
+    def get_wrapper(func):
+        # generate a wrapper for put/get/request/release
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+
+            if pre:
+                pre(resource)
+
+            # perform actual operation
+            ret = func(*args, **kwargs)
+
+            # call "post" callback
+            if post:
+                post(resource)
+
+            return ret
+        return wrapper
+
+    # replace the original operations with our wrapper
+    for name in ['put', 'get', 'request', 'release']:
+        if hasattr(resource, name):
+            setattr(resource, name,  get_wrapper(getattr(resource, name)))
+
+def monitor(data, resource):
+    '''Monitoring callbacks'''
+    item = (
+        resource._env.now,
+        resource.count,
+        len(resource.queue),
+    )
+    data.append(item)
+
+def test_process(env, res):
+    with res.request() as req:
+        yield req
+        yield env.timeout(1)
+
+
+
+

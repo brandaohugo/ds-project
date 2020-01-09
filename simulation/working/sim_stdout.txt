@@ -14,39 +14,39 @@ Users: []
 Queued events: []
 Server_1 received transaction request at 5
 1 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b490>]
+Users: [<Request() object at 0x7f348d7b3fa0>]
 Queued events: []
 Server_2 received transaction request at 5
 2 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b490>, <Request() object at 0x7ff261a2b590>]
+Users: [<Request() object at 0x7f348d7b3fa0>, <Request() object at 0x7f348d7b3fd0>]
 Queued events: []
 Server_3 received transaction request at 5
 3 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b490>, <Request() object at 0x7ff261a2b590>, <Request() object at 0x7ff261a2b650>]
+Users: [<Request() object at 0x7f348d7b3fa0>, <Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3340>]
 Queued events: []
 Server_4 received transaction request at 5
 4 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b490>, <Request() object at 0x7ff261a2b590>, <Request() object at 0x7ff261a2b650>, <Request() object at 0x7ff261a2b710>]
+Users: [<Request() object at 0x7f348d7b3fa0>, <Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3340>, <Request() object at 0x7f348d7b3640>]
 Queued events: []
 Server_5 received transaction request at 5
 5 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b490>, <Request() object at 0x7ff261a2b590>, <Request() object at 0x7ff261a2b650>, <Request() object at 0x7ff261a2b710>, <Request() object at 0x7ff261a2b7d0>]
+Users: [<Request() object at 0x7f348d7b3fa0>, <Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3340>, <Request() object at 0x7f348d7b3640>, <Request() object at 0x7f348d7b3610>]
 Queued events: []
 Server_6 received transaction request at 5
 6 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b490>, <Request() object at 0x7ff261a2b590>, <Request() object at 0x7ff261a2b650>, <Request() object at 0x7ff261a2b710>, <Request() object at 0x7ff261a2b7d0>, <Request() object at 0x7ff261a2b8d0>]
+Users: [<Request() object at 0x7f348d7b3fa0>, <Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3340>, <Request() object at 0x7f348d7b3640>, <Request() object at 0x7f348d7b3610>, <Request() object at 0x7f348d7b3730>]
 Queued events: []
 Server_7 received transaction request at 5
 7 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b490>, <Request() object at 0x7ff261a2b590>, <Request() object at 0x7ff261a2b650>, <Request() object at 0x7ff261a2b710>, <Request() object at 0x7ff261a2b7d0>, <Request() object at 0x7ff261a2b8d0>, <Request() object at 0x7ff261a2b990>]
+Users: [<Request() object at 0x7f348d7b3fa0>, <Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3340>, <Request() object at 0x7f348d7b3640>, <Request() object at 0x7f348d7b3610>, <Request() object at 0x7f348d7b3730>, <Request() object at 0x7f348d7b3850>]
 Queued events: []
 Server_8 received transaction request at 5
 8 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b490>, <Request() object at 0x7ff261a2b590>, <Request() object at 0x7ff261a2b650>, <Request() object at 0x7ff261a2b710>, <Request() object at 0x7ff261a2b7d0>, <Request() object at 0x7ff261a2b8d0>, <Request() object at 0x7ff261a2b990>, <Request() object at 0x7ff261a2ba50>]
+Users: [<Request() object at 0x7f348d7b3fa0>, <Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3340>, <Request() object at 0x7f348d7b3640>, <Request() object at 0x7f348d7b3610>, <Request() object at 0x7f348d7b3730>, <Request() object at 0x7f348d7b3850>, <Request() object at 0x7f348d7b3970>]
 Queued events: []
 Server_9 received transaction request at 5
 9 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b490>, <Request() object at 0x7ff261a2b590>, <Request() object at 0x7ff261a2b650>, <Request() object at 0x7ff261a2b710>, <Request() object at 0x7ff261a2b7d0>, <Request() object at 0x7ff261a2b8d0>, <Request() object at 0x7ff261a2b990>, <Request() object at 0x7ff261a2ba50>, <Request() object at 0x7ff261a2bb10>]
+Users: [<Request() object at 0x7f348d7b3fa0>, <Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3340>, <Request() object at 0x7f348d7b3640>, <Request() object at 0x7f348d7b3610>, <Request() object at 0x7f348d7b3730>, <Request() object at 0x7f348d7b3850>, <Request() object at 0x7f348d7b3970>, <Request() object at 0x7f348d7b3a90>]
 Queued events: []
 Server_0 finished read_write operation at 15.
 Server_1 finished read_write operation at 15.
@@ -74,39 +74,39 @@ Users: []
 Queued events: []
 Server_1 received transaction request at 20
 1 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b910>]
+Users: [<Request() object at 0x7f348d7b3ac0>]
 Queued events: []
 Server_2 received transaction request at 20
 2 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b910>, <Request() object at 0x7ff261a2b5d0>]
+Users: [<Request() object at 0x7f348d7b3ac0>, <Request() object at 0x7f348d7b3eb0>]
 Queued events: []
 Server_3 received transaction request at 20
 3 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b910>, <Request() object at 0x7ff261a2b5d0>, <Request() object at 0x7ff261a2b0d0>]
+Users: [<Request() object at 0x7f348d7b3ac0>, <Request() object at 0x7f348d7b3eb0>, <Request() object at 0x7f348d7b3f70>]
 Queued events: []
 Server_4 received transaction request at 20
 4 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b910>, <Request() object at 0x7ff261a2b5d0>, <Request() object at 0x7ff261a2b0d0>, <Request() object at 0x7ff261a2be90>]
+Users: [<Request() object at 0x7f348d7b3ac0>, <Request() object at 0x7f348d7b3eb0>, <Request() object at 0x7f348d7b3f70>, <Request() object at 0x7f348d7b34f0>]
 Queued events: []
 Server_5 received transaction request at 20
 5 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b910>, <Request() object at 0x7ff261a2b5d0>, <Request() object at 0x7ff261a2b0d0>, <Request() object at 0x7ff261a2be90>, <Request() object at 0x7ff261a2bf50>]
+Users: [<Request() object at 0x7f348d7b3ac0>, <Request() object at 0x7f348d7b3eb0>, <Request() object at 0x7f348d7b3f70>, <Request() object at 0x7f348d7b34f0>, <Request() object at 0x7f348d7b3df0>]
 Queued events: []
 Server_6 received transaction request at 20
 6 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b910>, <Request() object at 0x7ff261a2b5d0>, <Request() object at 0x7ff261a2b0d0>, <Request() object at 0x7ff261a2be90>, <Request() object at 0x7ff261a2bf50>, <Request() object at 0x7ff261a32090>]
+Users: [<Request() object at 0x7f348d7b3ac0>, <Request() object at 0x7f348d7b3eb0>, <Request() object at 0x7f348d7b3f70>, <Request() object at 0x7f348d7b34f0>, <Request() object at 0x7f348d7b3df0>, <Request() object at 0x7f348d7b3610>]
 Queued events: []
 Server_7 received transaction request at 20
 7 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b910>, <Request() object at 0x7ff261a2b5d0>, <Request() object at 0x7ff261a2b0d0>, <Request() object at 0x7ff261a2be90>, <Request() object at 0x7ff261a2bf50>, <Request() object at 0x7ff261a32090>, <Request() object at 0x7ff261a32150>]
+Users: [<Request() object at 0x7f348d7b3ac0>, <Request() object at 0x7f348d7b3eb0>, <Request() object at 0x7f348d7b3f70>, <Request() object at 0x7f348d7b34f0>, <Request() object at 0x7f348d7b3df0>, <Request() object at 0x7f348d7b3610>, <Request() object at 0x7f348d7b3730>]
 Queued events: []
 Server_8 received transaction request at 20
 8 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b910>, <Request() object at 0x7ff261a2b5d0>, <Request() object at 0x7ff261a2b0d0>, <Request() object at 0x7ff261a2be90>, <Request() object at 0x7ff261a2bf50>, <Request() object at 0x7ff261a32090>, <Request() object at 0x7ff261a32150>, <Request() object at 0x7ff261a32210>]
+Users: [<Request() object at 0x7f348d7b3ac0>, <Request() object at 0x7f348d7b3eb0>, <Request() object at 0x7f348d7b3f70>, <Request() object at 0x7f348d7b34f0>, <Request() object at 0x7f348d7b3df0>, <Request() object at 0x7f348d7b3610>, <Request() object at 0x7f348d7b3730>, <Request() object at 0x7f348d7b3850>]
 Queued events: []
 Server_9 received transaction request at 20
 9 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b910>, <Request() object at 0x7ff261a2b5d0>, <Request() object at 0x7ff261a2b0d0>, <Request() object at 0x7ff261a2be90>, <Request() object at 0x7ff261a2bf50>, <Request() object at 0x7ff261a32090>, <Request() object at 0x7ff261a32150>, <Request() object at 0x7ff261a32210>, <Request() object at 0x7ff261a322d0>]
+Users: [<Request() object at 0x7f348d7b3ac0>, <Request() object at 0x7f348d7b3eb0>, <Request() object at 0x7f348d7b3f70>, <Request() object at 0x7f348d7b34f0>, <Request() object at 0x7f348d7b3df0>, <Request() object at 0x7f348d7b3610>, <Request() object at 0x7f348d7b3730>, <Request() object at 0x7f348d7b3850>, <Request() object at 0x7f348d7b3970>]
 Queued events: []
 Server_2 was interrupted at 25, aborting read_write operation.
 Server_2 is idle at 25
@@ -135,39 +135,39 @@ Server_8 is idle at 30
 Server_9 is idle at 30
 Server_0 received transaction request at 35
 1 of 20 are allocated
-Users: [<Request() object at 0x7ff261a32650>]
+Users: [<Request() object at 0x7f348d7b3880>]
 Queued events: []
 Server_1 received transaction request at 35
 2 of 20 are allocated
-Users: [<Request() object at 0x7ff261a32650>, <Request() object at 0x7ff261a32490>]
+Users: [<Request() object at 0x7f348d7b3880>, <Request() object at 0x7f348d7b3cd0>]
 Queued events: []
 Server_3 received transaction request at 35
 3 of 20 are allocated
-Users: [<Request() object at 0x7ff261a32650>, <Request() object at 0x7ff261a32490>, <Request() object at 0x7ff261a32090>]
+Users: [<Request() object at 0x7f348d7b3880>, <Request() object at 0x7f348d7b3cd0>, <Request() object at 0x7f348d7b3bb0>]
 Queued events: []
 Server_4 received transaction request at 35
 4 of 20 are allocated
-Users: [<Request() object at 0x7ff261a32650>, <Request() object at 0x7ff261a32490>, <Request() object at 0x7ff261a32090>, <Request() object at 0x7ff261a32390>]
+Users: [<Request() object at 0x7f348d7b3880>, <Request() object at 0x7f348d7b3cd0>, <Request() object at 0x7f348d7b3bb0>, <Request() object at 0x7f348d7b3fa0>]
 Queued events: []
 Server_5 received transaction request at 35
 5 of 20 are allocated
-Users: [<Request() object at 0x7ff261a32650>, <Request() object at 0x7ff261a32490>, <Request() object at 0x7ff261a32090>, <Request() object at 0x7ff261a32390>, <Request() object at 0x7ff261a326d0>]
+Users: [<Request() object at 0x7f348d7b3880>, <Request() object at 0x7f348d7b3cd0>, <Request() object at 0x7f348d7b3bb0>, <Request() object at 0x7f348d7b3fa0>, <Request() object at 0x7f348d7b3e80>]
 Queued events: []
 Server_6 received transaction request at 35
 6 of 20 are allocated
-Users: [<Request() object at 0x7ff261a32650>, <Request() object at 0x7ff261a32490>, <Request() object at 0x7ff261a32090>, <Request() object at 0x7ff261a32390>, <Request() object at 0x7ff261a326d0>, <Request() object at 0x7ff261a327d0>]
+Users: [<Request() object at 0x7f348d7b3880>, <Request() object at 0x7f348d7b3cd0>, <Request() object at 0x7f348d7b3bb0>, <Request() object at 0x7f348d7b3fa0>, <Request() object at 0x7f348d7b3e80>, <Request() object at 0x7f348d7b3e50>]
 Queued events: []
 Server_7 received transaction request at 35
 7 of 20 are allocated
-Users: [<Request() object at 0x7ff261a32650>, <Request() object at 0x7ff261a32490>, <Request() object at 0x7ff261a32090>, <Request() object at 0x7ff261a32390>, <Request() object at 0x7ff261a326d0>, <Request() object at 0x7ff261a327d0>, <Request() object at 0x7ff261a1d5d0>]
+Users: [<Request() object at 0x7f348d7b3880>, <Request() object at 0x7f348d7b3cd0>, <Request() object at 0x7f348d7b3bb0>, <Request() object at 0x7f348d7b3fa0>, <Request() object at 0x7f348d7b3e80>, <Request() object at 0x7f348d7b3e50>, <Request() object at 0x7f348d7b3df0>]
 Queued events: []
 Server_8 received transaction request at 35
 8 of 20 are allocated
-Users: [<Request() object at 0x7ff261a32650>, <Request() object at 0x7ff261a32490>, <Request() object at 0x7ff261a32090>, <Request() object at 0x7ff261a32390>, <Request() object at 0x7ff261a326d0>, <Request() object at 0x7ff261a327d0>, <Request() object at 0x7ff261a1d5d0>, <Request() object at 0x7ff261a22d90>]
+Users: [<Request() object at 0x7f348d7b3880>, <Request() object at 0x7f348d7b3cd0>, <Request() object at 0x7f348d7b3bb0>, <Request() object at 0x7f348d7b3fa0>, <Request() object at 0x7f348d7b3e80>, <Request() object at 0x7f348d7b3e50>, <Request() object at 0x7f348d7b3df0>, <Request() object at 0x7f348d7b3610>]
 Queued events: []
 Server_9 received transaction request at 35
 9 of 20 are allocated
-Users: [<Request() object at 0x7ff261a32650>, <Request() object at 0x7ff261a32490>, <Request() object at 0x7ff261a32090>, <Request() object at 0x7ff261a32390>, <Request() object at 0x7ff261a326d0>, <Request() object at 0x7ff261a327d0>, <Request() object at 0x7ff261a1d5d0>, <Request() object at 0x7ff261a22d90>, <Request() object at 0x7ff261a2b190>]
+Users: [<Request() object at 0x7f348d7b3880>, <Request() object at 0x7f348d7b3cd0>, <Request() object at 0x7f348d7b3bb0>, <Request() object at 0x7f348d7b3fa0>, <Request() object at 0x7f348d7b3e80>, <Request() object at 0x7f348d7b3e50>, <Request() object at 0x7f348d7b3df0>, <Request() object at 0x7f348d7b3610>, <Request() object at 0x7f348d7b3850>]
 Queued events: []
 Server_2 finished read_write operation at 40.
 Server_2 is idle at 40
@@ -195,39 +195,39 @@ Server_8 is idle at 45
 Server_9 is idle at 45
 Server_0 received transaction request at 50
 1 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b390>]
+Users: [<Request() object at 0x7f348d7b39a0>]
 Queued events: []
 Server_1 received transaction request at 50
 2 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b390>, <Request() object at 0x7ff261a2b810>]
+Users: [<Request() object at 0x7f348d7b39a0>, <Request() object at 0x7f348d7b3a90>]
 Queued events: []
 Server_3 received transaction request at 50
 3 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b390>, <Request() object at 0x7ff261a2b810>, <Request() object at 0x7ff261a2bc50>]
+Users: [<Request() object at 0x7f348d7b39a0>, <Request() object at 0x7f348d7b3a90>, <Request() object at 0x7f348d7b3760>]
 Queued events: []
 Server_4 received transaction request at 50
 4 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b390>, <Request() object at 0x7ff261a2b810>, <Request() object at 0x7ff261a2bc50>, <Request() object at 0x7ff261a2bd10>]
+Users: [<Request() object at 0x7f348d7b39a0>, <Request() object at 0x7f348d7b3a90>, <Request() object at 0x7f348d7b3760>, <Request() object at 0x7f348d7b3d00>]
 Queued events: []
 Server_5 received transaction request at 50
 5 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b390>, <Request() object at 0x7ff261a2b810>, <Request() object at 0x7ff261a2bc50>, <Request() object at 0x7ff261a2bd10>, <Request() object at 0x7ff261a2b490>]
+Users: [<Request() object at 0x7f348d7b39a0>, <Request() object at 0x7f348d7b3a90>, <Request() object at 0x7f348d7b3760>, <Request() object at 0x7f348d7b3d00>, <Request() object at 0x7f348d7b3520>]
 Queued events: []
 Server_6 received transaction request at 50
 6 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b390>, <Request() object at 0x7ff261a2b810>, <Request() object at 0x7ff261a2bc50>, <Request() object at 0x7ff261a2bd10>, <Request() object at 0x7ff261a2b490>, <Request() object at 0x7ff261a2b650>]
+Users: [<Request() object at 0x7f348d7b39a0>, <Request() object at 0x7f348d7b3a90>, <Request() object at 0x7f348d7b3760>, <Request() object at 0x7f348d7b3d00>, <Request() object at 0x7f348d7b3520>, <Request() object at 0x7f348d7b3f70>]
 Queued events: []
 Server_7 received transaction request at 50
 7 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b390>, <Request() object at 0x7ff261a2b810>, <Request() object at 0x7ff261a2bc50>, <Request() object at 0x7ff261a2bd10>, <Request() object at 0x7ff261a2b490>, <Request() object at 0x7ff261a2b650>, <Request() object at 0x7ff261a2be50>]
+Users: [<Request() object at 0x7f348d7b39a0>, <Request() object at 0x7f348d7b3a90>, <Request() object at 0x7f348d7b3760>, <Request() object at 0x7f348d7b3d00>, <Request() object at 0x7f348d7b3520>, <Request() object at 0x7f348d7b3f70>, <Request() object at 0x7f348d7b3ac0>]
 Queued events: []
 Server_8 received transaction request at 50
 8 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b390>, <Request() object at 0x7ff261a2b810>, <Request() object at 0x7ff261a2bc50>, <Request() object at 0x7ff261a2bd10>, <Request() object at 0x7ff261a2b490>, <Request() object at 0x7ff261a2b650>, <Request() object at 0x7ff261a2be50>, <Request() object at 0x7ff261a2bfd0>]
+Users: [<Request() object at 0x7f348d7b39a0>, <Request() object at 0x7f348d7b3a90>, <Request() object at 0x7f348d7b3760>, <Request() object at 0x7f348d7b3d00>, <Request() object at 0x7f348d7b3520>, <Request() object at 0x7f348d7b3f70>, <Request() object at 0x7f348d7b3ac0>, <Request() object at 0x7f348d7b3eb0>]
 Queued events: []
 Server_9 received transaction request at 50
 9 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2b390>, <Request() object at 0x7ff261a2b810>, <Request() object at 0x7ff261a2bc50>, <Request() object at 0x7ff261a2bd10>, <Request() object at 0x7ff261a2b490>, <Request() object at 0x7ff261a2b650>, <Request() object at 0x7ff261a2be50>, <Request() object at 0x7ff261a2bfd0>, <Request() object at 0x7ff261a2bb10>]
+Users: [<Request() object at 0x7f348d7b39a0>, <Request() object at 0x7f348d7b3a90>, <Request() object at 0x7f348d7b3760>, <Request() object at 0x7f348d7b3d00>, <Request() object at 0x7f348d7b3520>, <Request() object at 0x7f348d7b3f70>, <Request() object at 0x7f348d7b3ac0>, <Request() object at 0x7f348d7b3eb0>, <Request() object at 0x7f348d7b3880>]
 Queued events: []
 Server_2 finished read_write operation at 55.
 Server_2 is idle at 55
@@ -255,39 +255,39 @@ Server_8 is idle at 60
 Server_9 is idle at 60
 Server_0 received transaction request at 65
 1 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2be90>]
+Users: [<Request() object at 0x7f348d7b3fd0>]
 Queued events: []
 Server_1 received transaction request at 65
 2 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2be90>, <Request() object at 0x7ff261a2b510>]
+Users: [<Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3970>]
 Queued events: []
 Server_3 received transaction request at 65
 3 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2be90>, <Request() object at 0x7ff261a2b510>, <Request() object at 0x7ff261a2b850>]
+Users: [<Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3970>, <Request() object at 0x7f348d7b3340>]
 Queued events: []
 Server_4 received transaction request at 65
 4 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2be90>, <Request() object at 0x7ff261a2b510>, <Request() object at 0x7ff261a2b850>, <Request() object at 0x7ff261a34050>]
+Users: [<Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3970>, <Request() object at 0x7f348d7b3340>, <Request() object at 0x7f348d7b3be0>]
 Queued events: []
 Server_5 received transaction request at 65
 5 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2be90>, <Request() object at 0x7ff261a2b510>, <Request() object at 0x7ff261a2b850>, <Request() object at 0x7ff261a34050>, <Request() object at 0x7ff261a34110>]
+Users: [<Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3970>, <Request() object at 0x7f348d7b3340>, <Request() object at 0x7f348d7b3be0>, <Request() object at 0x7f348d7b3730>]
 Queued events: []
 Server_6 received transaction request at 65
 6 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2be90>, <Request() object at 0x7ff261a2b510>, <Request() object at 0x7ff261a2b850>, <Request() object at 0x7ff261a34050>, <Request() object at 0x7ff261a34110>, <Request() object at 0x7ff261a34210>]
+Users: [<Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3970>, <Request() object at 0x7f348d7b3340>, <Request() object at 0x7f348d7b3be0>, <Request() object at 0x7f348d7b3730>, <Request() object at 0x7f348d7b3e20>]
 Queued events: []
 Server_7 received transaction request at 65
 7 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2be90>, <Request() object at 0x7ff261a2b510>, <Request() object at 0x7ff261a2b850>, <Request() object at 0x7ff261a34050>, <Request() object at 0x7ff261a34110>, <Request() object at 0x7ff261a34210>, <Request() object at 0x7ff261a342d0>]
+Users: [<Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3970>, <Request() object at 0x7f348d7b3340>, <Request() object at 0x7f348d7b3be0>, <Request() object at 0x7f348d7b3730>, <Request() object at 0x7f348d7b3e20>, <Request() object at 0x7f348d7b3cd0>]
 Queued events: []
 Server_8 received transaction request at 65
 8 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2be90>, <Request() object at 0x7ff261a2b510>, <Request() object at 0x7ff261a2b850>, <Request() object at 0x7ff261a34050>, <Request() object at 0x7ff261a34110>, <Request() object at 0x7ff261a34210>, <Request() object at 0x7ff261a342d0>, <Request() object at 0x7ff261a34390>]
+Users: [<Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3970>, <Request() object at 0x7f348d7b3340>, <Request() object at 0x7f348d7b3be0>, <Request() object at 0x7f348d7b3730>, <Request() object at 0x7f348d7b3e20>, <Request() object at 0x7f348d7b3cd0>, <Request() object at 0x7f348d7b3bb0>]
 Queued events: []
 Server_9 received transaction request at 65
 9 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2be90>, <Request() object at 0x7ff261a2b510>, <Request() object at 0x7ff261a2b850>, <Request() object at 0x7ff261a34050>, <Request() object at 0x7ff261a34110>, <Request() object at 0x7ff261a34210>, <Request() object at 0x7ff261a342d0>, <Request() object at 0x7ff261a34390>, <Request() object at 0x7ff261a34450>]
+Users: [<Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3970>, <Request() object at 0x7f348d7b3340>, <Request() object at 0x7f348d7b3be0>, <Request() object at 0x7f348d7b3730>, <Request() object at 0x7f348d7b3e20>, <Request() object at 0x7f348d7b3cd0>, <Request() object at 0x7f348d7b3bb0>, <Request() object at 0x7f348d7b39a0>]
 Queued events: []
 Server_2 finished read_write operation at 70.
 Server_2 is idle at 70
@@ -315,39 +315,39 @@ Server_8 is idle at 75
 Server_9 is idle at 75
 Server_0 received transaction request at 80
 1 of 20 are allocated
-Users: [<Request() object at 0x7ff261a22990>]
+Users: [<Request() object at 0x7f348d7b3df0>]
 Queued events: []
 Server_1 received transaction request at 80
 2 of 20 are allocated
-Users: [<Request() object at 0x7ff261a22990>, <Request() object at 0x7ff261a2b550>]
+Users: [<Request() object at 0x7f348d7b3df0>, <Request() object at 0x7f348d7b3850>]
 Queued events: []
 Server_3 received transaction request at 80
 3 of 20 are allocated
-Users: [<Request() object at 0x7ff261a22990>, <Request() object at 0x7ff261a2b550>, <Request() object at 0x7ff261a2b950>]
+Users: [<Request() object at 0x7f348d7b3df0>, <Request() object at 0x7f348d7b3850>, <Request() object at 0x7f348d7b3610>]
 Queued events: []
 Server_4 received transaction request at 80
 4 of 20 are allocated
-Users: [<Request() object at 0x7ff261a22990>, <Request() object at 0x7ff261a2b550>, <Request() object at 0x7ff261a2b950>, <Request() object at 0x7ff261a2bc10>]
+Users: [<Request() object at 0x7f348d7b3df0>, <Request() object at 0x7f348d7b3850>, <Request() object at 0x7f348d7b3610>, <Request() object at 0x7f348d7b3f40>]
 Queued events: []
 Server_5 received transaction request at 80
 5 of 20 are allocated
-Users: [<Request() object at 0x7ff261a22990>, <Request() object at 0x7ff261a2b550>, <Request() object at 0x7ff261a2b950>, <Request() object at 0x7ff261a2bc10>, <Request() object at 0x7ff261a2b410>]
+Users: [<Request() object at 0x7f348d7b3df0>, <Request() object at 0x7f348d7b3850>, <Request() object at 0x7f348d7b3610>, <Request() object at 0x7f348d7b3f40>, <Request() object at 0x7f348d7b3e50>]
 Queued events: []
 Server_6 received transaction request at 80
 6 of 20 are allocated
-Users: [<Request() object at 0x7ff261a22990>, <Request() object at 0x7ff261a2b550>, <Request() object at 0x7ff261a2b950>, <Request() object at 0x7ff261a2bc10>, <Request() object at 0x7ff261a2b410>, <Request() object at 0x7ff261a2b2d0>]
+Users: [<Request() object at 0x7f348d7b3df0>, <Request() object at 0x7f348d7b3850>, <Request() object at 0x7f348d7b3610>, <Request() object at 0x7f348d7b3f40>, <Request() object at 0x7f348d7b3e50>, <Request() object at 0x7f348d7b3640>]
 Queued events: []
 Server_7 received transaction request at 80
 7 of 20 are allocated
-Users: [<Request() object at 0x7ff261a22990>, <Request() object at 0x7ff261a2b550>, <Request() object at 0x7ff261a2b950>, <Request() object at 0x7ff261a2bc10>, <Request() object at 0x7ff261a2b410>, <Request() object at 0x7ff261a2b2d0>, <Request() object at 0x7ff261a2bf10>]
+Users: [<Request() object at 0x7f348d7b3df0>, <Request() object at 0x7f348d7b3850>, <Request() object at 0x7f348d7b3610>, <Request() object at 0x7f348d7b3f40>, <Request() object at 0x7f348d7b3e50>, <Request() object at 0x7f348d7b3640>, <Request() object at 0x7f348d7b3a90>]
 Queued events: []
 Server_8 received transaction request at 80
 8 of 20 are allocated
-Users: [<Request() object at 0x7ff261a22990>, <Request() object at 0x7ff261a2b550>, <Request() object at 0x7ff261a2b950>, <Request() object at 0x7ff261a2bc10>, <Request() object at 0x7ff261a2b410>, <Request() object at 0x7ff261a2b2d0>, <Request() object at 0x7ff261a2bf10>, <Request() object at 0x7ff261a2b790>]
+Users: [<Request() object at 0x7f348d7b3df0>, <Request() object at 0x7f348d7b3850>, <Request() object at 0x7f348d7b3610>, <Request() object at 0x7f348d7b3f40>, <Request() object at 0x7f348d7b3e50>, <Request() object at 0x7f348d7b3640>, <Request() object at 0x7f348d7b3a90>, <Request() object at 0x7f348d7b3ac0>]
 Queued events: []
 Server_9 received transaction request at 80
 9 of 20 are allocated
-Users: [<Request() object at 0x7ff261a22990>, <Request() object at 0x7ff261a2b550>, <Request() object at 0x7ff261a2b950>, <Request() object at 0x7ff261a2bc10>, <Request() object at 0x7ff261a2b410>, <Request() object at 0x7ff261a2b2d0>, <Request() object at 0x7ff261a2bf10>, <Request() object at 0x7ff261a2b790>, <Request() object at 0x7ff261a2b9d0>]
+Users: [<Request() object at 0x7f348d7b3df0>, <Request() object at 0x7f348d7b3850>, <Request() object at 0x7f348d7b3610>, <Request() object at 0x7f348d7b3f40>, <Request() object at 0x7f348d7b3e50>, <Request() object at 0x7f348d7b3640>, <Request() object at 0x7f348d7b3a90>, <Request() object at 0x7f348d7b3ac0>, <Request() object at 0x7f348d7b3bb0>]
 Queued events: []
 Server_2 finished read_write operation at 85.
 Server_2 is idle at 85
@@ -375,37 +375,37 @@ Server_8 is idle at 90
 Server_9 is idle at 90
 Server_0 received transaction request at 95
 1 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2bdd0>]
+Users: [<Request() object at 0x7f348d7b39a0>]
 Queued events: []
 Server_1 received transaction request at 95
 2 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2bdd0>, <Request() object at 0x7ff261a2bad0>]
+Users: [<Request() object at 0x7f348d7b39a0>, <Request() object at 0x7f348d7b3fd0>]
 Queued events: []
 Server_3 received transaction request at 95
 3 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2bdd0>, <Request() object at 0x7ff261a2bad0>, <Request() object at 0x7ff261a2b350>]
+Users: [<Request() object at 0x7f348d7b39a0>, <Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3eb0>]
 Queued events: []
 Server_4 received transaction request at 95
 4 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2bdd0>, <Request() object at 0x7ff261a2bad0>, <Request() object at 0x7ff261a2b350>, <Request() object at 0x7ff261a2b750>]
+Users: [<Request() object at 0x7f348d7b39a0>, <Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3eb0>, <Request() object at 0x7f348d7b33a0>]
 Queued events: []
 Server_5 received transaction request at 95
 5 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2bdd0>, <Request() object at 0x7ff261a2bad0>, <Request() object at 0x7ff261a2b350>, <Request() object at 0x7ff261a2b750>, <Request() object at 0x7ff261a2bc90>]
+Users: [<Request() object at 0x7f348d7b39a0>, <Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3eb0>, <Request() object at 0x7f348d7b33a0>, <Request() object at 0x7f348d7b3f70>]
 Queued events: []
 Server_6 received transaction request at 95
 6 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2bdd0>, <Request() object at 0x7ff261a2bad0>, <Request() object at 0x7ff261a2b350>, <Request() object at 0x7ff261a2b750>, <Request() object at 0x7ff261a2bc90>, <Request() object at 0x7ff261a2bf90>]
+Users: [<Request() object at 0x7f348d7b39a0>, <Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3eb0>, <Request() object at 0x7f348d7b33a0>, <Request() object at 0x7f348d7b3f70>, <Request() object at 0x7f348d7b34f0>]
 Queued events: []
 Server_7 received transaction request at 95
 7 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2bdd0>, <Request() object at 0x7ff261a2bad0>, <Request() object at 0x7ff261a2b350>, <Request() object at 0x7ff261a2b750>, <Request() object at 0x7ff261a2bc90>, <Request() object at 0x7ff261a2bf90>, <Request() object at 0x7ff261a340d0>]
+Users: [<Request() object at 0x7f348d7b39a0>, <Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3eb0>, <Request() object at 0x7f348d7b33a0>, <Request() object at 0x7f348d7b3f70>, <Request() object at 0x7f348d7b34f0>, <Request() object at 0x7f348d7b3970>]
 Queued events: []
 Server_8 received transaction request at 95
 8 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2bdd0>, <Request() object at 0x7ff261a2bad0>, <Request() object at 0x7ff261a2b350>, <Request() object at 0x7ff261a2b750>, <Request() object at 0x7ff261a2bc90>, <Request() object at 0x7ff261a2bf90>, <Request() object at 0x7ff261a340d0>, <Request() object at 0x7ff261a34190>]
+Users: [<Request() object at 0x7f348d7b39a0>, <Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3eb0>, <Request() object at 0x7f348d7b33a0>, <Request() object at 0x7f348d7b3f70>, <Request() object at 0x7f348d7b34f0>, <Request() object at 0x7f348d7b3970>, <Request() object at 0x7f348d7b3340>]
 Queued events: []
 Server_9 received transaction request at 95
 9 of 20 are allocated
-Users: [<Request() object at 0x7ff261a2bdd0>, <Request() object at 0x7ff261a2bad0>, <Request() object at 0x7ff261a2b350>, <Request() object at 0x7ff261a2b750>, <Request() object at 0x7ff261a2bc90>, <Request() object at 0x7ff261a2bf90>, <Request() object at 0x7ff261a340d0>, <Request() object at 0x7ff261a34190>, <Request() object at 0x7ff261a34250>]
+Users: [<Request() object at 0x7f348d7b39a0>, <Request() object at 0x7f348d7b3fd0>, <Request() object at 0x7f348d7b3eb0>, <Request() object at 0x7f348d7b33a0>, <Request() object at 0x7f348d7b3f70>, <Request() object at 0x7f348d7b34f0>, <Request() object at 0x7f348d7b3970>, <Request() object at 0x7f348d7b3340>, <Request() object at 0x7f348d7b3df0>]
 Queued events: []

@@ -16,6 +16,7 @@ Usage of helpers.py for functions used within simulation.
 
 import io
 import simpy
+from functools import partial, wraps
 from contextlib import redirect_stdout
 from helpers_test import *
 
@@ -40,6 +41,18 @@ class Server(object):
 		self.name = name
 
 		self.resource = resource
+
+		self.log = []
+
+	def monitor(self):
+		'''Monitoring callbacks'''
+
+		item = (
+			self.resource.__env.now,
+			self.resource.count,
+			len(self.resource.queue),
+		)
+		self.log.append(item)
 
 	def idle(self):
 		while True:
