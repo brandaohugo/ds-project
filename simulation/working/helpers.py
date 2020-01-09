@@ -44,7 +44,7 @@ def print_stats(self):
     print(f'Users: {self.users}')
     print(f'Queued events: {self.queue}')
 
-dist_params = {'distribution': 'normal', 
+dist_params = {'distribution': 'poisson', 
                 'low' : 2, 
                 'high' : 1000, 
                 'scale': 2,
