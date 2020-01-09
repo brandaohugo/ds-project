@@ -23,13 +23,6 @@ from helpers import *
 with open('sim_stdout.txt', 'w') as f:
 	with redirect_stdout(f):
 
-	    # Define Simulation Parameters
-		IDLE_TIME = 5
-		SERVER_NUM = 10
-		SIM_TIME = 100
-		PROCESSING_TIME = 10
-		PROCESSING_CAPACITY = 20
-
 		# Server object
 		class Server(object):
 			def __init__(self, env, name, resource):
@@ -92,7 +85,7 @@ with open('sim_stdout.txt', 'w') as f:
 		generate_server(SERVER_NUM)
 
 		# introduce an error process
-		env.process(generate_error(env, server_object2))
+		env.process(generate_error(env, server_object0))
 
 		# run simulation
 		env.run(until=SIM_TIME)
