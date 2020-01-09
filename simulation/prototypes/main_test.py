@@ -16,6 +16,7 @@ Usage of helpers.py for functions used within simulation.
 
 import io
 import simpy
+from functools import partial, wraps
 from contextlib import redirect_stdout
 from helpers_test import *
 import numpy as np
@@ -40,6 +41,18 @@ class Server(object):
 		self.name = name
 
 		self.resource = resource
+
+		self.log = []
+
+	def monitor(self):
+		'''Monitoring callbacks'''
+
+		item = (
+			self.resource.__env.now,
+			self.resource.count,
+			len(self.resource.queue),
+		)
+		self.log.append(item)
 
 	def idle(self):
 		while True:
@@ -85,6 +98,12 @@ env = simpy.Environment()
 # generate resources
 processing_res = simpy.Resource(env, capacity=PROCESSING_CAPACITY)
 
+# data list to monitor resources
+data =[]
+
+monitor = partial(monitor, data)
+patch_resource(processing_res, post=monitor)
+
 # generate servers
 generate_server(SERVER_NUM)
 
@@ -93,3 +112,8 @@ env.process(generate_error(env, server_object2))
 
 # run simulation
 env.run(until=SIM_TIME)
+
+# monitor results: creates txt-file
+df = create_df(data)
+
+print(df)
