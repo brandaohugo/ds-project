@@ -18,12 +18,12 @@ import io
 import simpy
 from contextlib import redirect_stdout
 from helpers_test import *
+import numpy as np
 
 # Define Simulation Parameters
 IDLE_TIME = 5
 SERVER_NUM = 10
 SIM_TIME = 100
-ERROR_FREQUENCY = 0.1
 PROCESSING_TIME = 10
 PROCESSING_CAPACITY = 20
 
