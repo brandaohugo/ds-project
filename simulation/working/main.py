@@ -76,18 +76,26 @@ with open('log/sim_stdout.txt', 'w') as f:
 				server_name = str(i)
 				globals()['server_object{}'.format(i)] = Server(env, server_name, processing_res)
 
+
+		# data list to monitor resources
+		data_env =[]
+		data_event = []
+
+		# monitor events
+		monitor_event = partial(monitor_event, data_event)
+
 		# define environment
 		env = simpy.Environment()
+
+		# trace events
+		trace_event(env, monitor_event)
 
 		# generate resources
 		processing_res = simpy.Resource(env, capacity=PROCESSING_CAPACITY)
 
-		# data list to monitor resources
-		data =[]
-
-		monitor = partial(monitor, data)
-		patch_resource(processing_res, post=monitor)
-
+		# monitor environment
+		monitor_env = partial(monitor_env, data_env)
+		patch_resource(processing_res, post=monitor_env)
 
 		# generate servers
 		generate_server(SERVER_NUM)
@@ -99,6 +107,8 @@ with open('log/sim_stdout.txt', 'w') as f:
 		env.run(until=SIM_TIME)
 
 		# monitor results: creates txt-file
-		df = create_df(data)
+		df = create_df(data_env)
 
-		print(df)
+		for d in data_event:
+			print(d)
+
