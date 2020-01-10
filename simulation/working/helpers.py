@@ -141,12 +141,19 @@ dist_params = {'distribution': 'poisson',
 settings = {'sim_time' : 10000}
 
 
+# # Define Simulation Parameters
+# IDLE_TIME = random_number(dist_params)
+# SERVER_NUM = random_number(dist_params)
+# PROCESSING_TIME = random_number(dist_params)
+# PROCESSING_CAPACITY = random_number(dist_params)
+# SIM_TIME = settings['sim_time']
+
 # Define Simulation Parameters
-IDLE_TIME = random_number(dist_params)
-SERVER_NUM = random_number(dist_params)
-PROCESSING_TIME = random_number(dist_params)
-PROCESSING_CAPACITY = random_number(dist_params)
-SIM_TIME = settings['sim_time']
+IDLE_TIME = 5
+SERVER_NUM = 5
+PROCESSING_TIME = 10
+PROCESSING_CAPACITY = 4
+SIM_TIME =  100
 
 print(IDLE_TIME)
 print(PROCESSING_CAPACITY)
