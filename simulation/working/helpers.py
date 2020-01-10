@@ -78,7 +78,7 @@ def patch_resource(resource, pre=None, post=None):
         if hasattr(resource, name):
             setattr(resource, name,  get_wrapper(getattr(resource, name)))
 
-def monitor_env(data, resource):
+def monitor_res(data, resource):
     '''Monitoring callbacks'''
     item = (
         resource._env.now,
@@ -87,12 +87,21 @@ def monitor_env(data, resource):
     )
     data.append(item)
 
-def create_df(data):
-    names = ['time', 'count', 'queue']
+def create_df(data, df_type_dict, df_type):
+    names = df_type_dict[df_type]
     log_filename = datetime.now().strftime("%Y%m%d%H%M%S") + ".txt"
-
     df = pd.DataFrame(data, columns=names)
-    df.to_csv('log/' + log_filename, header=True)
+    # df.to_csv('log/' + log_filename, header=True)
+    return df
+
+def merge_df(df1, df2):
+    # filename
+    time = datetime.now().strftime("%Y%m%d%H%M%S") + ".txt"
+    log_filename = 'log/' + 'merged_' + time
+    # merge df
+    df = df1.merge(df2, on='time')
+    # save to log directory
+    df.to_csv(log_filename, header=True)
     return df
 
 def trace_event(env, callback):
@@ -125,9 +134,8 @@ def monitor_event(data, t, prio, eid, event):
     data.append((t, eid, type(event)))
 
 
-
-
-dist_params = {'distribution': 'poisson', 
+# initialize parameters
+dist_params = {'distribution': 'poisson',
                 'low' : 2, 
                 'high' : 1000, 
                 'scale': 2,
@@ -140,13 +148,26 @@ dist_params = {'distribution': 'poisson',
 
 settings = {'sim_time' : 10000}
 
+# dictionary for column names df params
+df_names = {
+    'event': ['time', 'eid', 'type'],
+    'res': ['time', 'count', 'queue'],
+}
+
+# # Define Simulation Parameters
+# IDLE_TIME = random_number(dist_params)
+# SERVER_NUM = random_number(dist_params)
+# PROCESSING_TIME = random_number(dist_params)
+# PROCESSING_CAPACITY = random_number(dist_params)
+# SIM_TIME = settings['sim_time']
 
 # Define Simulation Parameters
-IDLE_TIME = random_number(dist_params)
-SERVER_NUM = random_number(dist_params)
-PROCESSING_TIME = random_number(dist_params)
-PROCESSING_CAPACITY = random_number(dist_params)
-SIM_TIME = settings['sim_time']
+print(f'This run is initialized with hard coded params. Can be changed to stochastic in helpers.py.\n')
+IDLE_TIME = 5
+SERVER_NUM = 5
+PROCESSING_TIME = 10
+PROCESSING_CAPACITY = 4
+SIM_TIME =  40
 
-print(IDLE_TIME)
-print(PROCESSING_CAPACITY)
+print(f'IDLE TIME: {IDLE_TIME}')
+print(f'PROCESSING_CAPACITY: {PROCESSING_CAPACITY}')
