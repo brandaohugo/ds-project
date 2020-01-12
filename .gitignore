@@ -17,3 +17,5 @@ build/
 simulation/ouput
 
 simulation/working/log/
+
+.idea/

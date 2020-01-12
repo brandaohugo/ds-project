@@ -1,5 +1,68 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}ING Discrete Event Simulation{% endblock %}</h1>
+<h1>{% block title %}ING Discrete Event Simulation{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row sim-vis-container">
+        <div class="col-md-6">
+            <h4>Number of events:</h4>
+            <img class="sim-vis-img" src="/eventplot.png" alt="event-plot">
+        </div>
+        <div class="col-md-6">
+            <h4>Queue Length:</h4>
+            <img class="sim-vis-img" src="/queueplot.png" alt="event-plot">
+        </div>
+    </div>
+    <div class="row justify-content-center sim-params-container">
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-primary">Simulation Parameters</li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Simulation Time:
+                    <span class="badge badge-primary badge-pill">{{ time }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Processing Time:
+                    <span class="badge badge-primary badge-pill">{{ proc_time }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Idle Time:
+                    <span class="badge badge-primary badge-pill">{{ idle }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Number of servers:
+                    <span class="badge badge-primary badge-pill">{{ servers }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Number of servers:
+                    <span class="badge badge-primary badge-pill">{{ proc_cap }}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-primary">Simulation Statistics</li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Statistic 1:
+                    <span class="badge badge-primary badge-pill">0</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Statistic 2:
+                    <span class="badge badge-primary badge-pill">0</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Statistic 3:
+                    <span class="badge badge-primary badge-pill">0</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Statistic 4:
+                    <span class="badge badge-primary badge-pill">0</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 {% endblock %}
