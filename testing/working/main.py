@@ -107,14 +107,9 @@ with open('log/sim_stdout.txt', 'w') as f:
 		# run simulation
 		env.run(until=SIM_TIME)
 
-<<<<<<< HEAD
-		# monitor results: creates txt-file
-		df = create_df(data)
-=======
 		# store monitor results in df
 		df_res = create_df(data_res, df_names, df_type='res')
 		df_event = create_df(data_event, df_names, df_type='event')
 
 		# merge df and save
 		df = merge_df(df_event, df_res)
->>>>>>> 89ca5647cd3c7c77ca17d4d7084ad971fa58613d
