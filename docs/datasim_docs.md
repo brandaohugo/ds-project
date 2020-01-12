@@ -54,3 +54,7 @@ This simulation currently models the interaction between multiple users and one 
 ### Deadlock 
 
 ### Server freeze
+
+### Developments Notes
+
+- Using milliseconds as time units.

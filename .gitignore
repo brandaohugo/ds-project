@@ -15,3 +15,5 @@ build/
 .pyenv/
 .vscode/
 simulation/ouput
+
+simulation/working/log/
