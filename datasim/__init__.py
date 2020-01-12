@@ -1,7 +1,6 @@
 import os
 from flask import ( Flask, render_template )
-from . import db, auth
-from .lib import processor, helpers
+from . import db, auth, processor, helpers
 import io
 import random
 from flask import Response

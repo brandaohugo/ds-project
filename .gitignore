@@ -12,5 +12,8 @@ htmlcov/
 dist/
 build/
 *.egg-info/
+.pyenv/
+.vscode/
+simulation/ouput
 
 simulation/working/log/

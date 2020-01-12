@@ -16,6 +16,7 @@ Usage of helpers.py for functions used within simulation.
 
 import io
 import simpy
+import pandas as pd
 from contextlib import redirect_stdout
 from helpers import *
 # from simulation.working.helpers import *
@@ -27,11 +28,11 @@ with open('log/sim_stdout.txt', 'w') as f:
 		# Server object
 		class Server(object):
 			def __init__(self, env, name, resource):
-				
+
 				self.env = env
-				
+
 				# start the idle process everytime server object is instantiated
-				
+
 				self.action = env.process(self.idle())
 
 				self.name = name
@@ -40,9 +41,9 @@ with open('log/sim_stdout.txt', 'w') as f:
 
 			def idle(self):
 				while True:
-					
+
 					# Server is idle for a while
-					
+
 					print('Server_%s is idle at %d' % (self.name, self.env.now))
 
 					yield self.env.timeout(IDLE_TIME)
@@ -57,7 +58,7 @@ with open('log/sim_stdout.txt', 'w') as f:
 						print('Server_%s was interrupted at %d, aborting read_write operation.' % (self.name, self.env.now))
 
 			def read_write(self, processing_time):
-				
+
 				# print resource statistics
 				print_stats(self.resource)
 
@@ -67,7 +68,7 @@ with open('log/sim_stdout.txt', 'w') as f:
 
 					# processing a transaction takes time
 					yield self.env.timeout(processing_time)
-					
+
 					print('Server_%s finished read_write operation at %d.' % (self.name, self.env.now))
 
 		# Introduce new servers into the simulation (creates new global objects)
@@ -76,18 +77,26 @@ with open('log/sim_stdout.txt', 'w') as f:
 				server_name = str(i)
 				globals()['server_object{}'.format(i)] = Server(env, server_name, processing_res)
 
+
+		# data list to monitor resources
+		data_res =[]
+		data_event = []
+
+		# monitor events
+		monitor_event = partial(monitor_event, data_event)
+
 		# define environment
 		env = simpy.Environment()
+
+		# trace events
+		trace_event(env, monitor_event)
 
 		# generate resources
 		processing_res = simpy.Resource(env, capacity=PROCESSING_CAPACITY)
 
-		# data list to monitor resources
-		data =[]
-
-		monitor = partial(monitor, data)
-		patch_resource(processing_res, post=monitor)
-
+		# monitor environment
+		monitor_res = partial(monitor_res, data_res)
+		patch_resource(processing_res, post=monitor_res)
 
 		# generate servers
 		generate_server(SERVER_NUM)
@@ -98,5 +107,14 @@ with open('log/sim_stdout.txt', 'w') as f:
 		# run simulation
 		env.run(until=SIM_TIME)
 
+<<<<<<< HEAD
 		# monitor results: creates txt-file
 		df = create_df(data)
+=======
+		# store monitor results in df
+		df_res = create_df(data_res, df_names, df_type='res')
+		df_event = create_df(data_event, df_names, df_type='event')
+
+		# merge df and save
+		df = merge_df(df_event, df_res)
+>>>>>>> 89ca5647cd3c7c77ca17d4d7084ad971fa58613d
