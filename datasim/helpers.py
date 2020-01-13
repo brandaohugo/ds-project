@@ -14,13 +14,13 @@ def generate_error(env, affected_server):
 
 def random_uniform(dist_params):
     for i in range(10):
-        number = np.random.logistic(dist_params['low'], dist_params['high'])
+        number = np.random.uniform(dist_params['low'], dist_params['high'])
         if number > 0:
             return number
 
 def random_normal(dist_params):
     for i in range(10):
-        number = np.random.logistic(dist_params['size'], dist_params['scale'])
+        number = np.random.normal(dist_params['size'], dist_params['scale'])
         if number > 0:
             return number
 
@@ -32,7 +32,7 @@ def random_logistic(dist_params):
 
 def random_poisson(dist_params):
     for i in range(10):
-        number = np.random.logistic(dist_params['lambda'])
+        number = np.random.poisson(dist_params['lambda'])
         if number > 0:
             return number
 
