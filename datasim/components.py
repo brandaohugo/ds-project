@@ -1,5 +1,5 @@
 from simpy import Resource
-from utils import print_resource_info
+from utils import print_resource_info, print_stats
 
 
 # Server object
@@ -10,7 +10,7 @@ class Server(object):
         self.name = params['name']
         self.params = params
 
-    def read_write(self, origin, request_size): 
+    def read_write(self, origin, request_size):
         with self.resource.request() as req:
             yield req
             print('%s started read_write operation from %s at %d.' % (self.name, origin, self.env.now))

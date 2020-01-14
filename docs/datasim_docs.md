@@ -58,3 +58,11 @@ This simulation currently models the interaction between multiple users and one 
 ### Developments Notes
 
 - Using milliseconds as time units.
+
+# todo
+
+- [ ] transform events data to dataframe
+
+Event type only keep Capitalised word
+
+Keep only time, event_id, event_type columns
