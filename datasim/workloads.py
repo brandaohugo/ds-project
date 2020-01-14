@@ -1,10 +1,12 @@
 import itertools
+from utils import random_number
 
 def db_request_generator(env, wl_params, components):
     for i in itertools.count():
-        #TODO: generate interval according to stochastic distribution
+        # generate interval according to stochastic distribution
+        interval = random_number(wl_params)
         # print('%s wating to request read_write operation at %d.' % (wl_params['origin'],env.now))
-        yield env.timeout(wl_params['interval'])
+        yield env.timeout(interval)
         # print('%s starting request read_write operation at %d.' % (wl_params['origin'],env.now))
         env.process(components[wl_params['target']['name']].read_write(wl_params['origin'], wl_params['request_size']))
         # print('%s finished request read_write operation at %d.' % (wl_params['origin'],env.now))
