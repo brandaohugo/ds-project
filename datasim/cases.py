@@ -30,6 +30,7 @@ sim_params_1 = {
                     'name' : 'database',
                     'capacity' : 2
                 } 
+
         },
         {
             'type': 'server',
