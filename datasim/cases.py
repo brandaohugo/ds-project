@@ -30,7 +30,21 @@ sim_params_1 = {
                     'name' : 'database',
                     'capacity' : 2
                 } 
-        }, 
+        },
+        {
+            'type': 'server',
+            'name' : 'load_balancer2',
+            'recovery_time' : 0,
+            'actions' : {
+                    'read_write' : {
+                        'proc_speed': 1
+                    },
+            },
+            'resource': {
+                    'name' : 'database',
+                    'capacity' : 2
+                },
+        }
     ],
     'workloads' : [
         {
@@ -54,6 +68,18 @@ sim_params_1 = {
             'distribution': 'uniform',
             'low': 6,
             'high': 7
+        },
+        {
+            'type': 'db_request',
+            'origin': 'user_3',
+            'target': {
+                'name': 'load_balancer2',
+            },
+            'request_size': 12,
+            'distribution': 'uniform',
+            'low': 6,
+            'high': 7
         }
     ],
 }
+

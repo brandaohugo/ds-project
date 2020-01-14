@@ -11,7 +11,6 @@ def db_request_generator(env, wl_params, components):
         env.process(components[wl_params['target']['name']].read_write(wl_params['origin'], wl_params['request_size']))
         # print('%s finished request read_write operation at %d.' % (wl_params['origin'],env.now))
 
-
 def get_workload(env, wl_params, components):
     workload = dict(
         db_request=db_request_generator
