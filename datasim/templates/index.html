@@ -7,44 +7,61 @@
 {% block content %}
 <div class="container">
     <div class="row sim-vis-container">
-        <div class="col-md-6">
-            <h4>Number of events:</h4>
-            <img class="sim-vis-img" src="/eventplot.png" alt="event-plot">
+        <div class="col-md-4 sim-img">
+            <h4>Event Typology:</h4>
+            <img class="sim-vis-img" src="/eventcount.png" alt="event-count-plot">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4 sim-img">
             <h4>Queue Length:</h4>
-            <img class="sim-vis-img" src="/queueplot.png" alt="event-plot">
+            <img class="sim-vis-img" src="/eventcount.png" alt="resource-usage-plot">
+        </div>
+        <div class="col-md-4 sim-img">
+            <h4>Queue Length:</h4>
+            <img class="sim-vis-img" src="/eventcount.png" alt="resource-usage-plot">
         </div>
     </div>
     <div class="row justify-content-center sim-params-container">
         <div class="col-md-4">
             <ul class="list-group">
-                <li class="list-group-item list-group-item-primary">Simulation Parameters</li>
+                <li class="list-group-item list-group-item-primary">General Settings:</li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Simulation Time:
                     <span class="badge badge-primary badge-pill">{{ time }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Processing Time:
-                    <span class="badge badge-primary badge-pill">{{ proc_time }}</span>
+                    Number of components:
+                    <span class="badge badge-primary badge-pill">{{ components }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Idle Time:
-                    <span class="badge badge-primary badge-pill">{{ idle }}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Number of servers:
-                    <span class="badge badge-primary badge-pill">{{ servers }}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Number of servers:
-                    <span class="badge badge-primary badge-pill">{{ proc_cap }}</span>
+                    Number of workloads:
+                    <span class="badge badge-primary badge-pill">{{ workloads }}</span>
                 </li>
             </ul>
         </div>
         <div class="col-md-4">
             <ul class="list-group">
-                <li class="list-group-item list-group-item-primary">Simulation Statistics</li>
+                <li class="list-group-item list-group-item-primary">Simulation Components:</li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Statistic 1:
+                    <span class="badge badge-primary badge-pill">0</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Statistic 2:
+                    <span class="badge badge-primary badge-pill">0</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Statistic 3:
+                    <span class="badge badge-primary badge-pill">0</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Statistic 4:
+                    <span class="badge badge-primary badge-pill">0</span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-primary">Simulation Workloads:</li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Statistic 1:
                     <span class="badge badge-primary badge-pill">0</span>
