@@ -44,11 +44,10 @@ def create_app(test_config=None):
         return Response(output.getvalue(), mimetype='image/png')
     '''
 
-
     @app.route('/eventcount.png')
     def get_event_count_fig():
         #TODO: enable user to select different sim runs for plotting
-        log_filename = 'datasim/log/event_20200114184808.txt'
+        log_filename = 'datasim/log/event_20200115185434.txt'
         event_data = processor.extract_events_count(pd.read_csv(log_filename))
         bytes_obj = processor.create_event_count_figure(event_data)
         return Response(bytes_obj.getvalue(), mimetype='image/png')
@@ -56,12 +55,11 @@ def create_app(test_config=None):
     @app.route('/')
     @auth.login_required
     def index():
-	    return render_template(
-            "index.html", 
-            time=cases.sim_params_1['settings']['sim_time'],
-            components=len(cases.sim_params_1['components']), 
-            workloads=len(cases.sim_params_1['workloads'])
-        )
+        #TODO: Add real data from simulation and pass it to charts
+        legend = 'Monthly Data'
+        labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
+        values = [10, 9, 8, 7, 6, 4, 7, 8]
+        return render_template("index.html", time=cases.sim_params_1['settings']['sim_time'], components=len(cases.sim_params_1['components']), workloads=len(cases.sim_params_1['workloads']),values=values, labels=labels, legend=legend)
 
 
     @app.route('/api/v1/simulations/', methods=['GET','POST'])
