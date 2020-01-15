@@ -5,28 +5,30 @@ from functools import wraps
 from datetime import datetime
 
 # Simulation logging
-def log_event(log_file_name, message):
+def log_event_from_print(log_file_name, message):
     with open(log_file_name, 'a') as f:
         with redirect_stdout(f):
             print(message)
 
 def print_stats(resource,log_filename):
-    log_event(log_filename, f'{resource.count} of {resource.capacity} are allocated')
-    log_event(log_filename, f'Users: {resource.users}')
-    log_event(log_filename, f'Queued events: {resource.queue}')
+    log_event_from_print(log_filename, f'{resource.count} of {resource.capacity} are allocated')
+    log_event_from_print(log_filename, f'Users: {resource.users}')
+    log_event_from_print(log_filename, f'Queued events: {resource.queue}')
 
 def print_resource_info(resource):
     print(f'Count: {resource.count}, Capacity: {resource.capacity} ,Users: {len(resource.users)}, Queue: {len(resource.queue)}')
 
+def monitor_res(name, resource, data):
+    item = (
+        name,
+        resource._env.now,
+        resource.count,
+        len(resource.queue),
+    )
+    data.append(item)
+
 #TODO: implement resource monitoring in components.py
 def patch_resource(resource, pre=None, post=None):
-    '''
-    :param resource:
-    :param pre:
-    :param post:
-    :return:
-    '''
-
     def get_wrapper(func):
         # generate a wrapper for put/get/request/release
         @wraps(func)
@@ -50,14 +52,14 @@ def patch_resource(resource, pre=None, post=None):
         if hasattr(resource, name):
             setattr(resource, name,  get_wrapper(getattr(resource, name)))
 
-def monitor_res(data, resource):
-    '''Monitoring callbacks'''
-    item = (
-        resource._env.now,
-        resource.count,
-        len(resource.queue),
-    )
-    data.append(item)
+# def monitor_res(data, resource):
+#     '''Monitoring callbacks'''
+#     item = (
+#         resource._env.now,
+#         resource.count,
+#         len(resource.queue),
+#     )
+#     data.append(item)
 
 # event monitoring
 def trace_event(env, callback):
@@ -89,17 +91,24 @@ def trace_event(env, callback):
 def monitor_event(data, t, prio, eid, event):
     data.append((t, eid, type(event)))
 
-def create_df(data, df_type):
-    # dictionary with column names
-    df_type_dict = {
-        'event': ['time', 'eid', 'type'],
-        'res': ['time', 'count', 'queue'],
-    }
-    # create dataframe
-    names = df_type_dict[df_type]
-    log_filename = df_type + '_' + datetime.now().strftime("%Y%m%d%H%M%S") + ".txt"
+def log_event(data):
+    names = ['time', 'eid', 'type']
+    log_filename = 'event_' + datetime.now().strftime("%Y%m%d%H%M%S") + ".txt"
     df = pd.DataFrame(data, columns=names)
     # save results in log directory
+    df.to_csv('log/' + log_filename, header=True)
+    return df
+
+def log_res(components):
+    df = pd.DataFrame()
+    log_filename = 'res_' + datetime.now().strftime("%Y%m%d%H%M%S") + ".txt"
+    # log components resources
+    for key, value in components.items():
+        data_res = value.data_res
+        df = df.append(data_res)
+    # format and save dataframe
+    df.columns = ['name', 'time', 'count', 'queue']
+    df = df.sort_values('time', ascending=True)
     df.to_csv('log/' + log_filename, header=True)
     return df
 
@@ -111,3 +120,4 @@ def random_uniform(wl_params):
 def random_number(wl_params):
     distributions = dict(uniform=random_uniform)
     return distributions[wl_params['distribution']](wl_params)
+

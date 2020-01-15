@@ -6,7 +6,7 @@ import io
 from cases import sim_params_1 as sim_params
 from components import parse_components
 from workloads import parse_workloads
-from utils import monitor_event, trace_event, create_df
+from utils import monitor_event, trace_event, log_event, log_res
 
 globals()['components'] = {}
 
@@ -31,4 +31,6 @@ workloads = parse_workloads(env, sim_params['workloads'],components)
 env.run(until=sim_params['settings']['sim_time'])
 
 # store results
-df_event = create_df(data_event, df_type='event')
+df_event = log_event(data_event)
+df_res = log_res(components)
+
