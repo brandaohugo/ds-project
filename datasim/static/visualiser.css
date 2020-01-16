@@ -108,6 +108,10 @@ div.row:nth-child(4) {
     padding-top: 5em !important;
 }
 
+.about-content-container > div > div {
+  padding-top: 2em !important;
+}
+
 .login-status-container {
   list-style-type: none;
   color: #007bff;
