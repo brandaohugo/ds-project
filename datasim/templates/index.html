@@ -55,9 +55,10 @@
     </div>
     <!-- /#sidebar-wrapper -->
     <!-- Page Content -->
-    <div id="page-content-wrapper">
+    
 
       {% if section == 'about' %}
+      <div id="page-content-wrapper">
       <div class="container about-content-container">
         <div class="row-fluid">
           <div class="col-md-12">
@@ -81,13 +82,14 @@
           </div>
         </div>
         <div class="row partner-images">
-          <div class="col-md-12">
+          <div style="padding-top: 0em !important;" class="col-md-12">
             <img src="{{ url_for('static', filename='img/partner-logo.png') }}" alt="" class="img-fluid">
           </div>
         </div>
       </div>
     </div>
     {% elif section == 'visualiser' %}
+    <div id="page-content-wrapper">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
@@ -106,13 +108,30 @@
         </div>
       </div>
     </div>
+  </div>
 
 
     {% elif section == 'parameters' %}
-    <h1>Parameters go here.</h1>
+    <div id="page-content-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h1>Parameters go here.</h1>
+          </div>
+        </div>
+      </div>
+  </div>
 
     {% elif section == 'documentation' %}
-    <h1>Docs go here.</h1>
+    <div id="page-content-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h1>Docs go here.</h1>
+          </div>
+        </div>
+      </div>
+  </div>
 
     {% endif %}
 
