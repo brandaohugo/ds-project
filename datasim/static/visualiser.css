@@ -131,3 +131,13 @@ div.row:nth-child(4) {
 .index-nav-item:hover {
   color: #007bff;
 }
+
+canvas {
+  width: 100%;
+  height: auto;
+  padding: 1em;
+}
+
+.container {
+  max-width: calc(1600px - 241px);
+}
