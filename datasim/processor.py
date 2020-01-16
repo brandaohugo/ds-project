@@ -6,8 +6,10 @@ import json
 import matplotlib.pyplot as plt
 import seaborn as sns
 import io
-
+import os
 # Events data preparation & visualisation
+import random
+
 
 def extract_events_count(events_df):
         re_1 = "(^<[a-z]* \'[a-z]*\.[a-z]*\.)"
@@ -27,6 +29,16 @@ def create_event_count_figure(data):
         plt.savefig(bytes_image, format='png')
         bytes_image.seek(0)
         return bytes_image
+
+def prepare_plot(filename, target1, target2):
+        df = pd.read_csv(filename)
+        obj_type = random.choice(df['name'].unique())
+
+        df_obj_type = df.loc[df['name'] == obj_type]
+        list1 = df_obj_type[target1].to_list()
+        list2 = df_obj_type[target2].to_list()
+
+        return list1, list2
 
 
 '''TODO: visualise resource usage (queues)

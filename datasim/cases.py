@@ -1,6 +1,6 @@
 sim_params_1 = {
     'settings': {
-            'sim_time' : 50,
+            'sim_time' : 250,
     },
     'components' : [
         {
