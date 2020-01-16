@@ -50,20 +50,46 @@ def create_app(test_config=None):
         log_filename = 'datasim/log/event_20200115185434.txt'
         event_data = processor.extract_events_count(pd.read_csv(log_filename))
         bytes_obj = processor.create_event_count_figure(event_data)
+        print(event_data)
         return Response(bytes_obj.getvalue(), mimetype='image/png')
 
-    @app.route('/')
+    # impact routes
+    @app.route("/")
     @auth.login_required
     def index():
+        return render_template("index.html", section = 'about')
+
+    @app.route("/about")
+    @auth.login_required
+    def about():
+        return render_template("index.html", section = 'about')
+    
+    @app.route("/visualiser")
+    @auth.login_required
+    def visualiser():
+        return render_template("index.html", section = 'visualiser')
+
+    @app.route("/parameters")
+    @auth.login_required
+    def parameters():
+        return render_template("index.html", section = 'parameters')
+
+    @app.route("/documentation")
+    @auth.login_required
+    def documentation():
+        return render_template("index.html", section = 'documentation')
+
+    @app.route('/api/v1/simulations/', methods=['GET','POST'])
+    def simulations():
+        return "Simulations"    
+
+    @app.route('/testing')
+    def testing():
         #TODO: Add real data from simulation and pass it to charts
         legend = 'Monthly Data'
         labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
         values = [10, 9, 8, 7, 6, 4, 7, 8]
-        return render_template("index.html", time=cases.sim_params_1['settings']['sim_time'], components=len(cases.sim_params_1['components']), workloads=len(cases.sim_params_1['workloads']),values=values, labels=labels, legend=legend)
-
-
-    @app.route('/api/v1/simulations/', methods=['GET','POST'])
-    def simulations():
-        return "Simulations"        
+        return render_template("testing.html", time=cases.sim_params_1['settings']['sim_time'], components=len(cases.sim_params_1['components']), workloads=len(cases.sim_params_1['workloads']),values=values, labels=labels, legend=legend)
+    
 
     return app
