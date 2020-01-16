@@ -6,7 +6,7 @@ from helpers import random_uniform
 class Job:
     def __init__(self, job_id, job_size):
         self.id = job_id
-        self.status = STATUS_NEW
+        self.status = 'NEW'
         self.size = job_size
         self.stats = {}
         self.action = 'AUTH'
