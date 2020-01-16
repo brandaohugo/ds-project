@@ -24,24 +24,28 @@
     <body>
       <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
-        <div class="bg-dark border-right" id="sidebar-wrapper">
+        <div class="bg-light border-right" id="sidebar-wrapper">
           <div class="sidebar-heading"><a class="navbar-brand" href="/">
             <img id="siteLogo" src="{{ url_for('static', filename='img/ing-logo.png') }}" alt="" width="180px">
           </a></div>
           <div class="list-group list-group-flush">
-            <a href="/about" class="list-group-item list-group-item-action bg-dark">About</a>
-            <a href="/visualiser" class="list-group-item list-group-item-action bg-dark">Visualiser</a>
-            <a href="/parameters" class="list-group-item list-group-item-action bg-dark">Parameters</a>
-            <a href="/documentation" class="list-group-item list-group-item-action bg-dark">Documentation</a>
-            <ul class="login-status-container list-group">
-              {% if g.user %}
-              <li>Username: <span>{{ g.user['username'] }}</span>
-              <li><a href="{{ url_for('auth.logout') }}">Log Out <i class="fas fa-sign-out-alt"></i></a>
-                {% else %}
-              <li><a href="{{ url_for('auth.register') }}">Register</a>
-              <li><a href="{{ url_for('auth.login') }}">Log In <i class="fas fa-sign-in-alt"></i></a>
-                {% endif %}
-            </ul>
+            <a href="/about" class="list-group-item list-group-item-action bg-light index-nav-item">About</a>
+            <a href="/visualiser" class="list-group-item list-group-item-action bg-light index-nav-item">Visualiser</a>
+            <a href="/parameters" class="list-group-item list-group-item-action bg-light index-nav-item">Parameters</a>
+            <a href="/documentation" class="list-group-item list-group-item-action bg-light index-nav-item">Documentation</a>
+            <div class="card login-card">
+              <div class="card-body">
+                <ul class="login-status-container list-group">
+                  {% if g.user %}
+                  <li>Username: <span style="color:black;">{{ g.user['username'] }}</span>
+                  <li><a href="{{ url_for('auth.logout') }}">Log Out <i class="fas fa-sign-out-alt"></i></a>
+                    {% else %}
+                  <li><a href="{{ url_for('auth.register') }}">Register</a>
+                  <li><a href="{{ url_for('auth.login') }}">Log In <i class="fas fa-sign-in-alt"></i></a>
+                    {% endif %}
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
         <!-- /#sidebar-wrapper -->
