@@ -18,6 +18,7 @@ def print_stats(resource,log_filename):
 def print_resource_info(resource):
     print(f'Count: {resource.count}, Capacity: {resource.capacity} ,Users: {len(resource.users)}, Queue: {len(resource.queue)}')
 
+# simple resource monitoring (outside class)
 def monitor_res(name, resource, data):
     item = (
         name,
@@ -27,7 +28,7 @@ def monitor_res(name, resource, data):
     )
     data.append(item)
 
-#TODO: implement resource monitoring in components.py
+# resource monitoring within class
 def patch_resource(resource, pre=None, post=None):
     def get_wrapper(func):
         # generate a wrapper for put/get/request/release
@@ -52,14 +53,14 @@ def patch_resource(resource, pre=None, post=None):
         if hasattr(resource, name):
             setattr(resource, name,  get_wrapper(getattr(resource, name)))
 
-# def monitor_res(data, resource):
-#     '''Monitoring callbacks'''
-#     item = (
-#         resource._env.now,
-#         resource.count,
-#         len(resource.queue),
-#     )
-#     data.append(item)
+def monitor_res2(data, resource):
+    '''Monitoring callbacks'''
+    item = (
+        resource._env.now,
+        resource.count,
+        len(resource.queue),
+    )
+    data.append(item)
 
 # event monitoring
 def trace_event(env, callback):
@@ -103,14 +104,27 @@ def log_res(components):
     df = pd.DataFrame()
     log_filename = 'res_' + datetime.now().strftime("%Y%m%d%H%M%S") + ".txt"
     # log components resources
-    for key, value in components.items():
-        data_res = value.data_res
-        df = df.append(data_res)
-    # format and save dataframe
-    df.columns = ['name', 'time', 'count', 'queue']
+    for key, server_object in components.items():
+        name = [f'{server_object.name}'] * len(server_object.data_res)
+        df_temp = pd.DataFrame(server_object.data_res)
+        df_temp['name'] = name
+        df = df.append(df_temp)
+        # format and save dataframe
+    df.columns = ['time', 'count', 'queue', 'name']
     df = df.sort_values('time', ascending=True)
     df.to_csv('log/' + log_filename, header=True)
     return df
+
+def combine_log(df1, df2):
+    # filename
+    time = datetime.now().strftime("%Y%m%d%H%M%S") + ".txt"
+    log_filename = 'log/' + time
+    # merge df
+    df = df1.merge(df2, on='time')
+    # save to log directory
+    df.to_csv(log_filename, header=True)
+    return df
+
 
 # Random number generators
 def random_uniform(wl_params):
