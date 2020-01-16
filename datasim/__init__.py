@@ -69,10 +69,15 @@ def create_app(test_config=None):
     @app.route("/visualiser")
     @auth.login_required
     def visualiser():
-        legend = 'Monthly Data'
-        labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
-        values = [10, 9, 8, 7, 6, 4, 7, 8]
-        return render_template("index.html", values=values, labels=labels, legend=legend, section='visualiser')
+        res_labels, res_values = processor.prepare_plot('datasim/log/res_20200115185434.txt', target1='time', target2='queue')
+
+        # log_filename = 'datasim/log/event_20200115185434.txt'
+        # event_data = processor.extract_events_count(pd.read_csv(log_filename))
+
+        res_legend = 'Resource Queue'
+        # labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
+        # values = [10, 9, 8, 7, 6, 4, 7, 8]
+        return render_template("index.html", res_values=res_values, res_labels=res_labels, res_legend=res_legend, section='visualiser')
 
     @app.route("/parameters")
     @auth.login_required
