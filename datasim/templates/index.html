@@ -1,85 +1,95 @@
-{% extends 'base.html' %}
-
-{% block header %}
-<h1>{% block title %}ING Discrete Event Simulation{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
-<div class="container">
-    <div class="row sim-vis-container">
-        <div class="col-md-4 sim-img">
-            <h4>Event Typology:</h4>
-            <img class="sim-vis-img" src="/eventcount.png" alt="event-count-plot">
-        </div>
-        <div class="col-md-4 sim-img">
-            <h4>Queue Length:</h4>
-            <img class="sim-vis-img" src="/eventcount.png" alt="resource-usage-plot">
-        </div>
-        <div class="col-md-4 sim-img">
-            <h4>Queue Length:</h4>
-            <img class="sim-vis-img" src="/eventcount.png" alt="resource-usage-plot">
-        </div>
-    </div>
-    <div class="row justify-content-center sim-params-container">
-        <div class="col-md-4">
-            <ul class="list-group">
-                <li class="list-group-item list-group-item-primary">General Settings:</li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Simulation Time:
-                    <span class="badge badge-primary badge-pill">{{ time }}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Number of components:
-                    <span class="badge badge-primary badge-pill">{{ components }}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Number of workloads:
-                    <span class="badge badge-primary badge-pill">{{ workloads }}</span>
-                </li>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>DataSim</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static',filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+      type="text/css">
+
+      <!-- Custom styles for this template -->
+      <link href="{{ url_for('static', filename='visualiser.css') }}", rel="stylesheet">
+      
+      <!-- Bootstrap Select CSS -->
+      <link href="{{ url_for('static', filename='bootstrap-select/bootstrap-select.min.css') }}", rel="stylesheet">
+      
+      <!-- Font awesome icons -->
+      <script src="https://kit.fontawesome.com/7393faf73f.js" crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+      <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-dark border-right" id="sidebar-wrapper">
+          <div class="sidebar-heading"><a class="navbar-brand" href="/">
+            <img id="siteLogo" src="{{ url_for('static', filename='img/ing-logo.png') }}" alt="" width="180px">
+          </a></div>
+          <div class="list-group list-group-flush">
+            <a href="/about" class="list-group-item list-group-item-action bg-dark">About</a>
+            <a href="/visualiser" class="list-group-item list-group-item-action bg-dark">Visualiser</a>
+            <a href="/parameters" class="list-group-item list-group-item-action bg-dark">Parameters</a>
+            <a href="/documentation" class="list-group-item list-group-item-action bg-dark">Documentation</a>
+            <ul class="login-status-container list-group">
+              {% if g.user %}
+              <li>Username: <span>{{ g.user['username'] }}</span>
+              <li><a href="{{ url_for('auth.logout') }}">Log Out <i class="fas fa-sign-out-alt"></i></a>
+                {% else %}
+              <li><a href="{{ url_for('auth.register') }}">Register</a>
+              <li><a href="{{ url_for('auth.login') }}">Log In <i class="fas fa-sign-in-alt"></i></a>
+                {% endif %}
             </ul>
+          </div>
         </div>
-        <div class="col-md-4">
-            <ul class="list-group">
-                <li class="list-group-item list-group-item-primary">Simulation Components:</li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Statistic 1:
-                    <span class="badge badge-primary badge-pill">0</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Statistic 2:
-                    <span class="badge badge-primary badge-pill">0</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Statistic 3:
-                    <span class="badge badge-primary badge-pill">0</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Statistic 4:
-                    <span class="badge badge-primary badge-pill">0</span>
-                </li>
-            </ul>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+          {% if section == 'about' %}
+          <div class="container about-content-container">
+            <div class="row-fluid">
+              <div class="col-md-12">
+                <img src="{{ url_for('static', filename='img/datasim-logo.png') }}" alt="image placeholder" class="img-fluid rounded">
+                <h4 class="text-center">About</h4>
+                <p>A highly configurable and extensible discrete event simulator for High Performance Computing clusters. DataSim runs on a Flask webserver and can be configured using your own JSON specifications file. As it is packaged using Docker it can be deployed on any computing infrastructure and allows the generation of high fidelity dataframes for use towards the integration of anomaly detection systems. Results may also be visualised using the DataSim Visualiser.</p>
+              </div>
+            </div>
+            <div class="row-fluid">
+              <div class="col-md-12">
+                <h5 class="text-center">Project Partners</h5>
+              </div>
+            </div>
+            <div class="row partner-images">
+              <div class="col-md-12">
+                <img src="{{ url_for('static', filename='img/partner-logo.png') }}" alt="" class="img-fluid">
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-4">
-            <ul class="list-group">
-                <li class="list-group-item list-group-item-primary">Simulation Workloads:</li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Statistic 1:
-                    <span class="badge badge-primary badge-pill">0</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Statistic 2:
-                    <span class="badge badge-primary badge-pill">0</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Statistic 3:
-                    <span class="badge badge-primary badge-pill">0</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Statistic 4:
-                    <span class="badge badge-primary badge-pill">0</span>
-                </li>
-            </ul>
+              {% elif section == 'visualiser' %}
+             <h1>Visualisation goes here</h1>
+
+             {% elif section == 'parameters' %}
+             <h1>Parameters go here.</h1>
+
+             {% elif section == 'documentation' %}
+             <h1>Docs go here.</h1>
+
+            {% endif %}
+            
+          </div>
+          <!-- /#page-content-wrapper -->
         </div>
-    </div>
-</div>
-{% endblock %}
+        <!-- /#wrapper -->
+        <!-- Bootstrap core JavaScript -->
+        <script src="{{ url_for('static', filename='jquery/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+                
+        <!-- Bootstrap select -->
+        <script type="text/javascript" src="{{ url_for('static', filename='bootstrap-select/bootstrap-select.min.js') }}"></script>
+        
+      </body>
+    {% endblock %}
