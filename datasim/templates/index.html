@@ -1,41 +1,48 @@
 {% block content %}
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>DataSim</title>
-    <!-- Bootstrap core CSS -->
-    <link href="{{ url_for('static',filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <!-- Custom fonts for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
-      type="text/css">
 
-      <!-- Custom styles for this template -->
-      <link href="{{ url_for('static', filename='visualiser.css') }}", rel="stylesheet">
-      
-      <!-- Bootstrap Select CSS -->
-      <link href="{{ url_for('static', filename='bootstrap-select/bootstrap-select.min.css') }}", rel="stylesheet">
-      
-      <!-- Font awesome icons -->
-      <script src="https://kit.fontawesome.com/7393faf73f.js" crossorigin="anonymous"></script>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>DataSim</title>
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static',filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!-- Custom fonts for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+    type="text/css">
 
-    </head>
-    <body>
-      <div class="d-flex" id="wrapper">
-        <!-- Sidebar -->
-        <div class="bg-dark border-right" id="sidebar-wrapper">
-          <div class="sidebar-heading"><a class="navbar-brand" href="/">
-            <img id="siteLogo" src="{{ url_for('static', filename='img/ing-logo.png') }}" alt="" width="180px">
-          </a></div>
-          <div class="list-group list-group-flush">
-            <a href="/about" class="list-group-item list-group-item-action bg-dark">About</a>
-            <a href="/visualiser" class="list-group-item list-group-item-action bg-dark">Visualiser</a>
-            <a href="/parameters" class="list-group-item list-group-item-action bg-dark">Parameters</a>
-            <a href="/documentation" class="list-group-item list-group-item-action bg-dark">Documentation</a>
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='visualiser.css') }}" , rel="stylesheet">
+
+  <!-- Bootstrap Select CSS -->
+  <link href="{{ url_for('static', filename='bootstrap-select/bootstrap-select.min.css') }}" , rel="stylesheet">
+
+  <!-- Font awesome icons -->
+  <script src="https://kit.fontawesome.com/7393faf73f.js" crossorigin="anonymous"></script>
+
+  <!-- Chart.js CDN -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js'></script>
+</head>
+
+<body>
+  <div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading"><a class="navbar-brand" href="/">
+          <img id="siteLogo" src="{{ url_for('static', filename='img/ing-logo.png') }}" alt="" width="180px">
+        </a></div>
+      <div class="list-group list-group-flush">
+        <a href="/about" class="list-group-item list-group-item-action bg-light index-nav-item">About</a>
+        <a href="/visualiser" class="list-group-item list-group-item-action bg-light index-nav-item">Visualiser</a>
+        <a href="/parameters" class="list-group-item list-group-item-action bg-light index-nav-item">Parameters</a>
+        <a href="/documentation"
+          class="list-group-item list-group-item-action bg-light index-nav-item">Documentation</a>
+        <div class="card login-card">
+          <div class="card-body">
             <ul class="login-status-container list-group">
               {% if g.user %}
-              <li>Username: <span>{{ g.user['username'] }}</span>
+              <li>Username: <span style="color:black;">{{ g.user['username'] }}</span>
               <li><a href="{{ url_for('auth.logout') }}">Log Out <i class="fas fa-sign-out-alt"></i></a>
                 {% else %}
               <li><a href="{{ url_for('auth.register') }}">Register</a>
@@ -44,52 +51,152 @@
             </ul>
           </div>
         </div>
-        <!-- /#sidebar-wrapper -->
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
 
-          {% if section == 'about' %}
-          <div class="container about-content-container">
-            <div class="row-fluid">
-              <div class="col-md-12">
-                <img src="{{ url_for('static', filename='img/datasim-logo.png') }}" alt="image placeholder" class="img-fluid rounded">
-                <h4 class="text-center">About</h4>
-                <p>A highly configurable and extensible discrete event simulator for High Performance Computing clusters. DataSim runs on a Flask webserver and can be configured using your own JSON specifications file. As it is packaged using Docker it can be deployed on any computing infrastructure and allows the generation of high fidelity dataframes for use towards the integration of anomaly detection systems. Results may also be visualised using the DataSim Visualiser.</p>
-              </div>
-            </div>
-            <div class="row-fluid">
-              <div class="col-md-12">
-                <h5 class="text-center">Project Partners</h5>
-              </div>
-            </div>
-            <div class="row partner-images">
-              <div class="col-md-12">
-                <img src="{{ url_for('static', filename='img/partner-logo.png') }}" alt="" class="img-fluid">
-              </div>
-            </div>
+      {% if section == 'about' %}
+      <div class="container about-content-container">
+        <div class="row-fluid">
+          <div class="col-md-12">
+            <img src="{{ url_for('static', filename='img/datasim-logo.png') }}" alt="image placeholder"
+              class="img-fluid rounded">
+            <h4 class="text-center">About</h4>
+            <p>A highly configurable and extensible discrete event simulator for High Performance Computing clusters.
+              DataSim runs on a Flask webserver and can be configured using your own JSON specifications file. As it is
+              packaged using Docker it can be deployed on any computing infrastructure and allows the generation of high
+              fidelity dataframes for use towards the integration of anomaly detection systems. Results may also be
+              visualised using the DataSim Visualiser.</p>
           </div>
         </div>
-              {% elif section == 'visualiser' %}
-             <h1>Visualisation goes here</h1>
-
-             {% elif section == 'parameters' %}
-             <h1>Parameters go here.</h1>
-
-             {% elif section == 'documentation' %}
-             <h1>Docs go here.</h1>
-
-            {% endif %}
-            
+        <div class="row-fluid">
+          <div class="col-md-12">
+            <h5 class="text-center">Project Partners</h5>
           </div>
-          <!-- /#page-content-wrapper -->
         </div>
-        <!-- /#wrapper -->
-        <!-- Bootstrap core JavaScript -->
-        <script src="{{ url_for('static', filename='jquery/jquery.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-                
-        <!-- Bootstrap select -->
-        <script type="text/javascript" src="{{ url_for('static', filename='bootstrap-select/bootstrap-select.min.js') }}"></script>
-        
-      </body>
-    {% endblock %}
+        <div class="row partner-images">
+          <div class="col-md-12">
+            <img src="{{ url_for('static', filename='img/partner-logo.png') }}" alt="" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+    {% elif section == 'visualiser' %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <canvas id="chart1" width="600" height="400"></canvas>
+        </div>
+        <div class="col-md-6">
+          <canvas id="chart2" width="600" height="400"></canvas>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <canvas id="chart3" width="600" height="400"></canvas>
+        </div>
+        <div class="col-md-6">
+          <canvas id="chart4" width="600" height="400"></canvas>
+        </div>
+      </div>
+    </div>
+
+
+    {% elif section == 'parameters' %}
+    <h1>Parameters go here.</h1>
+
+    {% elif section == 'documentation' %}
+    <h1>Docs go here.</h1>
+
+    {% endif %}
+
+  </div>
+  <!-- /#page-content-wrapper -->
+  </div>
+  <!-- /#wrapper -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="{{ url_for('static', filename='jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <!-- Bootstrap select -->
+  <script type="text/javascript" src="{{ url_for('static', filename='bootstrap-select/bootstrap-select.min.js') }}">
+  </script>
+
+  <!-- Script for interactive charts -->
+  <script>
+    // Global parameters:
+// do not resize the chart canvas when its container does (keep at 600x400px)
+Chart.defaults.global.responsive = false;
+ 
+ // define the chart data
+ var chartData = {
+   labels : [{% for item in labels %}
+              "{{item}}",
+             {% endfor %}],
+   datasets : [{
+       label: '{{ legend }}',
+       fill: true,
+       lineTension: 0.1,
+       backgroundColor: "rgba(75,192,192,0.4)",
+       borderColor: "rgba(75,192,192,1)",
+       borderCapStyle: 'butt',
+       borderDash: [],
+       borderDashOffset: 0.0,
+       borderJoinStyle: 'miter',
+       pointBorderColor: "rgba(75,192,192,1)",
+       pointBackgroundColor: "#fff",
+       pointBorderWidth: 1,
+       pointHoverRadius: 5,
+       pointHoverBackgroundColor: "rgba(75,192,192,1)",
+       pointHoverBorderColor: "rgba(220,220,220,1)",
+       pointHoverBorderWidth: 2,
+       pointRadius: 1,
+       pointHitRadius: 10,
+       data : [{% for item in values %}
+                 {{item}},
+               {% endfor %}],
+       spanGaps: false
+   }]
+ }
+  
+ // get chart canvas (CHART 1)
+ var ctx1 = document.getElementById("chart1").getContext("2d");
+  
+ // create the chart using the chart canvas
+ var myChart = new Chart(ctx1, {
+   type: 'line',
+   data: chartData,
+ });
+
+ // get chart canvas (CHART 2)
+ var ctx2 = document.getElementById("chart2").getContext("2d");
+  
+ // create the chart using the chart canvas
+ var myChart = new Chart(ctx2, {
+   type: 'bar',
+   data: chartData,
+ });
+
+ // get chart canvas (CHART 3)
+ var ctx3 = document.getElementById("chart3").getContext("2d");
+  
+ // create the chart using the chart canvas
+ var myChart = new Chart(ctx3, {
+   type: 'line',
+   data: chartData,
+ });
+
+ // get chart canvas (CHART 4)
+ var ctx4 = document.getElementById("chart4").getContext("2d");
+  
+ // create the chart using the chart canvas
+ var myChart = new Chart(ctx4, {
+   type: 'bar',
+   data: chartData,
+ });
+</script>
+
+</body>
+{% endblock %}

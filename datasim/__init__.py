@@ -7,7 +7,6 @@ from flask import Response
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 import pandas as pd
 
-
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
@@ -50,6 +49,8 @@ def create_app(test_config=None):
         #TODO: enable user to select different sim runs for plotting
         log_filename = 'datasim/log/event_20200115185434.txt'
         event_data = processor.extract_events_count(pd.read_csv(log_filename))
+        event_count = event_data['count']
+        
         bytes_obj = processor.create_event_count_figure(event_data)
         print(event_data)
         return Response(bytes_obj.getvalue(), mimetype='image/png')
@@ -68,16 +69,10 @@ def create_app(test_config=None):
     @app.route("/visualiser")
     @auth.login_required
     def visualiser():
-
-        res_labels, res_values = processor.prepare_plot('log/res_20200115185434.txt', target1='time', target2='queue')
-
-        # log_filename = 'datasim/log/event_20200115185434.txt'
-        # event_data = processor.extract_events_count(pd.read_csv(log_filename))
-
-        res_legend = 'Resource Queue'
-        # labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
-        # values = [10, 9, 8, 7, 6, 4, 7, 8]
-        return render_template("testing.html", res_values=res_values, res_labels=res_labels, res_legend=res_legend)
+        legend = 'Monthly Data'
+        labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
+        values = [10, 9, 8, 7, 6, 4, 7, 8]
+        return render_template("index.html", values=values, labels=labels, legend=legend, section='visualiser')
 
     @app.route("/parameters")
     @auth.login_required
@@ -91,7 +86,7 @@ def create_app(test_config=None):
 
     @app.route('/api/v1/simulations/', methods=['GET','POST'])
     def simulations():
-        return "Simulations"
+        return "Simulations"    
 
     @app.route('/testing')
     def testing():

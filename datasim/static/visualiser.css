@@ -110,5 +110,17 @@ div.row:nth-child(4) {
 
 .login-status-container {
   list-style-type: none;
-  
+  color: #007bff;
+}
+
+.login-card {
+  margin: 0.5em;
+  background-color: #eee;
+  bottom: 0;
+  position: absolute;
+  width: 14em;
+}
+
+.index-nav-item:hover {
+  color: #007bff;
 }
