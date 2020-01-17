@@ -1,8 +1,10 @@
+
 from simpy import Resource, Process, FilterStore, Store
-from utils import print_resource_info, print_stats
-import pdb
+from utils import print_resource_info, print_stats, monitor_res, monitor_res2, patch_resource
 from workloads import Job
 from math import ceil
+from functools import partial
+
 
 class Component:
     def __init__(self, env, cp_params):
@@ -110,6 +112,7 @@ class DB_Server(Component):
         yield self.env.process(job.respond_method(job))
         self.used_cores -= 1
         self.jobs_completed += 1
+
 
 
 def get_component(env, params):

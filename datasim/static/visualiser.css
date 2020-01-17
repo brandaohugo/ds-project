@@ -1,0 +1,133 @@
+/* SIDEBAR STYLE */
+
+body {
+  overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+  position: fixed;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+  margin: auto;
+  width:50%;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+#map {
+  height: calc(100vh - 55px);
+  width: 100vw;
+}
+
+.nav-link {
+  margin-right: 1em;
+}
+
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
+/* Start index css here */
+
+.sim-vis-container {
+  margin-top: 2em;
+}
+
+.sim-params-container {
+  margin-top: 2em;
+}
+
+.sim-vis-img {
+  height: 300px;
+}
+
+.impact-header {
+  margin-top: 2em;
+}
+
+.impact-intro-badge {
+  margin: 5px; 
+  padding: 5px;
+}
+
+.impact-intro-card {
+  margin-top: 2em;
+  box-shadow: 4px 4px 20px #DADADA;
+  padding: 1em;
+}
+
+.impact-intro-dd-header {
+  margin-top: 1em;
+}
+
+div.row:nth-child(6), div.row:nth-child(4) {
+  padding-bottom: 1em;
+}
+
+div.row:nth-child(4) {
+  margin-top: 5px;
+}
+
+.impact-intro-wrapper {
+  padding: 1em;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.about-content-container {
+    padding-right: 5em;
+    padding-top: 5em !important;
+}
+
+.about-content-container > div > div {
+  padding-top: 2em !important;
+}
+
+.login-status-container {
+  list-style-type: none;
+  color: #007bff;
+}
+
+.login-card {
+  margin: 0.5em;
+  background-color: #eee;
+  bottom: 0;
+  position: absolute;
+  width: 14em;
+}
+
+.index-nav-item:hover {
+  color: #007bff;
+}
