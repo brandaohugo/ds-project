@@ -162,12 +162,12 @@ df_names = {
 # SIM_TIME = settings['sim_time']
 
 # Define Simulation Parameters
-print(f'This run is initialized with hard coded params. Can be changed to stochastic in helpers.py.\n')
-IDLE_TIME = 5
-SERVER_NUM = 5
-PROCESSING_TIME = 10
-PROCESSING_CAPACITY = 4
-SIM_TIME =  40
+# print(f'This run is initialized with hard coded params. Can be changed to stochastic in helpers.py.\n')
+# IDLE_TIME = 5
+# SERVER_NUM = 5
+# PROCESSING_TIME = 10
+# PROCESSING_CAPACITY = 4
+# SIM_TIME =  40
 
-print(f'IDLE TIME: {IDLE_TIME}')
-print(f'PROCESSING_CAPACITY: {PROCESSING_CAPACITY}')
+# print(f'IDLE TIME: {IDLE_TIME}')
+# print(f'PROCESSING_CAPACITY: {PROCESSING_CAPACITY}')
