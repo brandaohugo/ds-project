@@ -7,9 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import io
 import os
-# Events data preparation & visualisation
 import random
-
 
 def extract_events_count(events_df):
         re_1 = "(^<[a-z]* \'[a-z]*\.[a-z]*\.)"
@@ -22,55 +20,10 @@ def extract_events_count(events_df):
         event_count['type'] = event_count.index
         return event_count
 
-def create_event_count_figure(data):
-        sns.set(style="whitegrid")
-        ax = sns.barplot(x="type", y="count", data=data)
-        bytes_image = io.BytesIO()
-        plt.savefig(bytes_image, format='png')
-        bytes_image.seek(0)
-        return bytes_image
-
 def prepare_plot(filename, target1, target2):
         df = pd.read_csv(filename)
         obj_type = random.choice(df['name'].unique())
-
         df_obj_type = df.loc[df['name'] == obj_type]
         list1 = df_obj_type[target1].to_list()
         list2 = df_obj_type[target2].to_list()
-
         return list1, list2
-
-
-'''TODO: visualise resource usage (queues)
-sim_time = pd.DataFrame(np.arange(sim_params['settings']['sim_time'])).rename(columns={0:'timestep'}) # change this time to simulation time
-
-sim_merge = sim_time.merge(sim_data, how='left', left_on='timestep', right_on='time').fillna(0)
-
-# make event counts dataframe
-
-event_counts.index.name = 'timestep'
-
-event_counts.reset_index(inplace=True)
-
-# make queue dataframe
-
-event_queue = sim_merge[['timestep','queue']]
-
-def create_queue_figure():
-        fig = Figure()
-        axis = fig.add_subplot(1, 1, 1) 
-        xs = event_queue['timestep']
-        ys = event_queue['queue']
-        axis.plot(xs, ys)
-        return fig
-
-# make figure
-
-def create_event_figure():
-        fig = Figure()
-        axis = fig.add_subplot(1, 1, 1) 
-        xs = event_counts['timestep']
-        ys = event_counts['count']
-        axis.plot(xs, ys)
-        return fig
-'''
