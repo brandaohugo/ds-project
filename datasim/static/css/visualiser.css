@@ -53,6 +53,8 @@ body {
     width: 100%;
   }
 
+  
+
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }
@@ -140,4 +142,10 @@ canvas {
 
 .container {
   max-width: calc(1600px - 241px);
+}
+
+h1, h2, h3, h4, h5, h5 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    color: black;
 }

@@ -1,0 +1,127 @@
+/* Variables */
+:root {
+    --metadata-container-color: hsl(240, 2%, 90%);
+    --global-border-radius: 4px;
+    --ing-blue: #000066;
+    --ing-orange: #FF6200;
+}
+
+
+.title {
+    color: black
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+}
+
+/* resizing select box responsive*/
+@media screen and (max-width: 1132px) {
+    .box {
+        left: 78vw;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .box {
+        left: 75vw;
+    }
+}
+
+@media screen and (max-width: 888px) {
+    .box {
+        left: 70vw;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .box {
+        left: 60vw;
+    }
+}
+
+.container-group h1 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+    text-emphasis: bold;
+    text-align: center;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+#params-container {
+    border: solid whitesmoke 1em;
+    border-radius: var(--global-border-radius);
+    color: black;
+    margin: 3em;
+    background-color: whitesmoke;
+}
+
+.renderjson {
+    margin: 0 auto;
+    background-color: var(--metadata-container-color);
+    padding: 0.5em 1em 1em 1em;
+    border-radius: 4px;
+}
+
+.renderjson a {
+    text-decoration: none;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+    color: black;
+}
+
+.renderjson .key {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    color: var(--ing-orange);
+    padding: 0.1em;
+}
+
+.renderjson .string {
+    color: var(--ing-blue);
+    font-family: 'IBM Plex Mono', monospace;
+    white-space: normal;
+}
+
+.renderjson .boolean {
+    color: var(--ing-blue);
+    font-weight: 700;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+/* hide keywords and objects*/
+
+.renderjson .keyword {
+    color: var(--metadata-container-color);
+}
+
+.renderjson .object.syntax {
+    color: var(--metadata-container-color);
+}
+
+.renderjson .syntax {
+    color: var(--metadata-container-color);
+}
+
+.renderjson .disclosure {
+    color: var(--ing-blue);
+    font-size: 150%;
+}
+
+.renderjson .number {
+    color: --var(--ing-blue);
+}
+
+.renderjson .array.syntax {
+    color: --var(--ing-blue);
+}
+
+/* .disclosure    ("⊕", "⊖")
+.syntax        (",", ":", "{", "}", "[", "]")
+.string        (includes quotes)
+.number
+.boolean
+.key           (object key)
+.keyword       ("null", "undefined")
+.object.syntax ("{", "}")
+.array.syntax  ("[", "]")
+*/
