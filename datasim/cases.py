@@ -1,12 +1,26 @@
 sim_params_1 = {
     'settings': {
-            'sim_time' : 10,
+            'sim_time' : 40,
     },
     'components' : [
         {
+            'type': 'load_balancer',
+            'name': 'auth_load_balancer',
+            'servers': ['auth_server_01','auth_server_02'],
+            'num_cores': 4,
+            'core_speed': 1
+        },
+        {
             'type': 'auth_server',
             'db_server_name': 'auth_db_server',
-            'name' : 'auth_server',
+            'name' : 'auth_server_01',
+            'num_cores': 4,
+            'core_speed': 1
+        },
+         {
+            'type': 'auth_server',
+            'db_server_name': 'auth_db_server',
+            'name' : 'auth_server_02',
             'num_cores': 4,
             'core_speed': 1
         },
@@ -25,7 +39,7 @@ sim_params_1 = {
             'name': 'user_authentication',
             'request_size': 1,
             'target': {
-                'name': 'auth_server',
+                'name': 'auth_load_balancer',
             },
             'job_size' : {
                 'distribution': 'uniform',
