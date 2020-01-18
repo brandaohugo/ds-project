@@ -68,6 +68,7 @@ def create_app(test_config=None):
         s=str(bytes_data,'utf-8')
         data = StringIO(s) 
         df=pd.read_csv(data)
+        return df
         
     # web application routes
     @app.route("/")
