@@ -42,7 +42,7 @@ class Workload(Process):
 
                     # send job to target component
                     target = self.components[self.target_name]
-                    self.env.process(target.authenticate_user(job))
+                    self.env.process(target.receive_request(job))
                     self.last_job_id = last_job_id
                     print(f'[workload] Job {job.id} sent to {target.name} at {self.env.now}')
                 except Exception as e:
