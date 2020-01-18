@@ -31,9 +31,11 @@ print(components)
 workload = Workload(env, components, sim_params['workloads'][0])
 
 # run simulation
+print(sim_params['settings']['sim_time'])
 env.run(until=sim_params['settings']['sim_time'])
 
 # store results
+<<<<<<< HEAD
 # df_event = log_event(data_event)
 # df_res = log_res(components)
 # df = combine_log(df_event, df_res)
@@ -43,3 +45,9 @@ auth_server = components['auth_server']
 print(auth_server.data_res)
 
 print('Debugger stop')
+=======
+df_event = log_event(data_event)
+# print(df_event['type'].values[0])
+# df_res = log_res(components)
+# df = combine_log(df_event, df_res)
+>>>>>>> 40c495254905e542e0aabc5dcc2dcaf0b8ec06d5
