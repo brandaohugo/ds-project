@@ -9,7 +9,7 @@ from functools import partial
 class Component:
     def __init__(self, env, cp_params):
         self.env = env
-        self.in_pipe = Store(self.env) # TODO: define capacity in cp_params
+        self.in_pipe = Store(self.env, capacity=100) # TODO: define capacity in cp_params
         self.pending_jobs = {}
         self.queue_lengths = []
         self.response_times = []
@@ -17,21 +17,41 @@ class Component:
         self.num_cores = cp_params['num_cores']
         self.used_cores = 0
         self.core_speed = cp_params['core_speed']
-        self.cores = Resource(self.num_cores)
+        self.cores = Resource(self.env, capacity=self.num_cores)
         self.name = cp_params['name']
         self.jobs_completed = 0
         self.sim_components = None
+
+        # monitor resources
+        self.data_res = []
+        self.monitor_res2 = partial(monitor_res2, self.data_res)
+        patch_resource(self.cores, post=self.monitor_res2)
+
+        # # monitor stores
+        # self.data_store = []
+        # self.monitor_store = partial(monitor_res2, self.data_store)
+        # patch_resource(self.in_pipe, post=self.monitor_store)
     
     def run(self):
-        while True:
+        # while True:
+        #     # print(f'[{self.name}] Cores allocated : {self.used_cores} of {self.num_cores} at {self.env.now}')
+        #     # print(f'[{self.name}] Queue size : {len(self.in_pipe.items)} at {self.env.now}')
+        #     if len(self.in_pipe.items) < 1 or self.used_cores >= self.num_cores:
+        #         yield self.env.timeout(1)
+        #         continue
+        #     self.used_cores += 1
+        #     job = yield self.in_pipe.get()
+        #     self.env.process(self.process_job(job))
+
+        with self.cores.request() as req:
             # print(f'[{self.name}] Cores allocated : {self.used_cores} of {self.num_cores} at {self.env.now}')
             # print(f'[{self.name}] Queue size : {len(self.in_pipe.items)} at {self.env.now}')
             if len(self.in_pipe.items) < 1 or self.used_cores >= self.num_cores:
+                yield req
                 yield self.env.timeout(1)
-                continue
-            self.used_cores += 1
-            job = yield self.in_pipe.get()
-            self.env.process(self.process_job(job))
+                self.used_cores += 1
+                job = yield self.in_pipe.get()
+                self.env.process(self.process_job(job))
 
     def receive_request(self, job):
         yield self.env.process(self.enqueue_job(job))
