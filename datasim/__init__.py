@@ -1,11 +1,13 @@
 import os
-from flask import ( Flask, render_template )
+from flask import ( Flask, render_template, request, Response, redirect, url_for, flash )
 from . import db, auth, processor, cases
 import io
 import random
-from flask import Response
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 import pandas as pd
+from werkzeug.utils import secure_filename
+from io import StringIO
+
+ALLOWED_EXTENSIONS = {'txt', 'csv'}
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -55,7 +57,19 @@ def create_app(test_config=None):
         print(event_data)
         return Response(bytes_obj.getvalue(), mimetype='image/png')
 
-    # impact routes
+    def allowed_file(filename):
+        if '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS:
+            return True
+        else:
+            return False
+
+    def bytes_todf(file):
+        bytes_data = file.read()
+        s=str(bytes_data,'utf-8')
+        data = StringIO(s) 
+        df=pd.read_csv(data)
+        
+    # web application routes
     @app.route("/")
     @auth.login_required
     def index():
@@ -66,18 +80,34 @@ def create_app(test_config=None):
     def about():
         return render_template("index.html", section = 'about')
     
-    @app.route("/visualiser")
+    @app.route("/visualiser", methods=['POST','GET'])
     @auth.login_required
     def visualiser():
-        res_labels, res_values = processor.prepare_plot('datasim/log/res_20200115185434.txt', target1='time', target2='queue')
+        if request.method == 'POST':
+            
+            if 'file' not in request.files:
+                flash('No file part')
+                return redirect(request.url)
+            file = request.files['file']
+            
+            if file.filename == '':
+                flash('No selected file')
+                return redirect(request.url)
+            
+            if file and allowed_file(file.filename):
+                # Process upload 
+                df = bytes_todf(file)
+                event_data = processor.extract_events_count(df)
+                res_legend = 'Resource Queue'
+                res_values = event_data['count']
+                res_labels = event_data['type']
+                return render_template("index.html", section='visualiser', res_values=res_values, res_labels=res_labels)
 
-        # log_filename = 'datasim/log/event_20200115185434.txt'
-        # event_data = processor.extract_events_count(pd.read_csv(log_filename))
-
-        res_legend = 'Resource Queue'
-        # labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
-        # values = [10, 9, 8, 7, 6, 4, 7, 8]
-        return render_template("index.html", res_values=res_values, res_labels=res_labels, res_legend=res_legend, section='visualiser')
+            # other functions used previously to parse data:    
+            # res_labels, res_values = processor.prepare_plot('datasim/log/res_20200115185434.
+            # event_data = processor.extract_events_count(pd.read_csv(log_filename))
+            
+        return render_template("index.html", section='visualiser')
 
     @app.route("/parameters")
     @auth.login_required

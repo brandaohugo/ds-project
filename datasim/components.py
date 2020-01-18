@@ -23,7 +23,6 @@ class Component:
         self.name = cp_params['name']
         self.jobs_completed = 0
         self.sim_components = None
-<<<<<<< HEAD
 
         # monitor resources
         self.data_res = []
@@ -55,28 +54,6 @@ class Component:
                 self.used_cores += 1
                 job = yield self.in_pipe.get()
                 self.env.process(self.process_job(job))
-=======
-        self.data_res = []
-
-        # monitor resources
-        self.monitor_res2 = partial(monitor_res2, self.data_res)
-        patch_resource(self.cores, post=self.monitor_res2)
-
-    def __str__(self):
-        return f'[{self.name}]'
-
-    def logger(self, message, job_id):
-        print(f'{self} {message} {job_id} time_{self.env.now}')
-
-    def run(self):
-        while True:
-            if len(self.in_pipe.items) < 1 or self.used_cores >= self.num_cores:
-                yield self.env.timeout(1, "No jobs in the queue")
-                continue
-            self.used_cores += 1
-            job = yield self.in_pipe.get()
-            self.env.process(self.process_job(job))
->>>>>>> 40c495254905e542e0aabc5dcc2dcaf0b8ec06d5
 
     def get_stats(self):
         stats = dict(
