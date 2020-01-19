@@ -60,6 +60,8 @@ class Component:
             idle_time = self.idle_time,
             used_cores = self.used_cores,
             jobs_completed = self.jobs_completed,
+            name = self.name,
+            sim_time = self.env.now
         )
         
         return stats
