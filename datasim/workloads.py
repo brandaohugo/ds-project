@@ -4,12 +4,12 @@ from simpy import Process
 from helpers import random_uniform
 
 class Job:
-    def __init__(self, job_id, job_size):
+    def __init__(self, job_id, job_size,job_action):
         self.id = job_id
-        self.status = 'NEW'
+        self.status = 'new'
         self.size = job_size
         self.stats = {}
-        self.action = 'AUTH'
+        self.action = job_action
         self.respond_method = None
 
 class Workload(Process):
@@ -18,6 +18,7 @@ class Workload(Process):
         self.components = components
         self.wl_params = wl_params
         self.jobs = []
+        self.job_action = wl_params['job_action']
         self.last_job_id = None
         self.name = self.wl_params['name']
         self.start_time = self.wl_params['start_time']
@@ -27,6 +28,7 @@ class Workload(Process):
         self.ia_params = wl_params['interarrival']
         self.vl_params = wl_params['volume']
         Process(self.env,self.generate())
+
     def generate(self):
         while self.env.now >= self.start_time and self.env.now <= self.end_time:    
             # interarrival time
@@ -38,8 +40,8 @@ class Workload(Process):
                     last_job_id = self.last_job_id + 1 if self.last_job_id is not None else 0
                     job_name = self.name + "_" + str(last_job_id)
                     job_size = int(random_uniform(self.js_params))
-                    job = Job(job_name,job_size)
-
+                    job_action = self.job_action
+                    job = Job(job_name,job_size,job_action)
                     # send job to target component
                     target = self.components[self.target_name]
                     self.env.process(target.receive_request(job))

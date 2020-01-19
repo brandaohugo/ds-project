@@ -149,8 +149,18 @@ def random_poisson(wl_params):
         if number > 0:
             return number
 
+
+def monitor_simulation_components(env, components):
+    # df = pd.DataFrame
+    while True:
+        for name in components.keys():
+            cp_stats = components[name].get_stats()
+            print(f'[monitor] {env.now} {name} {cp_stats}' )
+        yield env.timeout(1)
+        
 # generate updated distributions object
 
 def random_number(wl_params):
     distributions = dict(uniform=random_uniform, normal=random_normal, logistic=random_logistic, poisson=random_poisson)
     return abs(int(distributions[wl_params['distribution']](wl_params)) + 1)
+
