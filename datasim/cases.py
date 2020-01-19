@@ -13,6 +13,7 @@ sim_params_1 = {
         {
             'type': 'auth_server',
             'db_server_name': 'auth_db_server',
+            'load_balancer': 'auth_load_balancer',
             'name' : 'auth_server_01',
             'num_cores': 4,
             'core_speed': 1
@@ -20,6 +21,7 @@ sim_params_1 = {
          {
             'type': 'auth_server',
             'db_server_name': 'auth_db_server',
+            'load_balancer': 'auth_load_balancer',
             'name' : 'auth_server_02',
             'num_cores': 4,
             'core_speed': 1
@@ -38,6 +40,7 @@ sim_params_1 = {
             'type': 'db_request',
             'name': 'user_authentication',
             'request_size': 1,
+            'job_action': 'auth',
             'target': {
                 'name': 'auth_load_balancer',
             },
