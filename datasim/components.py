@@ -13,8 +13,8 @@ class Component:
         self.env = env
         self.in_pipe = Store(self.env) # TODO: define capacity in cp_params
         self.pending_jobs = {}
-        self.queue_lengths = []
         self.response_times = []
+        self.interarrivals = []
         self.waiting_times = []
         self.num_cores = cp_params['num_cores']
         self.used_cores = 0
@@ -24,6 +24,7 @@ class Component:
         self.jobs_completed = 0
         self.sim_components = None
         self.data_res = []
+        self.idle_time = 0
 
         # monitor resources
         self.monitor_res2 = partial(monitor_res2, self.data_res)
@@ -38,7 +39,8 @@ class Component:
     def run(self):
         while True:
             if len(self.in_pipe.items) < 1 or self.used_cores >= self.num_cores:
-                yield self.env.timeout(1, "No jobs in the queue")
+                yield self.env.timeout(1)
+                self.idle_time += 1
                 continue
             self.used_cores += 1
             job = yield self.in_pipe.get()
@@ -47,7 +49,9 @@ class Component:
     def get_stats(self):
         stats = dict(
             avg_response_time= 9999 if len(self.response_times) == 0 else mean(self.response_times),
-            queue_size=len(self.in_pipe.items)
+            queue_size=len(self.in_pipe.items),
+            idle_time = self.idle_time,
+            used_cores = self.used_cores,
         )
         
         return stats
@@ -99,6 +103,7 @@ class AuthServer(Component):
     def __init__(self, env, cp_params):
         Component.__init__(self, env, cp_params)
         self.db_server_name = cp_params['db_server_name']
+        self.load_balancer_name = cp_params['load_balancer']
 
     def receive_request(self, job):
         if job.action == 'auth':
@@ -109,7 +114,7 @@ class AuthServer(Component):
             self.logger("not_an_auth_job", job.id)
         self.logger("received", job.id)
 
-    def process_job(self,job):       
+    def process_job(self,job):    
         if job.action == 'request_data':
             self.logger("resqueting_data_for", job.id)
             yield self.env.timeout(1) #request delay
@@ -127,7 +132,7 @@ class AuthServer(Component):
             self.complete_job(job)
             self.logger('finished_authenticating', job.id)
             job.action='auth_response'
-            self.env.process(self.sim_components['auth_load_balancer'].receive_response(job,type_of_response='auth_response'))
+            self.env.process(self.sim_components[self.load_balancer_name].receive_response(job,type_of_response='auth_response'))
             self.logger("replied_auth_reponse_for", job.id)
             
         self.used_cores -= 1
