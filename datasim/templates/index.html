@@ -13,7 +13,7 @@
     type="text/css">
 
   <!-- Custom styles for this template -->
-  <link href="{{ url_for('static', filename='visualiser.css') }}" , rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/visualiser.css') }}" , rel="stylesheet">
 
   <!-- Bootstrap Select CSS -->
   <link href="{{ url_for('static', filename='bootstrap-select/bootstrap-select.min.css') }}" , rel="stylesheet">
@@ -23,6 +23,12 @@
 
   <!-- Chart.js CDN -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js'></script>
+
+  <!-- Parameter Viewer -->
+  <link href="{{ url_for('static', filename='css/params-viewer.css') }}" , rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,500,600,700|IBM+Plex+Sans:100,500,700" rel="stylesheet">
+  <script src="https://cdn.rawgit.com/caldwell/renderjson/master/renderjson.js"></script>
+  
 </head>
 
 <body>
@@ -53,12 +59,10 @@
         </div>
       </div>
     </div>
-    <!-- /#sidebar-wrapper -->
-    <!-- Page Content -->
     
 
       {% if section == 'about' %}
-      <div id="page-content-wrapper">
+      <div id="page-content-wrapper" style="width:50%;">
       <div class="container about-content-container">
         <div class="row-fluid">
           <div class="col-md-12">
@@ -91,22 +95,47 @@
     {% elif section == 'visualiser' %}
     <div id="page-content-wrapper">
     <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <canvas id="chart1" width="600" height="400"></canvas>
-        </div>
-        <div class="col-md-6">
-          <canvas id="chart2" width="600" height="400"></canvas>
+      <div class="row" style="padding-top: 2em; padding-bottom: 2em;">
+        <div class="col-md-12">
+          <h1>Visualisation Dashboard</h1>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
-          <canvas id="chart3" width="600" height="400"></canvas>
+        <div class="col-md-3">
+          <div class="card">
+            <h5 class="card-header">Visualiser</h5>
+            <div class="card-body">
+              <h5 class="card-title">Import data</h5>
+              <form method=POST enctype=multipart/form-data>
+                <div class="form-group">
+                  <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                  <p class="card-text">Only use simulation outputs generated with DataSim.</p>
+                  <input class="btn btn-primary" type=submit value=Upload>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-        <div class="col-md-6">
-          <canvas id="chart4" width="600" height="400"></canvas>
+        <div class="col-md-9">
+          <div class="row">
+            <div class="col-md-6">
+              <canvas id="chart1" width="600" height="400"></canvas>
+            </div>
+            <div class="col-md-6">
+              <canvas id="chart2" width="600" height="400"></canvas>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <canvas id="chart3" width="600" height="400"></canvas>
+            </div>
+            <div class="col-md-6">
+              <canvas id="chart4" width="600" height="400"></canvas>
+            </div>
+          </div>
         </div>
       </div>
+      
     </div>
   </div>
 
@@ -114,20 +143,29 @@
     {% elif section == 'parameters' %}
     <div id="page-content-wrapper">
       <div class="container">
-        <div class="row">
+        <div class="row" style="padding-top: 2em; padding-bottom: 2em;">
           <div class="col-md-12">
-            <h1>Parameters go here.</h1>
+            <h1>Simulation Configuration Examples</h1>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="container-group">
+              <div id="params-container">
+                <h1>MMC Configuration</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
       </div>
-  </div>
 
     {% elif section == 'documentation' %}
     <div id="page-content-wrapper">
       <div class="container">
-        <div class="row">
+        <div class="row" style="padding-top: 2em; padding-bottom: 2em;">
           <div class="col-md-12">
-            <h1>Docs go here.</h1>
+            <h1>Documentation</h1>
           </div>
         </div>
       </div>
@@ -145,6 +183,16 @@
 
   <!-- Bootstrap select -->
   <script type="text/javascript" src="{{ url_for('static', filename='bootstrap-select/bootstrap-select.min.js') }}">
+  </script>
+
+  <!-- Parameter JSON -->
+  <script src="{{ url_for('static', filename='js/parameters.js') }}"></script>
+  
+  <script>
+    // Render toggable list in container elements
+    document.getElementById("params-container").appendChild(
+      renderjson(simulation_params)
+    );
   </script>
 
   <!-- Script for interactive charts -->
@@ -220,7 +268,7 @@ Chart.defaults.global.responsive = false;
   
  // create the chart using the chart canvas
  var myChart = new Chart(ctx1, {
-   type: 'line',
+   type: 'bar',
    data: resQueueData,
  });
 

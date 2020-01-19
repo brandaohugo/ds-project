@@ -125,15 +125,30 @@ def combine_log(df1, df2):
     df.to_csv(log_filename, header=True)
     return df
 
+# functions to return distributions
 
-# Random number generators
 def random_uniform(wl_params):
     number = np.random.uniform(wl_params['low'], wl_params['high'])
     return number
 
-def random_number(wl_params):
-    distributions = dict(uniform=random_uniform)
-    return distributions[wl_params['distribution']](wl_params)
+def random_normal(wl_params):
+    for i in range(10):
+        number = np.random.normal(wl_params['size'], wl_params['scale'])
+        if number > 0:
+            return number
+
+def random_logistic(wl_params):
+    for i in range(10):
+        number = np.random.logistic(wl_params['location'], wl_params['scale'])
+        if number > 0:
+            return number
+
+def random_poisson(wl_params):
+    for i in range(10):
+        number = np.random.poisson(wl_params['lambda'])
+        if number > 0:
+            return number
+
 
 def monitor_simulation_components(env, components):
     # df = pd.DataFrame
@@ -142,3 +157,10 @@ def monitor_simulation_components(env, components):
             cp_stats = components[name].get_stats()
             print(f'[monitor] {env.now} {name} {cp_stats}' )
         yield env.timeout(1)
+        
+# generate updated distributions object
+
+def random_number(wl_params):
+    distributions = dict(uniform=random_uniform, normal=random_normal, logistic=random_logistic, poisson=random_poisson)
+    return abs(int(distributions[wl_params['distribution']](wl_params)) + 1)
+
