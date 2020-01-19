@@ -135,3 +135,10 @@ def random_number(wl_params):
     distributions = dict(uniform=random_uniform)
     return distributions[wl_params['distribution']](wl_params)
 
+def monitor_simulation(env, components):
+    # df = pd.DataFrame
+    while True:
+        for name in components.keys():
+            cp_stats = components[name].get_stats()
+            print(f'[monitor] {env.now} {name} {cp_stats}' )
+        yield env.timeout(1)
