@@ -1,6 +1,8 @@
+sim_time = 1000
+
 sim_params_1 = {
     'settings': {
-            'sim_time' : 50,
+            'sim_time' : sim_time,
     },
     'components' : [
         {
@@ -36,7 +38,7 @@ sim_params_1 = {
     'workloads' : [
         {
             'start_time': 0,
-            'end_time': 9,
+            'end_time': sim_time,
             'type': 'db_request',
             'name': 'user_authentication',
             'request_size': 1,
@@ -50,14 +52,13 @@ sim_params_1 = {
                 'high': 1
             },
             'interarrival': {
-                'distribution': 'uniform',
-                'low': 2,
-                'high': 2,
+                'distribution': 'poisson',
+                'lambda': 200
             },
             'volume': {
                 'distribution': 'uniform',
-                'low': 15,
-                'high': 15
+                'low': 1,
+                'high': 1000
             }
         }
     ],

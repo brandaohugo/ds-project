@@ -30,17 +30,18 @@ def random_logistic(dist_params):
         if number > 0:
             return number
 
-def random_poisson(dist_params):
-    for i in range(10):
-        number = np.random.poisson(dist_params['lambda'])
-        if number > 0:
-            return number
+def random_poisson(dist_params, start=None, end=None):
+    return np.random.poisson(dist_params['lambda'])
 
 # generate updated distributions object
 
-def random_number(dist_params):
-    distributions = dict(uniform=random_uniform, normal=random_normal, logistic=random_logistic, poisson=random_poisson)
-    return abs(int(distributions[dist_params['distribution']](dist_params)) + 1)
+def random_number(dist_params, start=None, end=None):
+    distributions = dict(
+        uniform=random_uniform, 
+        normal=random_normal, 
+        logistic=random_logistic, 
+        poisson=random_poisson)
+    return distributions[dist_params['distribution']](dist_params,start,end)
 
 def print_stats(self):
     print(f'{self.count} of {self.capacity} are allocated')
