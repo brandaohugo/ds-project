@@ -70,7 +70,6 @@ class Component:
         if self.time_last_arrival is None:
             self.time_last_arrival = self.env.now
         else:
-            print('[monitor] last arrival:', self.time_last_arrival, self.env.now)
             interarrival = self.env.now - self.time_last_arrival 
             self.interarrivals.append(interarrival)
 
