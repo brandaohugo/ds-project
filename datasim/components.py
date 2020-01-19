@@ -15,7 +15,7 @@ class Component:
         self.pending_jobs = {}
         self.response_times = []
         self.interarrivals = []
-        self.waiting_times = []
+        self.queue_times = []
         self.num_cores = cp_params['num_cores']
         self.used_cores = 0
         self.core_speed = cp_params['core_speed']
@@ -25,6 +25,7 @@ class Component:
         self.sim_components = None
         self.data_res = []
         self.idle_time = 0
+        self.time_last_arrival = None
 
         # monitor resources
         self.monitor_res2 = partial(monitor_res2, self.data_res)
@@ -44,22 +45,40 @@ class Component:
                 continue
             self.used_cores += 1
             job = yield self.in_pipe.get()
+            job.stats[self.name]
+            enqueue_time = job.stats[self.name]['enqueue_time']
+            queue_time = self.env.now - enqueue_time
+            self.queue_times.append(queue_time)
             self.env.process(self.process_job(job))
 
     def get_stats(self):
         stats = dict(
-            avg_response_time= 9999 if len(self.response_times) == 0 else mean(self.response_times),
+            avg_response_time =  9999 if len(self.response_times) == 0 else mean(self.response_times),
+            avg_queue_time = 9999 if len(self.queue_times) == 0 else mean(self.queue_times),
+            avg_interarrival_time = 9999 if len(self.interarrivals) == 0 else mean(self.interarrivals),
             queue_size=len(self.in_pipe.items),
             idle_time = self.idle_time,
             used_cores = self.used_cores,
+            jobs_completed = self.jobs_completed,
         )
         
         return stats
 
-    def receive_request(self, job):
-        yield self.env.process(self.enqueue_job(job))
-        self.logger("received", job.id)
+    def init_job_stats(self, job):
+        job.stats[self.name] = {}
+        job.stats[self.name]['arrival_time'] = self.env.now
+        if self.time_last_arrival is None:
+            self.time_last_arrival = self.env.now
+        else:
+            print('[monitor] last arrival:', self.time_last_arrival, self.env.now)
+            interarrival = self.env.now - self.time_last_arrival 
+            self.interarrivals.append(interarrival)
 
+    def receive_request(self, job):
+        self.init_job_stats(job)
+        self.logger("received", job.id)
+        yield self.env.process(self.enqueue_job(job))
+        
     def make_request(self, job, component):
         job.response_method = self.receive_response
         self.env.process(component.receive_request(job))
@@ -83,6 +102,7 @@ class Component:
         self.complete_job(job)
         
     def complete_job(self,job):
+        job.stats[self.name]['finish_time'] = self.env.now
         self.jobs_completed += 1
         response_time = self.env.now - job.stats[self.name]['arrival_time']
         self.response_times.append(response_time)
@@ -92,6 +112,7 @@ class Component:
         try:
             job_stats['arrival_time'] = self.env.now
             job_stats['estimated_processing_time'] = job.size / self.core_speed
+            job_stats['enqueue_time'] = self.env.now
             yield self.in_pipe.put(job)
             job.stats[self.name] = job_stats
         except Exception as e:
@@ -106,6 +127,7 @@ class AuthServer(Component):
         self.load_balancer_name = cp_params['load_balancer']
 
     def receive_request(self, job):
+        self.init_job_stats(job)
         if job.action == 'auth':
             job.action = 'request_data'
             yield self.env.process(self.enqueue_job(job))
@@ -117,7 +139,7 @@ class AuthServer(Component):
     def process_job(self,job):    
         if job.action == 'request_data':
             self.logger("resqueting_data_for", job.id)
-            yield self.env.timeout(1) #request delay
+            yield self.env.timeout(1) # making request processing delay
             db_server = self.sim_components[self.db_server_name]
             job.response_method = self.receive_response
             self.env.process(self.make_request(job, db_server))
@@ -129,12 +151,13 @@ class AuthServer(Component):
             self.logger('authenticating', job.id)
             processing_time = ceil(job.size / self.core_speed) #TODO: make it stochastic
             yield self.env.timeout(processing_time)
-            self.complete_job(job)
             self.logger('finished_authenticating', job.id)
             job.action='auth_response'
             self.env.process(self.sim_components[self.load_balancer_name].receive_response(job,type_of_response='auth_response'))
+            self.complete_job(job)
             self.logger("replied_auth_reponse_for", job.id)
             
+
         self.used_cores -= 1
         
 
@@ -149,9 +172,9 @@ class DBServer(Component):
         self.logger("finished_querying_user_data_for", job.id)
         job.action='auth_data'
         self.env.process(job.response_method(job,type_of_response='user_data'))
+        self.complete_job(job)
         self.logger("replied_user_data_for", job.id)
         self.used_cores -= 1
-        self.jobs_completed += 1
 
 
 class LoadBalancer(Component):
@@ -172,11 +195,10 @@ class LoadBalancer(Component):
         if job.action == 'auth_response':
             self.logger('completed', job.id)
             yield self.env.timeout(0)
+            self.complete_job(job)
 
         self.used_cores -= 1
-        self.complete_job(job)
         
-
 
     def get_fastest_server(self, stats):
         shortest_response_time = 9999999999

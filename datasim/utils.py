@@ -135,7 +135,7 @@ def random_number(wl_params):
     distributions = dict(uniform=random_uniform)
     return distributions[wl_params['distribution']](wl_params)
 
-def monitor_simulation(env, components):
+def monitor_simulation_components(env, components):
     # df = pd.DataFrame
     while True:
         for name in components.keys():

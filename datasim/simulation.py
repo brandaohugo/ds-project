@@ -6,7 +6,7 @@ from datetime import datetime
 from cases import sim_params_1 as sim_params
 from components import parse_components
 from workloads import parse_workloads, Workload
-from utils import monitor_event, trace_event, log_event, log_res, combine_log, monitor_simulation
+from utils import monitor_event, trace_event, log_event, log_res, combine_log, monitor_simulation_components
 
 
 globals()['components'] = {}
@@ -29,7 +29,9 @@ components = parse_components(env, sim_params['components'])
 print(components)
 # workloads = parse_workloads(env, sim_params['workloads'],components)
 workload = Workload(env, components, sim_params['workloads'][0])
-env.process(monitor_simulation(env, components))
+
+# component monitoring
+env.process(monitor_simulation_components(env, components))
 
 # run simulation
 print(sim_params['settings']['sim_time'])
