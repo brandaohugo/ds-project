@@ -6,10 +6,10 @@ from helpers import random_uniform
 class Job:
     def __init__(self, job_id, job_size):
         self.id = job_id
-        self.status = 'NEW'
+        self.status = 'new'
         self.size = job_size
         self.stats = {}
-        self.action = 'AUTH'
+        self.action = 'auth'
         self.respond_method = None
 
 class Workload(Process):
