@@ -118,19 +118,38 @@
         </div>
         <div class="col-md-9">
           <div class="row">
-            <div class="col-md-6">
-              <canvas id="chart1" width="600" height="400"></canvas>
-            </div>
-            <div class="col-md-6">
-              <canvas id="chart2" width="600" height="400"></canvas>
+            <div class="col-md-12">
+              <canvas id="chart1" width="1000" height="500"></canvas>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6">
-              <canvas id="chart3" width="600" height="400"></canvas>
+            <div class="col-md-12">
+              <canvas id="chart2" width="1000" height="500"></canvas>
             </div>
-            <div class="col-md-6">
-              <canvas id="chart4" width="600" height="400"></canvas>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <canvas id="chart3" width="1000" height="500"></canvas>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <canvas id="chart4" width="1000" height="500"></canvas>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <canvas id="chart5" width="1000" height="500"></canvas>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <canvas id="chart6" width="1000" height="500"></canvas>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <canvas id="chart7" width="1000" height="500"></canvas>
             </div>
           </div>
         </div>
@@ -159,7 +178,7 @@ new Chart(document.getElementById("chart1"), {
   }
 });
 
-// USED CORES CHART
+// QUEUE SIZE CHART
 
 new Chart(document.getElementById("chart2"), {
   type: 'line',
@@ -175,7 +194,7 @@ new Chart(document.getElementById("chart2"), {
   }
 });
 
-// USED CORES CHART
+// JOBS COMPLETED CHART
 
 new Chart(document.getElementById("chart3"), {
   type: 'line',
@@ -191,7 +210,7 @@ new Chart(document.getElementById("chart3"), {
   }
 });
 
-// USED CORES CHART
+// IDLE TIME CHART
 
 new Chart(document.getElementById("chart4"), {
   type: 'line',
@@ -203,6 +222,54 @@ new Chart(document.getElementById("chart4"), {
     title: {
       display: true,
       text: 'Idle Time'
+    }
+  }
+});
+
+// AVG RESPONSE TIME CHART
+
+new Chart(document.getElementById("chart5"), {
+  type: 'line',
+  data: {
+    labels: JSON.parse('{{ sim_time | tojson | safe }}'),
+    datasets: JSON.parse('{{ data_at | tojson | safe }}')
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Average Response Time'
+    }
+  }
+});
+
+// AVG QUEUE TIME CHART
+
+new Chart(document.getElementById("chart6"), {
+  type: 'line',
+  data: {
+    labels: JSON.parse('{{ sim_time | tojson | safe }}'),
+    datasets: JSON.parse('{{ data_qt | tojson | safe }}')
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Average Queue Time'
+    }
+  }
+});
+
+// AVG INTERARRIVAL TIME CHART
+
+new Chart(document.getElementById("chart7"), {
+  type: 'line',
+  data: {
+    labels: JSON.parse('{{ sim_time | tojson | safe }}'),
+    datasets: JSON.parse('{{ data_ai | tojson | safe }}')
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Average Interarrival Time'
     }
   }
 });
