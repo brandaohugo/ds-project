@@ -54,15 +54,16 @@ class Component:
 
     def receive_request(self, job):
         yield self.env.process(self.enqueue_job(job))
+        self.logger("received", job.id)
 
     def make_request(self, job, component):
         job.response_method = self.receive_response
         self.env.process(component.receive_request(job))
-        yield self.env.timeout(1)
+        yield self.env.timeout(0) # NOTE: make request delay
         self.pending_jobs[job.id] = job
 
-    def receive_response(self, response_job):
-        self.logger("received_response_for", response_job.id)
+    def receive_response(self, response_job, type_of_response='response'):
+        self.logger(f'received_{type_of_response}_for', response_job.id)
         if response_job.id in list(self.pending_jobs.keys()):
             self.env.process(self.enqueue_job(self.pending_jobs[response_job.id]))
             del self.pending_jobs[response_job.id]
@@ -78,7 +79,6 @@ class Component:
         self.complete_job(job)
         
     def complete_job(self,job):
-        self.logger("finished_processing", job.id)
         self.jobs_completed += 1
         response_time = self.env.now - job.stats[self.name]['arrival_time']
         self.response_times.append(response_time)
@@ -87,13 +87,12 @@ class Component:
         job_stats = {}
         try:
             job_stats['arrival_time'] = self.env.now
-            job_stats['processing_time'] = job.size / self.core_speed
-            self.in_pipe.put(job)
+            job_stats['estimated_processing_time'] = job.size / self.core_speed
+            yield self.in_pipe.put(job)
             job.stats[self.name] = job_stats
-            self.logger("received", job.id)
         except Exception as e:
             self.logger("error_at_enqueue", job.id)
-        yield self.env.timeout(0)
+        # yield self.env.timeout(0)
         
 
 class AuthServer(Component):
@@ -102,27 +101,35 @@ class AuthServer(Component):
         self.db_server_name = cp_params['db_server_name']
 
     def receive_request(self, job):
-        if job.action == 'AUTH':
-            job.action = 'REQUEST_DATA'
+        if job.action == 'auth':
+            job.action = 'request_data'
             yield self.env.process(self.enqueue_job(job))
-            
         else:
             yield self.env.timeout(0)
             self.logger("not_an_auth_job", job.id)
+        self.logger("received", job.id)
 
     def process_job(self,job):       
-        if job.action == 'REQUEST_DATA':
+        if job.action == 'request_data':
+            self.logger("resqueting_data_for", job.id)
+            yield self.env.timeout(1) #request delay
             db_server = self.sim_components[self.db_server_name]
-            job.respond_method = self.receive_response
+            job.response_method = self.receive_response
             self.env.process(self.make_request(job, db_server))
-            yield self.env.timeout(0) #TODO: another parameter?
-            self.logger("resqueted_user_data_for", job.id)
+            self.logger("finished_resqueting_data_for", job.id)
+            
+            
         
-        if job.action == 'VALIDATE_DATA':
-            self.logger('processing', job.id)
+        if job.action == 'auth_data':
+            self.logger('authenticating', job.id)
             processing_time = ceil(job.size / self.core_speed) #TODO: make it stochastic
             yield self.env.timeout(processing_time)
             self.complete_job(job)
+            self.logger('finished_authenticating', job.id)
+            job.action='auth_response'
+            self.env.process(self.sim_components['auth_load_balancer'].receive_response(job,type_of_response='auth_response'))
+            self.logger("replied_auth_reponse_for", job.id)
+            
         self.used_cores -= 1
         
 
@@ -134,10 +141,10 @@ class DBServer(Component):
         self.logger('querying_user_data_for', job.id)
         processing_time = ceil(job.size / self.core_speed) #TODO: make it stochastic
         yield self.env.timeout(processing_time)
-        self.logger("finished_querying_user_data", job.id)
-        job.action='VALIDATE_DATA'
-        self.env.process(job.respond_method(job))
-        self.logger("provided_user_data_for", job.id)
+        self.logger("finished_querying_user_data_for", job.id)
+        job.action='auth_data'
+        self.env.process(job.response_method(job,type_of_response='user_data'))
+        self.logger("replied_user_data_for", job.id)
         self.used_cores -= 1
         self.jobs_completed += 1
 
@@ -149,14 +156,21 @@ class LoadBalancer(Component):
         self.servers_stats = {}
 
     def process_job(self, job):
-        self.logger("choosing_server_for", job.id)
         self.update_servers_stats()
         fastest_server = self.get_fastest_server(self.servers_stats)
-        if job.action == 'AUTH':
-            self.env.process(fastest_server.receive_request(job))
+        job.response_method = self.receive_response
+        if job.action == 'auth':
+            self.env.process(self.make_request(job, fastest_server))
+            self.logger(f'forwarded_to_{fastest_server.name}', job.id)
+            yield self.env.timeout(0)
+        
+        if job.action == 'auth_response':
+            self.logger('completed', job.id)
+            yield self.env.timeout(0)
+
         self.used_cores -= 1
         self.complete_job(job)
-        yield self.env.timeout(0)
+        
 
 
     def get_fastest_server(self, stats):
