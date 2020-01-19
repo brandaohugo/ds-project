@@ -100,19 +100,15 @@ def create_app(test_config=None):
                 
                 # Process upload 
                 df = bytes_todf(file)
-                dict_list = create_dict_list(df, 'used_cores')
-                sim_time = [i for i in range(len(dict_list[0]['data']))]
+                data_uc = create_dict_list(df, 'used_cores')                
+                data_qc = create_dict_list(df, 'queue_size')
+                data_jc = create_dict_list(df, 'jobs_completed')
+                data_it = create_dict_list(df, 'idle_time')
+                sim_time = [i for i in range(len(data_uc[0]['data']))]
                 
-                return render_template("index.html", section='visualiser', data=dict_list, sim_time=sim_time)
-
-            # other functions used previously to parse data:    
-            # res_labels, res_values = processor.prepare_plot('datasim/log/res_20200115185434.
-            # event_data = processor.extract_events_count(pd.read_csv(log_filename))
-        
-        sim_time = [0]
-        data = [0]
+                return render_template("index.html", section='visualiser', data_qc=data_qc, data_uc=data_uc, data_jc=data_jc, data_it=data_it, sim_time=sim_time)
             
-        return render_template("index.html", section='visualiser', data=data, sim_time=sim_time) 
+        return render_template("index.html", section='visualiser', data_qc=[], data_uc=[], data_jc=[], data_it=[], sim_time=[]) 
 
     @app.route("/parameters")
     @auth.login_required

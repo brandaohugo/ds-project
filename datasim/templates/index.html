@@ -133,18 +133,80 @@
               <canvas id="chart4" width="600" height="400"></canvas>
             </div>
           </div>
-            </div>
-            <div class="col-md-6">
-              <canvas id="chart6" width="600" height="400"></canvas>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <canvas id="chart7" width="600" height="400"></canvas>
-            </div>
-          </div>
         </div>
       </div>
+    </div>
+  </div>
+  <!-- Script for interactive charts -->
+  <script>
+    // Global parameters:
+// do not resize the chart canvas when its container does (keep at 600x400px)
+Chart.defaults.global.responsive = false;
+ 
+// USED CORES CHART
+
+new Chart(document.getElementById("chart1"), {
+  type: 'line',
+  data: {
+    labels: JSON.parse('{{ sim_time | tojson | safe }}'),
+    datasets: JSON.parse('{{ data_uc | tojson | safe }}')
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Used Cores'
+    }
+  }
+});
+
+// USED CORES CHART
+
+new Chart(document.getElementById("chart2"), {
+  type: 'line',
+  data: {
+    labels: JSON.parse('{{ sim_time | tojson | safe }}'),
+    datasets: JSON.parse('{{ data_qc | tojson | safe }}')
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Queue Size'
+    }
+  }
+});
+
+// USED CORES CHART
+
+new Chart(document.getElementById("chart3"), {
+  type: 'line',
+  data: {
+    labels: JSON.parse('{{ sim_time | tojson | safe }}'),
+    datasets: JSON.parse('{{ data_jc | tojson | safe }}')
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Jobs Completed'
+    }
+  }
+});
+
+// USED CORES CHART
+
+new Chart(document.getElementById("chart4"), {
+  type: 'line',
+  data: {
+    labels: JSON.parse('{{ sim_time | tojson | safe }}'),
+    datasets: JSON.parse('{{ data_it | tojson | safe }}')
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Idle Time'
+    }
+  }
+});
+</script>
 
 
     {% elif section == 'parameters' %}
@@ -201,126 +263,6 @@
       renderjson(simulation_params)
     );
   </script>
-
-  <!-- Script for interactive charts -->
-  <script>
-    // Global parameters:
-// do not resize the chart canvas when its container does (keep at 600x400px)
-Chart.defaults.global.responsive = false;
- 
-// USED CORES CHART
-
-// new Chart(document.getElementById("chart1"), {
-//   type: 'line',
-//   data: {
-//     labels: JSON.parse('{{ sim_time | tojson | safe }}'),
-//     datasets: JSON.parse('{{ data | tojson | safe }}')
-//   },
-//   options: {
-//     title: {
-//       display: true,
-//       text: 'USED CORES'
-//     }
-//   }
-// });
-
-// // QUEUE SIZE CHART
-
-// new Chart(document.getElementById("chart2"), {
-//   type: 'line',
-//   data: {
-//     labels: JSON.parse('{{ sim_time | tojson | safe }}'),
-//     datasets: JSON.parse('{{ data | tojson | safe }}')
-//   },
-//   options: {
-//     title: {
-//       display: true,
-//       text: 'QUEUE SIZE'
-//     }
-//   }
-// });
-
-// // // JOBS COMPLETED CHART
-
-// // new Chart(document.getElementById("chart3"), {
-// //   type: 'line',
-// //   data: {
-// //     labels: JSON.parse('{{ sim_time | tojson | safe }}'),
-// //     datasets: JSON.parse('{{ jc_data | tojson | safe }}')
-// //   },
-// //   options: {
-// //     title: {
-// //       display: true,
-// //       text: 'JOBS COMPLETED'
-// //     }
-// //   }
-// // });
-
-// // // IDLE TIME CHART
-
-// // new Chart(document.getElementById("chart4"), {
-// //   type: 'line',
-// //   data: {
-// //     labels: JSON.parse('{{ sim_time | tojson | safe }}'),
-// //     datasets: JSON.parse('{{ it_data | tojson | safe }}')
-// //   },
-// //   options: {
-// //     title: {
-// //       display: true,
-// //       text: 'IDLE TIME'
-// //     }
-// //   }
-// // });
-
-// // AVG RESPONSE TIME CHART
-
-// new Chart(document.getElementById("chart5"), {
-//   type: 'line',
-//   data: {
-//     labels: JSON.parse('{{ sim_time | tojson | safe }}'),
-//     datasets: JSON.parse('{{ ar_data | tojson | safe }}')
-//   },
-//   options: {
-//     title: {
-//       display: true,
-//       text: 'AVG RESPONSE TIME'
-//     }
-//   }
-// });
-
-// // AVG QUEUE TIME CHART
-
-// new Chart(document.getElementById("chart6"), {
-//   type: 'line',
-//   data: {
-//     labels: JSON.parse('{{ sim_time | tojson | safe }}'),
-//     datasets: JSON.parse('{{ aq_data | tojson | safe }}')
-//   },
-//   options: {
-//     title: {
-//       display: true,
-//       text: 'AVG QUEUE TIME'
-//     }
-//   }
-// });
-
-// // AVG INTERARRIVAL TIME CHART
-
-// new Chart(document.getElementById("chart7"), {
-//   type: 'line',
-//   data: {
-//     labels: JSON.parse('{{ sim_time | tojson | safe }}'),
-//     datasets: JSON.parse('{{ ai_data | tojson | safe }}')
-//   },
-//   options: {
-//     title: {
-//       display: true,
-//       text: 'AVG INTERARRIVAL TIME'
-//     }
-//   }
-// });
-
-</script>
 
 </body>
 {% endblock %}
