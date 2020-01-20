@@ -46,9 +46,10 @@ class Workload(Process):
                     target = self.components[self.target_name]
                     self.env.process(target.receive_request(job))
                     self.last_job_id = last_job_id
-                    print(f'[workload] Job {job.id} sent to {target.name} at {self.env.now}')
+                    #print(f'[workload] Job {job.id} sent to {target.name} at {self.env.now}')
                 except Exception as e:
-                    print(f'[workload] Error generating job {last_job_id} from workload {self.name} at {self.env.now}: {str(e)}')
+                    #print(f'[workload] Error generating job {last_job_id} from workload {self.name} at {self.env.now}: {str(e)}')
+                    pass
 
 
     
