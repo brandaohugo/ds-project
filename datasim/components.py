@@ -35,7 +35,8 @@ class Component:
         return f'[{self.name}]'
 
     def logger(self, message, job_id):
-        print(f'{self} {message} {job_id} time_{self.env.now}')
+        #print(f'{self} {message} {job_id} time_{self.env.now}')
+        pass
 
     def run(self):
         while True:

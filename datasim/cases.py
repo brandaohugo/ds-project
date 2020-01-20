@@ -8,7 +8,8 @@ sim_params_1 = {
             'name': 'auth_load_balancer',
             'servers': ['auth_server_01','auth_server_02','auth_server_03'],
             'num_cores': 4,
-            'core_speed': 1
+            'core_speed': 1,
+            'error': False
         },
         {
             'type': 'auth_server',
@@ -16,7 +17,8 @@ sim_params_1 = {
             'load_balancer': 'auth_load_balancer',
             'name' : 'auth_server_01',
             'num_cores': 4,
-            'core_speed': 1
+            'core_speed': 1,
+            'error': False
         },
          {
             'type': 'auth_server',
@@ -25,6 +27,7 @@ sim_params_1 = {
             'name' : 'auth_server_02',
             'num_cores': 4,
             'core_speed': 1,
+            'error': True
         },
         {
             'type': 'auth_server',
@@ -33,12 +36,14 @@ sim_params_1 = {
             'name' : 'auth_server_03',
             'num_cores': 4,
             'core_speed': 1,
+            'error': False
         },
         {
             'type': 'db_server',
             'name': 'auth_db_server',
             'num_cores': 4,
-            'core_speed': 1
+            'core_speed': 1,
+            'error': False
         }
     ],
     'workloads' : [
@@ -55,16 +60,16 @@ sim_params_1 = {
             'job_size' : {
                 'distribution': 'uniform',
                 'low': 1,
-                'high': 1
+                'high': 6
             },
             'interarrival': {
                 'distribution': 'uniform',
                 'low': 2,
-                'high': 2,
+                'high': 7,
             },
             'volume': {
                 'distribution': 'uniform',
-                'low': 15,
+                'low': 4,
                 'high': 15
             }
         }
