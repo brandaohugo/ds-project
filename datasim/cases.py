@@ -1,6 +1,6 @@
 sim_params_1 = {
     'settings': {
-            'sim_time' : 50,
+            'sim_time' : 10,
     },
     'components' : [
         {
@@ -8,7 +8,11 @@ sim_params_1 = {
             'name': 'auth_load_balancer',
             'servers': ['auth_server_01','auth_server_02','auth_server_03'],
             'num_cores': 4,
-            'core_speed': 1
+            'core_speed': {
+                'distribution': 'normal',
+                'mean': 1,
+                'sd': 0.1,
+            }
         },
         {
             'type': 'auth_server',
@@ -16,7 +20,12 @@ sim_params_1 = {
             'load_balancer': 'auth_load_balancer',
             'name' : 'auth_server_01',
             'num_cores': 4,
-            'core_speed': 1
+            'core_speed': {
+                'distribution': 'normal',
+                'mean': 1,
+                'sd': 0.1,
+            }
+
         },
          {
             'type': 'auth_server',
@@ -24,7 +33,11 @@ sim_params_1 = {
             'load_balancer': 'auth_load_balancer',
             'name' : 'auth_server_02',
             'num_cores': 4,
-            'core_speed': 1,
+            'core_speed': {
+                'distribution': 'normal',
+                'mean': 1,
+                'sd': 0.1,
+            }
         },
         {
             'type': 'auth_server',
@@ -32,13 +45,21 @@ sim_params_1 = {
             'load_balancer': 'auth_load_balancer',
             'name' : 'auth_server_03',
             'num_cores': 4,
-            'core_speed': 1,
+            'core_speed': {
+                'distribution': 'normal',
+                'mean': 1,
+                'sd': 0.1,
+            }
         },
         {
             'type': 'db_server',
             'name': 'auth_db_server',
             'num_cores': 4,
-            'core_speed': 1
+            'core_speed': {
+                'distribution': 'normal',
+                'mean': 1,
+                'sd': 0.1,
+            }
         }
     ],
     'workloads' : [
@@ -53,21 +74,22 @@ sim_params_1 = {
                 'name': 'auth_load_balancer',
             },
             'job_size' : {
-                'distribution': 'uniform',
-                'low': 1,
-                'high': 1
+                'distribution': 'normal',
+                'mean': 1,
+                'sd': 0.1
             },
             'interarrival': {
-                'distribution': 'uniform',
-                'low': 2,
-                'high': 2,
+                'distribution': 'poisson',
+                'lambda': 2,
             },
             'volume': {
                 'distribution': 'uniform',
-                'low': 15,
-                'high': 15
+                'low': 1,
+                'high': 1000
             }
         }
     ],
+
+
 }
 
