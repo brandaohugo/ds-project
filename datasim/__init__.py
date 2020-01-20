@@ -118,10 +118,10 @@ def create_app(test_config=None):
     def parameters():
         return render_template("index.html", section = 'parameters')
 
-    @app.route("/documentation")
+    @app.route("/simulate")
     @auth.login_required
     def documentation():
-        return render_template("index.html", section = 'documentation')
+        return render_template("index.html", section = 'simulate')
 
     @app.route('/api/v1/simulations/', methods=['GET','POST'])
     def simulations():

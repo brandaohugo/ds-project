@@ -40,10 +40,9 @@
         </a></div>
       <div class="list-group list-group-flush">
         <a href="/about" class="list-group-item list-group-item-action bg-light index-nav-item">About</a>
+        <a href="/simulate" class="list-group-item list-group-item-action bg-light index-nav-item">Simulate</a>
         <a href="/visualiser" class="list-group-item list-group-item-action bg-light index-nav-item">Visualiser</a>
         <a href="/parameters" class="list-group-item list-group-item-action bg-light index-nav-item">Parameters</a>
-        <a href="/documentation"
-          class="list-group-item list-group-item-action bg-light index-nav-item">Documentation</a>
         <div class="card login-card">
           <div class="card-body">
             <ul class="login-status-container list-group">
@@ -60,7 +59,7 @@
       </div>
     </div>
     
-
+    
       {% if section == 'about' %}
       <div id="page-content-wrapper" style="width:50%;">
       <div class="container about-content-container">
@@ -92,6 +91,27 @@
         </div>
       </div>
     </div>
+    {% elif section == 'simulate' %}
+      <div id="page-content-wrapper" style="width:50%;">
+        <div class="container about-content-container">
+          <div class="row" style="padding-top: 2em; padding-bottom: 2em;">
+            <div class="col-md-12">
+              <h1>Execute Simulation</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <form method="POST">
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Enter JSON configuration:</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="25"></textarea>
+                  <input style="margin-top:1em"class="btn btn-primary" type=submit value=Run>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     {% elif section == 'visualiser' %}
     <div id="page-content-wrapper">
     <div class="container">
