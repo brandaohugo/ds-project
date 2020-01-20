@@ -25,5 +25,5 @@ def generate_error(env, params, components):
             if key in components:
                 affected_server_object = components[key]
                 print('Introducing error into object --> ' + str(type(affected_server_object)))
-                affected_server_object.used_cores = int(np.random.uniform(1, 4))
+                affected_server_object.used_cores += 1
                 print(affected_server_object.used_cores)
