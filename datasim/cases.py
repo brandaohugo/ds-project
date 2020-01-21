@@ -1,6 +1,6 @@
 sim_params = {
     'settings': {
-            'sim_time' : 10,
+            'sim_time' : 75,
     },
     'components' : [
         {
@@ -79,6 +79,7 @@ sim_params = {
             'target': {
                 'name': 'auth_load_balancer',
             },
+
             'job_size' : {
                 'distribution': 'normal',
                 'mean': 1,
@@ -86,7 +87,7 @@ sim_params = {
             },
             'interarrival': {
                 'distribution': 'poisson',
-                'lambda': 2,
+                'lambda': 15,
             },
             'volume': {
                 'distribution': 'uniform',
