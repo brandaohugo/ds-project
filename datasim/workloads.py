@@ -1,5 +1,3 @@
-import itertools
-from utils import random_number
 from simpy import Process
 from utils import random_number
 

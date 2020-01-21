@@ -82,7 +82,7 @@ sim_params_1 = {
             'job_size' : {
                 'distribution': 'normal',
                 'mean': 1,
-                'sd': 0.1
+                'sd': 0,
             },
             'interarrival': {
                 'distribution': 'poisson',

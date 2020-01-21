@@ -1,11 +1,10 @@
 
 from simpy import Resource, Process, FilterStore, Store
-from utils import print_resource_info, print_stats, monitor_res, monitor_res2, patch_resource, random_number
+from utils import random_number
 from workloads import Job
 from math import ceil
 from statistics import mean
-from functools import partial
-import pdb
+
 
 
 class Component:
@@ -26,10 +25,6 @@ class Component:
         self.data_res = []
         self.idle_time = 0
         self.time_last_arrival = None
-
-        # monitor resources
-        self.monitor_res2 = partial(monitor_res2, self.data_res)
-        patch_resource(self.cores, post=self.monitor_res2)
 
     def __str__(self):
         return f'[{self.name}]'
@@ -99,7 +94,7 @@ class Component:
 
     def process_job(self,job):
         self.logger('processing', job.id)
-        processing_time = ceil(job.size / self.core_speed) #TODO: make it stochastic
+        processing_time = ceil(job.size / self.core_speed)
         yield self.env.timeout(processing_time)
         self.used_cores -= 1
         self.complete_job(job)
@@ -152,7 +147,7 @@ class AuthServer(Component):
         
         if job.action == 'auth_data':
             self.logger('authenticating', job.id)
-            processing_time = ceil(job.size / self.core_speed) #TODO: make it stochastic
+            processing_time = ceil(job.size / self.core_speed)
             yield self.env.timeout(processing_time)
             self.logger('finished_authenticating', job.id)
             job.action='auth_response'
@@ -170,7 +165,7 @@ class DBServer(Component):
 
     def process_job(self, job):
         self.logger('querying_user_data_for', job.id)
-        processing_time = ceil(job.size / self.core_speed) #TODO: make it stochastic
+        processing_time = ceil(job.size / self.core_speed)
         yield self.env.timeout(processing_time)
         self.logger("finished_querying_user_data_for", job.id)
         job.action='auth_data'

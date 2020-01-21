@@ -1,12 +1,10 @@
 
 import simpy
 from functools import partial
-import io
-from datetime import datetime
 from cases import sim_params_1 as sim_params
 from components import parse_components
 from workloads import parse_workloads, Workload
-from utils import monitor_event, trace_event, log_event, log_res, combine_log, monitor_simulation_components
+from utils import monitor_event, trace_event, log_event, monitor_simulation_components
 from errors import generate_error
 
 globals()['components'] = {}
@@ -42,6 +40,4 @@ env.run(until=sim_params['settings']['sim_time'])
 
 # store results
 df_event = log_event(data_event)
-# print(df_event['type'].values[0])
-# df_res = log_res(components)
-# df = combine_log(df_event, df_res)
+
