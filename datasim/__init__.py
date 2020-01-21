@@ -1,6 +1,6 @@
 import os
 from flask import ( Flask, render_template, request, Response, redirect, url_for, flash )
-from . import db, auth, processor, cases
+from . import db, auth, processor
 import io
 import random
 import pandas as pd
