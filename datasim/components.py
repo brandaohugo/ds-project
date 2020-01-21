@@ -1,6 +1,6 @@
 
 from simpy import Resource, Process, FilterStore, Store
-from utils import print_resource_info, print_stats, monitor_res, monitor_res2, patch_resource
+from utils import print_resource_info, print_stats, monitor_res, monitor_res2, patch_resource, random_number
 from workloads import Job
 from math import ceil
 from statistics import mean
@@ -18,7 +18,7 @@ class Component:
         self.queue_times = []
         self.num_cores = cp_params['num_cores']
         self.used_cores = 0
-        self.core_speed = cp_params['core_speed']
+        self.core_speed = random_number(cp_params['core_speed'])
         self.cores = Resource(self.num_cores)
         self.name = cp_params['name']
         self.jobs_completed = 0
@@ -39,6 +39,7 @@ class Component:
         pass
 
     def run(self):
+
         while True:
             if len(self.in_pipe.items) < 1 or self.used_cores >= self.num_cores:
                 yield self.env.timeout(1)

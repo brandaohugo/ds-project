@@ -1,7 +1,7 @@
 import itertools
 from utils import random_number
 from simpy import Process
-from helpers import random_uniform
+from utils import random_number
 
 class Job:
     def __init__(self, job_id, job_size,job_action):
@@ -31,15 +31,14 @@ class Workload(Process):
 
     def generate(self):
         while self.env.now >= self.start_time and self.env.now <= self.end_time:    
-            # interarrival time
-            interarrival = int(random_uniform(self.ia_params)) #TODO: get specified interarrival distribution
+            interarrival = int(random_number(self.ia_params))
             yield self.env.timeout(interarrival)
-            for i in range(int(random_uniform(self.vl_params))):
+            for i in range(int(random_number(self.vl_params))):
                 try:
                     # create new job in the workload
                     last_job_id = self.last_job_id + 1 if self.last_job_id is not None else 0
                     job_name = self.name + "_" + str(last_job_id)
-                    job_size = int(random_uniform(self.js_params))
+                    job_size = int(random_number(self.js_params))
                     job_action = self.job_action
                     job = Job(job_name,job_size,job_action)
                     # send job to target component

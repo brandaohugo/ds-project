@@ -125,48 +125,43 @@ def combine_log(df1, df2):
     df.to_csv(log_filename, header=True)
     return df
 
-# functions to return distributions
-
-def random_uniform(wl_params):
-    number = np.random.uniform(wl_params['low'], wl_params['high'])
-    return number
-
-def random_normal(wl_params):
-    for i in range(10):
-        number = np.random.normal(wl_params['size'], wl_params['scale'])
-        if number > 0:
-            return number
-
-def random_logistic(wl_params):
-    for i in range(10):
-        number = np.random.logistic(wl_params['location'], wl_params['scale'])
-        if number > 0:
-            return number
-
-def random_poisson(wl_params):
-    for i in range(10):
-        number = np.random.poisson(wl_params['lambda'])
-        if number > 0:
-            return number
-
-
 def monitor_simulation_components(env, components):
     stats_filename = 'stat_' + datetime.now().strftime("%Y%m%d%H%M%S") + ".csv"
     df = pd.DataFrame()
     while True:
         for name in components.keys():
-            cp_stats = components[name].get_stats()
-            df = (df.append(cp_stats, ignore_index=True))
-            df.to_csv('log/' + stats_filename)
+            pass 
+            # cp_stats = components[name].get_stats()
+            # df = (df.append(cp_stats, ignore_index=True))
+            # df.to_csv('log/' + stats_filename)
 
             # python simulation.py | grep -F "[monitor]" for stdout stats
             # print(f'[monitor] {env.now} {name} {cp_stats}')
         yield env.timeout(1)
-    return df
-        
-# generate updated distributions object
 
-def random_number(wl_params):
-    distributions = dict(uniform=random_uniform, normal=random_normal, logistic=random_logistic, poisson=random_poisson)
-    return abs(int(distributions[wl_params['distribution']](wl_params)) + 1)
+# random distributions
+def random_logistic(dist_params, start=None, end=None):
+    return np.random.logistic(dist_params['location'], dist_params['scale'])
+
+def random_lognormal(dist_params,  start=None, end=None):
+    return np.random.lognormal(dist_params['mean'], dist_params['sd'])
+
+def random_normal(dist_params, start=None, end=None):
+    return np.random.normal(dist_params['mean'], dist_params['sd'])
+
+def random_uniform(dist_params, start=None, end=None):
+    return np.random.uniform(dist_params['low'], dist_params['high'])
+
+def random_poisson(dist_params, start=None, end=None):
+    return np.random.poisson(dist_params['lambda'])
+
+def random_number(dist_params, start=None, end=None):
+    distributions = dict(
+        uniform=random_uniform,
+        normal=random_normal,
+        lognormal=random_lognormal,
+        logistic=random_logistic,
+        poisson=random_poisson)
+    return distributions[dist_params['distribution']](dist_params, start, end)
+
 
