@@ -12,7 +12,8 @@ sim_params_1 = {
                 'distribution': 'normal',
                 'mean': 1,
                 'sd': 0.1,
-            }
+            },
+            'error': False,
         },
         {
             'type': 'auth_server',
@@ -24,7 +25,9 @@ sim_params_1 = {
                 'distribution': 'normal',
                 'mean': 1,
                 'sd': 0.1,
-            }
+            },
+            'error': False,
+
 
         },
          {
@@ -37,7 +40,8 @@ sim_params_1 = {
                 'distribution': 'normal',
                 'mean': 1,
                 'sd': 0.1,
-            }
+            },
+            'error': False,
         },
         {
             'type': 'auth_server',
@@ -49,7 +53,8 @@ sim_params_1 = {
                 'distribution': 'normal',
                 'mean': 1,
                 'sd': 0.1,
-            }
+            },
+            'error': True,
         },
         {
             'type': 'db_server',
@@ -59,7 +64,8 @@ sim_params_1 = {
                 'distribution': 'normal',
                 'mean': 1,
                 'sd': 0.1,
-            }
+            },
+            'error': False,
         }
     ],
     'workloads' : [
