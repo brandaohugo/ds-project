@@ -6,7 +6,7 @@
         {
             "core_speed": {
                 "distribution": "normal",
-                "mean": 1,
+                "mean": 10,
                 "sd": 0.1
             },
             "error": false,
@@ -22,7 +22,7 @@
         {
             "core_speed": {
                 "distribution": "normal",
-                "mean": 1,
+                "mean": 10,
                 "sd": 0.1
             },
             "db_server_name": "auth_db_server",
@@ -35,7 +35,7 @@
         {
             "core_speed": {
                 "distribution": "normal",
-                "mean": 1,
+                "mean": 10,
                 "sd": 0.1
             },
             "db_server_name": "auth_db_server",
@@ -48,7 +48,7 @@
         {
             "core_speed": {
                 "distribution": "normal",
-                "mean": 1,
+                "mean": 10,
                 "sd": 0.1
             },
             "db_server_name": "auth_db_server",
@@ -61,7 +61,7 @@
         {
             "core_speed": {
                 "distribution": "normal",
-                "mean": 1,
+                "mean": 10,
                 "sd": 0.1
             },
             "error": false,
@@ -80,8 +80,8 @@
             "job_action": "auth",
             "job_size": {
                 "distribution": "uniform",
-                "high": 6,
-                "low": 1
+                "high": 10,
+                "low": 10
             },
             "name": "user_authentication",
             "request_size": 1,
@@ -92,8 +92,8 @@
             "type": "db_request",
             "volume": {
                 "distribution": "uniform",
-                "high": 50,
-                "low": 50
+                "high": 500,
+                "low": 500
             }
         },
         {
@@ -123,11 +123,6 @@
         }
     ],
     "errors": [
-        {
-            "core_speed": 1,
-            "target": "auth_server_01",
-            "time": 10,
-            "type": "very_slow"
-        }
+        
     ]
 }
