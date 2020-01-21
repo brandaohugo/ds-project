@@ -1,4 +1,4 @@
-sim_params_1 = {
+sim_params = {
     'settings': {
             'sim_time' : 10,
     },
@@ -95,7 +95,13 @@ sim_params_1 = {
             }
         }
     ],
-
-
+    'errors':[
+        {
+            'type': 'very_slow',
+            'core_speed': 1,
+            'target': 'auth_server_01',
+            'time': 10
+        }
+    ]
 }
 
