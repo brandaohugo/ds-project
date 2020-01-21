@@ -40,10 +40,9 @@
         </a></div>
       <div class="list-group list-group-flush">
         <a href="/about" class="list-group-item list-group-item-action bg-light index-nav-item">About</a>
+        <a href="/simulate" class="list-group-item list-group-item-action bg-light index-nav-item">Simulate</a>
         <a href="/visualiser" class="list-group-item list-group-item-action bg-light index-nav-item">Visualiser</a>
         <a href="/parameters" class="list-group-item list-group-item-action bg-light index-nav-item">Parameters</a>
-        <a href="/documentation"
-          class="list-group-item list-group-item-action bg-light index-nav-item">Documentation</a>
         <div class="card login-card">
           <div class="card-body">
             <ul class="login-status-container list-group">
@@ -60,7 +59,7 @@
       </div>
     </div>
     
-
+    
       {% if section == 'about' %}
       <div id="page-content-wrapper" style="width:50%;">
       <div class="container about-content-container">
@@ -92,6 +91,27 @@
         </div>
       </div>
     </div>
+    {% elif section == 'simulate' %}
+      <div id="page-content-wrapper" style="width:50%;">
+        <div class="container about-content-container">
+          <div class="row" style="padding-top: 2em; padding-bottom: 2em;">
+            <div class="col-md-12">
+              <h1>Execute Simulation</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <form method="POST">
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Enter JSON configuration:</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="25"></textarea>
+                  <input style="margin-top:1em"class="btn btn-primary" type=submit value=Run>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     {% elif section == 'visualiser' %}
     <div id="page-content-wrapper">
     <div class="container">
@@ -118,26 +138,162 @@
         </div>
         <div class="col-md-9">
           <div class="row">
-            <div class="col-md-6">
-              <canvas id="chart1" width="600" height="400"></canvas>
-            </div>
-            <div class="col-md-6">
-              <canvas id="chart2" width="600" height="400"></canvas>
+            <div class="col-md-12">
+              <canvas id="chart1" width="1000" height="500"></canvas>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6">
-              <canvas id="chart3" width="600" height="400"></canvas>
+            <div class="col-md-12">
+              <canvas id="chart2" width="1000" height="500"></canvas>
             </div>
-            <div class="col-md-6">
-              <canvas id="chart4" width="600" height="400"></canvas>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <canvas id="chart3" width="1000" height="500"></canvas>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <canvas id="chart4" width="1000" height="500"></canvas>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <canvas id="chart5" width="1000" height="500"></canvas>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <canvas id="chart6" width="1000" height="500"></canvas>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <canvas id="chart7" width="1000" height="500"></canvas>
             </div>
           </div>
         </div>
       </div>
-      
     </div>
   </div>
+  <!-- Script for interactive charts -->
+  <script>
+    // Global parameters:
+// do not resize the chart canvas when its container does (keep at 600x400px)
+Chart.defaults.global.responsive = false;
+ 
+// USED CORES CHART
+
+new Chart(document.getElementById("chart1"), {
+  type: 'line',
+  data: {
+    labels: JSON.parse('{{ sim_time | tojson | safe }}'),
+    datasets: JSON.parse('{{ data_uc | tojson | safe }}')
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Used Cores'
+    }
+  }
+});
+
+// QUEUE SIZE CHART
+
+new Chart(document.getElementById("chart2"), {
+  type: 'line',
+  data: {
+    labels: JSON.parse('{{ sim_time | tojson | safe }}'),
+    datasets: JSON.parse('{{ data_qc | tojson | safe }}')
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Queue Size'
+    }
+  }
+});
+
+// JOBS COMPLETED CHART
+
+new Chart(document.getElementById("chart3"), {
+  type: 'line',
+  data: {
+    labels: JSON.parse('{{ sim_time | tojson | safe }}'),
+    datasets: JSON.parse('{{ data_jc | tojson | safe }}')
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Jobs Completed'
+    }
+  }
+});
+
+// IDLE TIME CHART
+
+new Chart(document.getElementById("chart4"), {
+  type: 'line',
+  data: {
+    labels: JSON.parse('{{ sim_time | tojson | safe }}'),
+    datasets: JSON.parse('{{ data_it | tojson | safe }}')
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Idle Time'
+    }
+  }
+});
+
+// AVG RESPONSE TIME CHART
+
+new Chart(document.getElementById("chart5"), {
+  type: 'line',
+  data: {
+    labels: JSON.parse('{{ sim_time | tojson | safe }}'),
+    datasets: JSON.parse('{{ data_at | tojson | safe }}')
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Average Response Time'
+    }
+  }
+});
+
+// AVG QUEUE TIME CHART
+
+new Chart(document.getElementById("chart6"), {
+  type: 'line',
+  data: {
+    labels: JSON.parse('{{ sim_time | tojson | safe }}'),
+    datasets: JSON.parse('{{ data_qt | tojson | safe }}')
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Average Queue Time'
+    }
+  }
+});
+
+// AVG INTERARRIVAL TIME CHART
+
+new Chart(document.getElementById("chart7"), {
+  type: 'line',
+  data: {
+    labels: JSON.parse('{{ sim_time | tojson | safe }}'),
+    datasets: JSON.parse('{{ data_ai | tojson | safe }}')
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Average Interarrival Time'
+    }
+  }
+});
+</script>
 
 
     {% elif section == 'parameters' %}
@@ -194,111 +350,6 @@
       renderjson(simulation_params)
     );
   </script>
-
-  <!-- Script for interactive charts -->
-  <script>
-    // Global parameters:
-// do not resize the chart canvas when its container does (keep at 600x400px)
-Chart.defaults.global.responsive = false;
- 
- // define the chart data
- var chartData = {
-   labels : [{% for item in labels %}
-              "{{item}}",
-             {% endfor %}],
-   datasets : [{
-       label: '{{ legend }}',
-       fill: true,
-       lineTension: 0.1,
-       backgroundColor: "rgba(75,192,192,0.4)",
-       borderColor: "rgba(75,192,192,1)",
-       borderCapStyle: 'butt',
-       borderDash: [],
-       borderDashOffset: 0.0,
-       borderJoinStyle: 'miter',
-       pointBorderColor: "rgba(75,192,192,1)",
-       pointBackgroundColor: "#fff",
-       pointBorderWidth: 1,
-       pointHoverRadius: 5,
-       pointHoverBackgroundColor: "rgba(75,192,192,1)",
-       pointHoverBorderColor: "rgba(220,220,220,1)",
-       pointHoverBorderWidth: 2,
-       pointRadius: 1,
-       pointHitRadius: 10,
-       data : [{% for item in values %}
-                 {{item}},
-               {% endfor %}],
-       spanGaps: false
-   }]
- }
-
-  // define the chart data
- var resQueueData = {
-   labels : [{% for item in res_labels %}
-              "{{item}}",
-             {% endfor %}],
-   datasets : [{
-       label: '{{ res_legend }}',
-       fill: true,
-       lineTension: 0.1,
-       backgroundColor: "rgba(75,192,192,0.4)",
-       borderColor: "rgba(75,192,192,1)",
-       borderCapStyle: 'butt',
-       borderDash: [],
-       borderDashOffset: 0.0,
-       borderJoinStyle: 'miter',
-       pointBorderColor: "rgba(75,192,192,1)",
-       pointBackgroundColor: "#fff",
-       pointBorderWidth: 1,
-       pointHoverRadius: 5,
-       pointHoverBackgroundColor: "rgba(75,192,192,1)",
-       pointHoverBorderColor: "rgba(220,220,220,1)",
-       pointHoverBorderWidth: 2,
-       pointRadius: 1,
-       pointHitRadius: 10,
-       data : [{% for item in res_values %}
-                 {{item}},
-               {% endfor %}],
-       spanGaps: false
-   }]
- }
-
- // get chart canvas (CHART 1)
- var ctx1 = document.getElementById("chart1").getContext("2d");
-  
- // create the chart using the chart canvas
- var myChart = new Chart(ctx1, {
-   type: 'bar',
-   data: resQueueData,
- });
-
- // get chart canvas (CHART 2)
- var ctx2 = document.getElementById("chart2").getContext("2d");
-  
- // create the chart using the chart canvas
- var myChart = new Chart(ctx2, {
-   type: 'bar',
-   data: chartData,
- });
-
- // get chart canvas (CHART 3)
- var ctx3 = document.getElementById("chart3").getContext("2d");
-  
- // create the chart using the chart canvas
- var myChart = new Chart(ctx3, {
-   type: 'line',
-   data: chartData,
- });
-
- // get chart canvas (CHART 4)
- var ctx4 = document.getElementById("chart4").getContext("2d");
-  
- // create the chart using the chart canvas
- var myChart = new Chart(ctx4, {
-   type: 'bar',
-   data: chartData,
- });
-</script>
 
 </body>
 {% endblock %}

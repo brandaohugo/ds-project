@@ -35,7 +35,8 @@ class Component:
         return f'[{self.name}]'
 
     def logger(self, message, job_id):
-        print(f'{self} {message} {job_id} time_{self.env.now}')
+        #print(f'{self} {message} {job_id} time_{self.env.now}')
+        pass
 
     def run(self):
         while True:
@@ -60,6 +61,8 @@ class Component:
             idle_time = self.idle_time,
             used_cores = self.used_cores,
             jobs_completed = self.jobs_completed,
+            name = self.name,
+            sim_time = self.env.now
         )
         
         return stats
