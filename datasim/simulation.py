@@ -1,12 +1,10 @@
 
 import simpy
 from functools import partial
-import io
-from datetime import datetime
-# from cases import sim_params_1 as sim_params
+
 from components import parse_components
 from workloads import parse_workloads, Workload
-from utils import monitor_event, trace_event, log_event, log_res, combine_log, monitor_simulation_components
+from utils import monitor_event, trace_event, log_event, monitor_simulation_components
 from errors import generate_error
 import argparse
 import json
@@ -26,7 +24,14 @@ def run_simulation(sim_params):
     env.process(monitor_simulation_components(env, components))
 
     # introduce errors
-    env.process(generate_error(env, sim_params, components))
+    # env.process(generate_error(env, sim_params, components))
+    def generate_error(env,er_params,components):
+        yield env.timeout(er_params['time'])
+        components[er_params['target']].core_speed = er_params['core_speed']
+
+    for er_params in sim_params['errors']:
+        env.process(generate_error(env,er_params,components))
+
 
     # run simulation
     # print(sim_params['settings']['sim_time'])
