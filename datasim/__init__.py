@@ -125,15 +125,6 @@ def create_app(test_config=None):
 
     @app.route('/api/v1/simulations/', methods=['GET','POST'])
     def simulations():
-        return "Simulations"    
-
-    @app.route('/testing')
-    def testing():
-        #TODO: Add real data from simulation and pass it to charts
-        legend = 'Monthly Data'
-        labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
-        values = [10, 9, 8, 7, 6, 4, 7, 8]
-        return render_template("testing.html", time=cases.sim_params_1['settings']['sim_time'], components=len(cases.sim_params_1['components']), workloads=len(cases.sim_params_1['workloads']),values=values, labels=labels, legend=legend)
-    
+        return "Simulations"        
 
     return app
