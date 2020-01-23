@@ -125,6 +125,6 @@ def create_app(test_config=None):
 
     @app.route('/api/v1/simulations/', methods=['GET','POST'])
     def simulations():
-        return "Simulations"        
-
+        return "Simulations"   
+        
     return app
