@@ -13,11 +13,20 @@
             "name": "auth_load_balancer",
             "num_cores": 4,
             "servers": [
-                "auth_server_01",
-                "auth_server_02",
-                "auth_server_03"
+                "auth_server_01"
             ],
             "type": "load_balancer"
+        },
+        {
+            "core_speed": {
+                "distribution": "normal",
+                "mean": 10,
+                "sd": 0.1
+            },
+            "error": false,
+            "name": "auth_db_server",
+            "num_cores": 4,
+            "type": "db_server"
         },
         {
             "core_speed": {
@@ -31,43 +40,6 @@
             "name": "auth_server_01",
             "num_cores": 4,
             "type": "auth_server"
-        },
-        {
-            "core_speed": {
-                "distribution": "normal",
-                "mean": 10,
-                "sd": 0.1
-            },
-            "db_server_name": "auth_db_server",
-            "error": false,
-            "load_balancer": "auth_load_balancer",
-            "name": "auth_server_02",
-            "num_cores": 4,
-            "type": "auth_server"
-        },
-        {
-            "core_speed": {
-                "distribution": "normal",
-                "mean": 10,
-                "sd": 0.1
-            },
-            "db_server_name": "auth_db_server",
-            "error": false,
-            "load_balancer": "auth_load_balancer",
-            "name": "auth_server_03",
-            "num_cores": 4,
-            "type": "auth_server"
-        },
-        {
-            "core_speed": {
-                "distribution": "normal",
-                "mean": 10,
-                "sd": 0.1
-            },
-            "error": false,
-            "name": "auth_db_server",
-            "num_cores": 4,
-            "type": "db_server"
         }
     ],
     "workloads": [
@@ -108,7 +80,7 @@
                 "high": 6,
                 "low": 1
             },
-            "name": "user_authenticatio",
+            "name": "user_authentication",
             "request_size": 1,
             "start_time": 0,
             "target": {

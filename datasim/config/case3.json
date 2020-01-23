@@ -123,6 +123,17 @@
         }
     ],
     "errors": [
-        
+        {
+            "type": "very_slow",
+            "core_speed": 1,
+            "target": "auth_server_01",
+            "time": 10
+        },
+        {
+            "type": "very_slow",
+            "core_speed": 1,
+            "target": "auth_server_03",
+            "time": 20
+        }
     ]
 }
