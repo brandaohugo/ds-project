@@ -1,11 +1,19 @@
 import os
-from flask import ( Flask, render_template, request, Response, redirect, url_for, flash )
+from flask import ( Flask, render_template, request, Response, redirect, url_for, flash, send_file )
 from . import db, auth, processor
-import io
 import random
 import pandas as pd
 from werkzeug.utils import secure_filename
 from io import StringIO
+import json
+import glob
+import re
+
+from .components import parse_components
+from .workloads import parse_workloads, Workload
+from .utils import monitor_event, trace_event, log_event, monitor_simulation_components
+from .errors import generate_error
+from .simulation import run_simulation
 
 ALLOWED_EXTENSIONS = {'txt', 'csv'}
 
@@ -54,17 +62,7 @@ def create_app(test_config=None):
             )
             lst.append(dictionary)
         return lst
-    
-    @app.route('/eventcount.png')
-    def get_event_count_fig():
-        #TODO: enable user to select different sim runs for plotting
-        log_filename = 'datasim/log/event_20200115185434.txt'
-        event_data = processor.extract_events_count(pd.read_csv(log_filename))
-        event_count = event_data['count']
-        
-        bytes_obj = processor.create_event_count_figure(event_data)
-        print(event_data)
-        return Response(bytes_obj.getvalue(), mimetype='image/png')
+
 
     def allowed_file(filename):
         if '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS:
@@ -118,9 +116,18 @@ def create_app(test_config=None):
     def parameters():
         return render_template("index.html", section = 'parameters')
 
-    @app.route("/simulate")
+    @app.route("/simulate", methods=['POST', 'GET'])
     @auth.login_required
-    def documentation():
+    def simulate():
+        if request.method == 'POST':
+            text = request.form['text']
+            params = json.loads(text)
+            run_simulation(params)
+            list_of_files = glob.glob('datasim/log/*')
+            latest_file = max(list_of_files, key=os.path.getctime)
+            file_name = re.findall('stat_\d+.csv$', latest_file)[0]
+            return send_file('log/' + file_name, attachment_filename=file_name, as_attachment=True)
+
         return render_template("index.html", section = 'simulate')
 
     @app.route('/api/v1/simulations/', methods=['GET','POST'])

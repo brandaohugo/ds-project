@@ -2,10 +2,10 @@
 import simpy
 from functools import partial
 
-from components import parse_components
-from workloads import parse_workloads, Workload
-from utils import monitor_event, trace_event, log_event, monitor_simulation_components
-from errors import generate_error
+from .components import parse_components
+from .workloads import parse_workloads, Workload
+from .utils import monitor_event, trace_event, log_event, monitor_simulation_components
+from .errors import generate_error
 import argparse
 import json
 

@@ -59,7 +59,7 @@ def log_event(data):
     log_filename = 'event_' + datetime.now().strftime("%Y%m%d%H%M%S") + ".csv"
     df = pd.DataFrame(data, columns=names)
     # save results in log directory
-    df.to_csv('log/' + log_filename, header=True)
+    df.to_csv('datasim/log/' + log_filename, header=True)
     return df
 
 def monitor_simulation_components(env, components):
@@ -69,7 +69,7 @@ def monitor_simulation_components(env, components):
         for name in components.keys():
             cp_stats = components[name].get_stats()
             df = (df.append(cp_stats, ignore_index=True))
-            df.to_csv('log/' + stats_filename)
+            df.to_csv('datasim/log/' + stats_filename)
 
             # python simulation.py | grep -F "[monitor]" for stdout stats
             # print(f'[monitor] {env.now} {name} {cp_stats}')

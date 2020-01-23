@@ -1,7 +1,7 @@
 
 from simpy import Resource, Process, FilterStore, Store
-from utils import random_number
-from workloads import Job
+from .utils import random_number
+from .workloads import Job
 from math import ceil
 from statistics import mean
 
