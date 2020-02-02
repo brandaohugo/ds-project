@@ -61,7 +61,7 @@ class Workload(Process):
             job = self.generate_job()
             self.jobs = self.jobs.append({'id': job.id, 'time': time}, ignore_index=True)
             self.env.process(self.send_job(job,time))
-        self.jobs.to_csv('log/workload_' + datetime.now().strftime("%Y%m%d%H%M%S") + '.csv')
+        self.jobs.to_csv('datasim/log/workload_' + datetime.now().strftime("%Y%m%d%H%M%S") + '.csv')
         
 
     

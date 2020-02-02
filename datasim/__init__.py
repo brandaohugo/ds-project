@@ -1,11 +1,14 @@
 import os
-from flask import ( Flask, render_template, request, Response, redirect, url_for, flash )
+from flask import ( Flask, render_template, request, Response, redirect, url_for, flash, send_file )
 from . import db, auth, processor
 import io
 import random
 import pandas as pd
 from werkzeug.utils import secure_filename
 from io import StringIO
+import json
+import glob
+import re
 
 ALLOWED_EXTENSIONS = {'txt', 'csv'}
 
@@ -118,9 +121,22 @@ def create_app(test_config=None):
     def parameters():
         return render_template("index.html", section = 'parameters')
 
-    @app.route("/simulate")
+    @app.route("/simulate", methods=['POST', 'GET'])
     @auth.login_required
-    def documentation():
+    def simulate():
+        if request.method == 'POST':
+            text = request.form['text']
+            params = json.loads(text)
+
+            with open('datasim/tmp.json', 'w') as json_file:
+                json.dump(params, json_file)
+            
+            os.system('python datasim/simulation.py --scenario=datasim/tmp.json')
+            
+            list_of_files = glob.glob('datasim/log/*')
+            latest_file = max(list_of_files, key=os.path.getctime)
+            file_name = re.findall('stat_\d+.csv$', latest_file)[0]
+            return send_file('log/' + file_name, attachment_filename=file_name, as_attachment=True)
         return render_template("index.html", section = 'simulate')
 
     @app.route('/api/v1/simulations/', methods=['GET','POST'])
