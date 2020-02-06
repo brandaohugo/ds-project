@@ -60,7 +60,7 @@ class Component:
             name = self.name,
             sim_time = self.env.now
         )
-        
+
         return stats
 
     def init_job_stats(self, job):
@@ -69,14 +69,14 @@ class Component:
         if self.time_last_arrival is None:
             self.time_last_arrival = self.env.now
         else:
-            interarrival = self.env.now - self.time_last_arrival 
+            interarrival = self.env.now - self.time_last_arrival
             self.interarrivals.append(interarrival)
 
     def receive_request(self, job):
         self.init_job_stats(job)
         self.logger("received", job.id)
         yield self.env.process(self.enqueue_job(job))
-        
+
     def make_request(self, job, component):
         job.response_method = self.receive_response
         self.env.process(component.receive_request(job))
@@ -98,7 +98,7 @@ class Component:
         yield self.env.timeout(processing_time)
         self.used_cores -= 1
         self.complete_job(job)
-        
+
     def complete_job(self,job):
         job.stats[self.name]['finish_time'] = self.env.now
         self.jobs_completed += 1
@@ -116,7 +116,7 @@ class Component:
         except Exception as e:
             self.logger("error_at_enqueue", job.id)
         # yield self.env.timeout(0)
-        
+
 
 class AuthServer(Component):
     def __init__(self, env, cp_params):
@@ -134,17 +134,18 @@ class AuthServer(Component):
             self.logger("not_an_auth_job", job.id)
         self.logger("received", job.id)
 
-    def process_job(self,job):    
+    def process_job(self,job):
         if job.action == 'request_data':
             self.logger("resqueting_data_for", job.id)
-            yield self.env.timeout(1) # making request processing delay
+            processing_time = int(job.size/self.core_speed)
+            yield self.env.timeout(processing_time)
             db_server = self.sim_components[self.db_server_name]
             job.response_method = self.receive_response
             self.env.process(self.make_request(job, db_server))
             self.logger("finished_resqueting_data_for", job.id)
-            
-            
-        
+
+
+
         if job.action == 'auth_data':
             self.logger('authenticating', job.id)
             processing_time = ceil(job.size / self.core_speed)
@@ -154,10 +155,10 @@ class AuthServer(Component):
             self.env.process(self.sim_components[self.load_balancer_name].receive_response(job,type_of_response='auth_response'))
             self.complete_job(job)
             self.logger("replied_auth_reponse_for", job.id)
-            
+
 
         self.used_cores -= 1
-        
+
 
 class DBServer(Component):
     def __init__(self, env, cp_params):
@@ -189,14 +190,14 @@ class LoadBalancer(Component):
             self.env.process(self.make_request(job, fastest_server))
             self.logger(f'forwarded_to_{fastest_server.name}', job.id)
             yield self.env.timeout(0)
-        
+
         if job.action == 'auth_response':
             self.logger('completed', job.id)
             yield self.env.timeout(0)
             self.complete_job(job)
 
         self.used_cores -= 1
-        
+
 
     def get_fastest_server(self, stats):
         shortest_response_time = 9999999999
@@ -215,7 +216,7 @@ class LoadBalancer(Component):
             server_component = self.sim_components[server_name]
             self.servers_stats[server_name] = server_component.get_stats()
         self.env.timeout(0)
-        return self.servers_stats 
+        return self.servers_stats
 
 
 def get_component(env, params):
@@ -225,7 +226,7 @@ def get_component(env, params):
         load_balancer=LoadBalancer
     )
     return component[params['type']](env, params)
-    
+
 def parse_components(env, components_list):
     components = {}
     for comp_params in components_list:

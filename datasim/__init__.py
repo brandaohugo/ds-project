@@ -23,7 +23,7 @@ def create_app(test_config=None):
         app.config.from_pyfile('config.py', silent=True)
     else:
         app.config.from_mapping(test_config)
-    
+
     try:
         os.makedirs(app.instance_path)
     except OSError:
@@ -36,10 +36,10 @@ def create_app(test_config=None):
     def bytes_todf(file):
         bytes_data = file.read()
         s=str(bytes_data,'utf-8')
-        data = StringIO(s) 
+        data = StringIO(s)
         df=pd.read_csv(data)
         return df
-        
+
     def random_hex():
         random_number = random.randint(0,16777215)
         hex_number = str(hex(random_number))
@@ -50,21 +50,21 @@ def create_app(test_config=None):
         lst = []
         for name in df.name.unique():
             dictionary = dict(
-                data=list(df[df['name']==name][y_attribute].values), 
+                data=list(df[df['name']==name][y_attribute].values),
                 label=name,
                 borderColor=random_hex(),
                 fill='false'
             )
             lst.append(dictionary)
         return lst
-    
+
     @app.route('/eventcount.png')
     def get_event_count_fig():
         #TODO: enable user to select different sim runs for plotting
         log_filename = 'datasim/log/event_20200115185434.txt'
         event_data = processor.extract_events_count(pd.read_csv(log_filename))
         event_count = event_data['count']
-        
+
         bytes_obj = processor.create_event_count_figure(event_data)
         print(event_data)
         return Response(bytes_obj.getvalue(), mimetype='image/png')
@@ -74,7 +74,7 @@ def create_app(test_config=None):
             return True
         else:
             return False
-    
+
     @app.route("/")
     @auth.login_required
     def index():
@@ -84,26 +84,26 @@ def create_app(test_config=None):
     @auth.login_required
     def about():
         return render_template("index.html", section = 'about')
-    
+
     @app.route("/visualiser", methods=['POST','GET'])
     @auth.login_required
     def visualiser():
         if request.method == 'POST':
-            
+
             if 'file' not in request.files:
                 flash('No file part')
                 return redirect(request.url)
             file = request.files['file']
-            
+
             if file.filename == '':
                 flash('No selected file')
                 return redirect(request.url)
-            
+
             if file and allowed_file(file.filename):
-                
-                # Process upload 
+
+                # Process upload
                 df = bytes_todf(file)
-                data_uc = create_dict_list(df, 'used_cores')                
+                data_uc = create_dict_list(df, 'used_cores')
                 data_qc = create_dict_list(df, 'queue_size')
                 data_jc = create_dict_list(df, 'jobs_completed')
                 data_it = create_dict_list(df, 'idle_time')
@@ -111,10 +111,10 @@ def create_app(test_config=None):
                 data_qt = create_dict_list(df, 'avg_queue_time')
                 data_ai = create_dict_list(df, 'avg_interarrival_time')
                 sim_time = [i for i in range(len(data_uc[0]['data']))]
-                
+
                 return render_template("index.html", section='visualiser', data_qc=data_qc, data_uc=data_uc, data_jc=data_jc, data_it=data_it, data_at=data_at, data_qt=data_qt, data_ai=data_ai, sim_time=sim_time)
-            
-        return render_template("index.html", section='visualiser', data_qc=[], data_uc=[], data_jc=[], data_it=[], data_at=[], data_qt=[], data_ai=[], sim_time=[]) 
+
+        return render_template("index.html", section='visualiser', data_qc=[], data_uc=[], data_jc=[], data_it=[], data_at=[], data_qt=[], data_ai=[], sim_time=[])
 
     @app.route("/parameters")
     @auth.login_required
@@ -130,17 +130,18 @@ def create_app(test_config=None):
 
             with open('datasim/tmp.json', 'w') as json_file:
                 json.dump(params, json_file)
-            
+
             os.system('python datasim/simulation.py --scenario=datasim/tmp.json')
-            
+
             list_of_files = glob.glob('datasim/log/*')
             latest_file = max(list_of_files, key=os.path.getctime)
+            print("latest_file", latest_file)
             file_name = re.findall('stat_\d+.csv$', latest_file)[0]
             return send_file('log/' + file_name, attachment_filename=file_name, as_attachment=True)
         return render_template("index.html", section = 'simulate')
 
     @app.route('/api/v1/simulations/', methods=['GET','POST'])
     def simulations():
-        return "Simulations"   
-        
+        return "Simulations"
+
     return app

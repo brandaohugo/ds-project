@@ -1,27 +1,24 @@
 import numpy as np
 
-def generate_error(env, params, components):
-    ''' Introduce Internal Server Error '''
-
-    # simulation time
-    sim_time = params['settings']['sim_time']
-
-    # list of targeted servers
-    error_lst = [server['name'] for server in params['components'] if server['error'] is True]
-
-    # random timeout
-    error_wait = np.random.uniform(0, sim_time)
-
-    # generate interrupts into affect components
-    while True:
-        yield env.timeout(error_wait)
-
-        # increases used core count
-        for key in error_lst:
-            if key in components:
-                affected_server_object = components[key]
-                print('Introducing error into object --> ' + str(type(affected_server_object)))
-                affected_server_object.used_cores += 1
-                print(affected_server_object.used_cores)
+def generate_error(env, components, err_params):
+    err_time = err_params['time']
+    print("error time", err_time)
+    yield env.timeout(err_time)
+    get_error_function(err_params['type'])(env, components, err_params)
 
 
+def get_error_function(error_type):
+    errors = dict(
+        very_slow=very_slow
+    )
+    return errors[error_type]
+
+def veryslow(env, components, err_params):
+    target_component = components[err_params['target']]
+    original_core_speed = target_component.core_speed
+    print(f'Setting ${target_component.name} core_speed to ${err_params["core_speed"]}')
+    target_component.core_speed = err_params['core_speed']
+    if 'duration' in err_params:
+        yield env.timeout(env.now + err_params['duration'])
+        print(f'Setting ${target_component.name} core_speed back to to ${original_core_speed}')
+        target_component.core_speed = original_core_speed

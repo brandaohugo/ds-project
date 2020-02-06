@@ -1,0 +1,129 @@
+{
+    "settings": {
+        "sim_time": 100
+    },
+    "components": [
+        {
+            "core_speed": {
+                "distribution": "normal",
+                "mean": 10,
+                "sd": 0.1
+            },
+            "name": "auth_load_balancer",
+            "num_cores": 4,
+            "servers": [
+                "auth_server_01",
+                "auth_server_02",
+                "auth_server_03"
+            ],
+            "type": "load_balancer"
+        },
+        {
+            "core_speed": {
+                "distribution": "normal",
+                "mean": 10,
+                "sd": 0
+            },
+            "db_server_name": "auth_db_server",
+            "load_balancer": "auth_load_balancer",
+            "name": "auth_server_01",
+            "num_cores": 4,
+            "type": "auth_server"
+        },
+        {
+            "core_speed": {
+                "distribution": "normal",
+                "mean": 10,
+                "sd": 0
+            },
+            "db_server_name": "auth_db_server",
+            "load_balancer": "auth_load_balancer",
+            "name": "auth_server_02",
+            "num_cores": 4,
+            "type": "auth_server"
+        },
+        {
+            "core_speed": {
+                "distribution": "normal",
+                "mean": 10,
+                "sd": 0
+            },
+            "db_server_name": "auth_db_server",
+            "load_balancer": "auth_load_balancer",
+            "name": "auth_server_03",
+            "num_cores": 4,
+            "type": "auth_server"
+        },
+        {
+            "core_speed": {
+                "distribution": "normal",
+                "mean": 10,
+                "sd": 0.1
+            },
+            "name": "auth_db_server",
+            "num_cores": 4,
+            "type": "db_server"
+        }
+    ],
+    "workloads": [
+        {
+            "end_time": 100,
+            "interarrival": {
+                "distribution": "poisson",
+                "lambda": 10
+            },
+            "job_action": "auth",
+            "job_size": {
+                "distribution": "uniform",
+                "high": 10,
+                "low": 10
+            },
+            "name": "user_authentication",
+            "request_size": 1,
+            "start_time": 0,
+            "target": {
+                "name": "auth_load_balancer"
+            },
+            "type": "db_request",
+            "volume": {
+                "distribution": "uniform",
+                "high": 500,
+                "low": 500
+            }
+        },
+        {
+            "end_time": 100,
+            "interarrival": {
+                "distribution": "poisson",
+                "lambda": 60
+            },
+            "job_action": "auth",
+            "job_size": {
+                "distribution": "uniform",
+                "high": 10,
+                "low": 10
+            },
+            "name": "user_authentication",
+            "request_size": 1,
+            "start_time": 0,
+            "target": {
+                "name": "auth_load_balancer"
+            },
+            "type": "db_request",
+            "volume": {
+                "distribution": "uniform",
+                "high": 1000,
+                "low": 1000
+            }
+        }
+    ],
+    "errors": [
+        {
+            "type": "very_slow",
+            "core_speed": 1,
+            "target": "auth_server_03",
+            "time": 20,
+            "duration": 50
+        }
+    ]
+}
